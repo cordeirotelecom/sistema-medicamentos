@@ -80,7 +80,7 @@ jobs:
         run: |
           echo "Build artifacts ready for deployment"
           echo "Deploy command: netlify deploy --prod --dir=out"
-          echo "Note: Configure NETLIFY_AUTH_TOKEN and NETLIFY_SITE_ID secrets in repository settings"
+          echo "Note: Configure deployment secrets in repository settings for production"
           ls -la out/ || echo "Build directory not found"
 
   security-scan:
