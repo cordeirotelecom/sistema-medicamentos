@@ -1,0 +1,13 @@
+node_modules
+.next
+.DS_Store
+*.tsbuildinfo
+.env*
+!.env.example
+coverage
+.nyc_output
+.netlify
+.vercel
+out
+dist
+build

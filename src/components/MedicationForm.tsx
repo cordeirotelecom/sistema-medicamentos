@@ -35,6 +35,68 @@ export default function MedicationForm({ onSubmit, isLoading }: MedicationFormPr
 
   const [cities, setCities] = useState<string[]>([]);
   const [loadingCities, setLoadingCities] = useState(false);
+  const [errors, setErrors] = useState<Record<string, string>>({});
+  const [isFormValid, setIsFormValid] = useState(false);
+
+  // Validação em tempo real
+  useEffect(() => {
+    validateForm();
+  }, [formData]);
+
+  const validateForm = () => {
+    const newErrors: Record<string, string> = {};
+
+    // Validar nome do medicamento
+    if (!formData.medicationName?.trim()) {
+      newErrors.medicationName = 'Nome do medicamento é obrigatório';
+    } else if (formData.medicationName.length < 3) {
+      newErrors.medicationName = 'Nome deve ter pelo menos 3 caracteres';
+    }
+
+    // Validar descrição
+    if (!formData.description?.trim()) {
+      newErrors.description = 'Descrição do problema é obrigatória';
+    } else if (formData.description.length < 20) {
+      newErrors.description = 'Descrição deve ter pelo menos 20 caracteres';
+    }
+
+    // Validar informações de contato
+    if (!formData.contactInfo?.name?.trim()) {
+      newErrors.contactName = 'Nome é obrigatório';
+    }
+
+    if (!formData.contactInfo?.email?.trim()) {
+      newErrors.contactEmail = 'Email é obrigatório';
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.contactInfo.email)) {
+      newErrors.contactEmail = 'Email inválido';
+    }
+
+    if (!formData.contactInfo?.phone?.trim()) {
+      newErrors.contactPhone = 'Telefone é obrigatório';
+    } else if (!/^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(formData.contactInfo.phone)) {
+      newErrors.contactPhone = 'Formato: (11) 99999-9999';
+    }
+
+    // Validar localização
+    if (!formData.location?.state) {
+      newErrors.locationState = 'Estado é obrigatório';
+    }
+
+    if (!formData.location?.city?.trim()) {
+      newErrors.locationCity = 'Cidade é obrigatória';
+    }
+
+    setErrors(newErrors);
+    setIsFormValid(Object.keys(newErrors).length === 0);
+  };
+
+  const formatPhone = (value: string) => {
+    const numbers = value.replace(/\D/g, '');
+    if (numbers.length <= 11) {
+      return numbers.replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
+    }
+    return value;
+  };
 
   const issueTypes = [
     { value: 'shortage', label: 'Falta/Desabastecimento do medicamento' },
@@ -75,23 +137,12 @@ export default function MedicationForm({ onSubmit, isLoading }: MedicationFormPr
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!isFormValid()) {
+    if (!isFormValid) {
       alert('Por favor, preencha todos os campos obrigatórios.');
       return;
     }
 
     onSubmit(formData as MedicationRequest);
-  };
-
-  const isFormValid = () => {
-    return (
-      formData.medicationName &&
-      formData.description &&
-      formData.location?.state &&
-      formData.location?.city &&
-      formData.contactInfo?.name &&
-      formData.contactInfo?.email
-    );
   };
 
   const updateFormData = (path: string, value: any) => {
@@ -158,10 +209,17 @@ export default function MedicationForm({ onSubmit, isLoading }: MedicationFormPr
                 type="text"
                 value={formData.medicationName || ''}
                 onChange={(e) => updateFormData('medicationName', e.target.value)}
-                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-lg"
+                className={`w-full p-4 border-2 rounded-xl focus:ring-2 transition-all duration-200 text-lg ${
+                  errors.medicationName 
+                    ? 'border-red-300 focus:ring-red-500 focus:border-red-500' 
+                    : 'border-gray-200 focus:ring-blue-500 focus:border-blue-500'
+                }`}
                 placeholder="Ex: Paracetamol 500mg, Dipirona, Omeprazol..."
                 required
               />
+              {errors.medicationName && (
+                <p className="text-red-600 text-sm mt-1">{errors.medicationName}</p>
+              )}
             </div>
 
             <div className="w-full">
@@ -448,7 +506,7 @@ export default function MedicationForm({ onSubmit, isLoading }: MedicationFormPr
             
             <button
               type="submit"
-              disabled={isLoading || !isFormValid()}
+              disabled={isLoading || !isFormValid}
               className="btn-primary text-xl py-5 px-16 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-4 shadow-2xl"
             >
               {isLoading ? (
@@ -464,7 +522,7 @@ export default function MedicationForm({ onSubmit, isLoading }: MedicationFormPr
               )}
             </button>
             
-            {!isFormValid() && (
+            {!isFormValid && (
               <div className="status-error bg-red-100 border-red-300 text-red-800 max-w-md text-center">
                 <p className="font-medium">⚠️ Campos obrigatórios em falta</p>
                 <p className="text-sm mt-1">Verifique: medicamento, descrição, localização, nome e e-mail.</p>

@@ -4,18 +4,18 @@ import { Loader2, Pill, Search, FileText, Database, CheckCircle } from 'lucide-r
 
 export default function LoadingSpinner() {
   return (
-    <div className="max-w-4xl mx-auto">
-      <div className="bg-white rounded-xl shadow-xl overflow-hidden">
-        <div className="bg-gradient-to-r from-blue-600 via-purple-600 to-indigo-600 text-white p-6">
+    <div className="max-w-4xl mx-auto animate-fade-in">
+      <div className="bg-white/90 backdrop-blur-sm rounded-xl shadow-2xl overflow-hidden border border-red-100">
+        <div className="bg-gradient-to-r from-red-600 via-red-700 to-red-800 text-white p-6">
           <h1 className="text-2xl font-bold flex items-center gap-3">
             <div className="relative">
-              <Search className="h-7 w-7 animate-bounce" />
+              <Search className="h-7 w-7 animate-bounce-subtle" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
             </div>
-            Analisando sua Solicitação
+            Análise Jurídica Especializada em Andamento
           </h1>
           <p className="mt-2 opacity-90 text-lg">
-            Estamos processando suas informações e buscando a melhor orientação...
+            Processando suas informações com base na legislação brasileira atualizada...
           </p>
         </div>
 
@@ -23,85 +23,78 @@ export default function LoadingSpinner() {
           <div className="flex flex-col items-center space-y-8">
             {/* Spinner principal aprimorado */}
             <div className="relative">
-              <div className="w-24 h-24 border-4 border-gray-200 rounded-full"></div>
-              <div className="absolute top-0 left-0 w-24 h-24 border-4 border-blue-600 rounded-full border-t-transparent animate-spin"></div>
-              <div className="absolute top-2 left-2 w-20 h-20 border-4 border-purple-400 rounded-full border-b-transparent animate-spin animate-reverse"></div>
+              <div className="w-24 h-24 border-4 border-red-100 rounded-full"></div>
+              <div className="absolute top-0 left-0 w-24 h-24 border-4 border-red-600 rounded-full border-t-transparent animate-spin"></div>
+              <div className="absolute top-2 left-2 w-20 h-20 border-4 border-red-400 rounded-full border-b-transparent animate-spin reverse-spin"></div>
               <div className="absolute inset-0 flex items-center justify-center">
-                <Pill className="h-10 w-10 text-blue-600 animate-pulse" />
+                <Pill className="h-10 w-10 text-red-600 animate-pulse-subtle" />
               </div>
             </div>
 
-            {/* Etapas do processo com melhor design */}
-            <div className="w-full max-w-2xl space-y-4">
-              <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-blue-50 to-blue-100 rounded-xl border-l-4 border-blue-500 transform transition-all duration-300 hover:scale-105">
+            {/* Status steps */}
+            <div className="w-full max-w-md space-y-4">
+              <div className="flex items-center space-x-3 text-gray-700">
                 <div className="flex-shrink-0">
-                  <div className="w-4 h-4 bg-blue-600 rounded-full animate-pulse flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                  </div>
+                  <CheckCircle className="h-5 w-5 text-green-500" />
                 </div>
-                <div className="flex-grow">
-                  <span className="text-blue-800 font-semibold">Validando informações do medicamento</span>
-                  <div className="text-blue-600 text-sm mt-1">Verificando dados na base ANVISA...</div>
-                </div>
-                <Database className="h-5 w-5 text-blue-600 animate-pulse" />
+                <span className="text-sm">Dados recebidos e validados</span>
               </div>
 
-              <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-green-50 to-green-100 rounded-xl border-l-4 border-green-500 transform transition-all duration-300 hover:scale-105" style={{ animationDelay: '0.2s' }}>
+              <div className="flex items-center space-x-3 text-gray-700">
                 <div className="flex-shrink-0">
-                  <div className="w-4 h-4 bg-green-600 rounded-full animate-pulse flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                  </div>
+                  <Loader2 className="h-5 w-5 text-red-600 animate-spin" />
                 </div>
-                <div className="flex-grow">
-                  <span className="text-green-800 font-semibold">Consultando base de dados governamental</span>
-                  <div className="text-green-600 text-sm mt-1">Acessando APIs oficiais do governo...</div>
-                </div>
-                <CheckCircle className="h-5 w-5 text-green-600 animate-pulse" />
+                <span className="text-sm">Consultando base legal atualizada...</span>
               </div>
 
-              <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-purple-50 to-purple-100 rounded-xl border-l-4 border-purple-500 transform transition-all duration-300 hover:scale-105" style={{ animationDelay: '0.4s' }}>
+              <div className="flex items-center space-x-3 text-gray-400">
                 <div className="flex-shrink-0">
-                  <div className="w-4 h-4 bg-purple-600 rounded-full animate-pulse flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                  </div>
+                  <Database className="h-5 w-5" />
                 </div>
-                <div className="flex-grow">
-                  <span className="text-purple-800 font-semibold">Determinando órgão competente</span>
-                  <div className="text-purple-600 text-sm mt-1">Analisando tipo de problema e jurisdição...</div>
-                </div>
-                <Search className="h-5 w-5 text-purple-600 animate-pulse" />
+                <span className="text-sm">Verificando órgãos competentes</span>
               </div>
 
-              <div className="flex items-center space-x-4 p-4 bg-gradient-to-r from-orange-50 to-orange-100 rounded-xl border-l-4 border-orange-500 transform transition-all duration-300 hover:scale-105" style={{ animationDelay: '0.6s' }}>
+              <div className="flex items-center space-x-3 text-gray-400">
                 <div className="flex-shrink-0">
-                  <div className="w-4 h-4 bg-orange-600 rounded-full animate-pulse flex items-center justify-center">
-                    <div className="w-2 h-2 bg-white rounded-full"></div>
-                  </div>
+                  <FileText className="h-5 w-5" />
                 </div>
-                <div className="flex-grow">
-                  <span className="text-orange-800 font-semibold">Gerando recomendações personalizadas</span>
-                  <div className="text-orange-600 text-sm mt-1">Criando passos específicos para sua situação...</div>
-                </div>
-                <FileText className="h-5 w-5 text-orange-600 animate-pulse" />
+                <span className="text-sm">Gerando recomendações personalizadas</span>
               </div>
             </div>
 
-            {/* Informações adicionais com melhor layout */}
-            <div className="text-center space-y-4 bg-gray-50 p-6 rounded-xl w-full max-w-2xl">
-              <div className="flex items-center justify-center space-x-3 text-gray-700">
-                <Loader2 className="h-5 w-5 animate-spin" />
-                <span className="font-medium">Isso pode levar alguns segundos...</span>
+            {/* Progress bar */}
+            <div className="w-full max-w-md">
+              <div className="bg-gray-200 rounded-full h-2 overflow-hidden">
+                <div className="bg-gradient-to-r from-red-500 to-red-600 h-full rounded-full progress-bar"></div>
               </div>
-              <div className="text-sm text-gray-600 max-w-md mx-auto">
-                Estamos analisando mais de <span className="font-semibold text-blue-600">50 critérios</span> para fornecer a orientação mais precisa para seu caso
+              <p className="text-center text-gray-600 text-sm mt-2">
+                Analisando legislação e jurisprudência...
+              </p>
+            </div>
+
+            {/* Dicas enquanto espera */}
+            <div className="bg-red-50 rounded-lg p-4 w-full max-w-md border border-red-100">
+              <h3 className="font-semibold text-red-800 mb-2">💡 Você Sabia?</h3>
+              <p className="text-red-700 text-sm">
+                O sistema analisa mais de 50 leis e regulamentações para garantir 
+                que você receba a orientação mais precisa e atualizada possível.
+              </p>
+            </div>
+
+            {/* Dicas adicionais */}
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 w-full max-w-2xl">
+              <div className="bg-green-50 rounded-lg p-4 border border-green-200">
+                <h4 className="font-medium text-green-800 mb-1">📋 Leis Consultadas</h4>
+                <p className="text-green-700 text-xs">
+                  Lei 9.782/99 (ANVISA), CDC, CF/88 Art. 196
+                </p>
               </div>
               
-              {/* Barra de progresso animada */}
-              <div className="w-full max-w-md mx-auto mt-4">
-                <div className="bg-gray-200 rounded-full h-3 overflow-hidden shadow-inner">
-                  <div className="bg-gradient-to-r from-blue-500 via-purple-500 to-indigo-500 h-full rounded-full progress-bar shadow-sm"></div>
-                </div>
-                <div className="text-xs text-gray-500 mt-2">Processando...</div>
+              <div className="bg-red-50 rounded-lg p-4 border border-red-200">
+                <h4 className="font-medium text-red-800 mb-1">⚖️ Análise Legal</h4>
+                <p className="text-red-700 text-xs">
+                  Verificando jurisprudência do STF e STJ
+                </p>
               </div>
             </div>
           </div>
@@ -109,33 +102,20 @@ export default function LoadingSpinner() {
       </div>
 
       <style jsx>{`
-        @keyframes progress {
-          0% {
-            width: 0%;
-            opacity: 0.6;
-          }
-          25% {
-            width: 30%;
-            opacity: 0.8;
-          }
-          50% {
-            width: 60%;
-            opacity: 1;
-          }
-          75% {
-            width: 85%;
-            opacity: 0.9;
-          }
-          100% {
-            width: 100%;
-            opacity: 0.7;
-          }
-        }
         .progress-bar {
           animation: progress 3s ease-in-out infinite;
         }
-        .animate-reverse {
-          animation-direction: reverse;
+        
+        .reverse-spin {
+          animation: spin 1s linear infinite reverse;
+        }
+        
+        @keyframes progress {
+          0% { width: 0%; opacity: 0.6; }
+          25% { width: 30%; opacity: 0.8; }
+          50% { width: 60%; opacity: 1; }
+          75% { width: 85%; opacity: 0.9; }
+          100% { width: 100%; opacity: 0.7; }
         }
       `}</style>
     </div>

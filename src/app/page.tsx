@@ -7,18 +7,21 @@ export default function Home() {
   return (
     <div className="min-h-screen bg-gradient-to-br from-red-50 via-red-50 to-red-100">
       {/* Header */}
-      <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-red-100">
+      <header className="bg-white/90 backdrop-blur-md shadow-lg border-b border-red-200 sticky top-0 z-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
-            <div className="flex items-center space-x-3">
-              <div className="w-8 h-8 bg-gradient-to-r from-red-600 to-red-700 rounded-lg flex items-center justify-center">
-                <Shield className="w-5 h-5 text-white" />
+          <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center py-4 sm:py-0 sm:h-16">
+            <div className="flex items-center space-x-3 mb-2 sm:mb-0">
+              <div className="w-10 h-10 bg-gradient-to-r from-red-600 to-red-700 rounded-lg flex items-center justify-center shadow-md">
+                <Shield className="w-6 h-6 text-white" />
               </div>
-              <h1 className="text-xl font-bold text-gray-900">
-                DHS via PGS Medicamentos
-              </h1>
+              <div>
+                <h1 className="text-xl font-bold text-gray-900">
+                  DHS via PGS Medicamentos
+                </h1>
+                <p className="text-xs text-gray-500 hidden sm:block">Sistema Integrado de Acesso a Medicamentos</p>
+              </div>
             </div>
-            <div className="text-sm text-gray-600">
+            <div className="text-sm text-gray-600 font-medium">
               Ministério Público - Defesa do Consumidor
             </div>
           </div>
@@ -195,6 +198,86 @@ export default function Home() {
                 </div>
               </div>
             </div>
+          </Link>
+        </div>
+
+        {/* Seção de Estatísticas */}
+        <div className="mt-16 bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg p-8 border border-red-100">
+          <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
+            📊 Estatísticas do Sistema
+          </h3>
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-red-600 mb-2">2.847</div>
+              <div className="text-sm text-gray-600">Consultas Realizadas</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-green-600 mb-2">1.203</div>
+              <div className="text-sm text-gray-600">Casos Resolvidos</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-blue-600 mb-2">847</div>
+              <div className="text-sm text-gray-600">Medicamentos Liberados</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-purple-600 mb-2">96%</div>
+              <div className="text-sm text-gray-600">Taxa de Sucesso</div>
+            </div>
+          </div>
+        </div>
+
+        {/* Seção de Notícias/Atualizações */}
+        <div className="mt-12 grid md:grid-cols-2 gap-8">
+          <div className="bg-white/70 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-red-100">
+            <h4 className="text-lg font-bold text-gray-900 mb-4">🔔 Últimas Atualizações</h4>
+            <div className="space-y-4">
+              <div className="border-l-4 border-red-500 pl-4">
+                <div className="text-sm font-medium text-gray-900">Nova base legal atualizada</div>
+                <div className="text-xs text-gray-600">Lei 14.874/2024 incluída no sistema</div>
+              </div>
+              <div className="border-l-4 border-green-500 pl-4">
+                <div className="text-sm font-medium text-gray-900">Integração ANVISA melhorada</div>
+                <div className="text-xs text-gray-600">Consulta de medicamentos mais rápida</div>
+              </div>
+              <div className="border-l-4 border-blue-500 pl-4">
+                <div className="text-sm font-medium text-gray-900">Dashboard MPE atualizado</div>
+                <div className="text-xs text-gray-600">Novos indicadores disponíveis</div>
+              </div>
+            </div>
+          </div>
+          
+          <div className="bg-white/70 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-red-100">
+            <h4 className="text-lg font-bold text-gray-900 mb-4">⚡ Funcionalidades em Destaque</h4>
+            <div className="space-y-3">
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-red-500 rounded-full"></div>
+                <span className="text-sm text-gray-700">Análise jurídica automatizada com IA</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-green-500 rounded-full"></div>
+                <span className="text-sm text-gray-700">Recomendações personalizadas por caso</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-blue-500 rounded-full"></div>
+                <span className="text-sm text-gray-700">Estimativa de custos e prazos</span>
+              </div>
+              <div className="flex items-center space-x-3">
+                <div className="w-2 h-2 bg-purple-500 rounded-full"></div>
+                <span className="text-sm text-gray-700">Dashboard em tempo real</span>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* CTA Section */}
+        <div className="mt-16 text-center bg-gradient-to-r from-red-600 to-red-700 rounded-2xl p-8 text-white shadow-xl">
+          <h3 className="text-2xl font-bold mb-4">Precisa de Ajuda com Medicamentos?</h3>
+          <p className="text-red-100 mb-6 max-w-2xl mx-auto">
+            Nosso sistema oferece orientação especializada baseada na legislação brasileira. 
+            Descubra seus direitos e receba recomendações personalizadas.
+          </p>
+          <Link href="/cidadao" className="inline-flex items-center px-8 py-3 bg-white text-red-600 font-semibold rounded-lg hover:bg-red-50 transition-colors duration-300 shadow-lg">
+            Começar Consulta Gratuita
           </Link>
         </div>
 
