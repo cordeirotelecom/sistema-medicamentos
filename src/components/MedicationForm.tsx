@@ -1,0 +1,484 @@
+'use client';
+
+import { useState, useEffect } from 'react';
+import { MedicationRequest } from '@/types';
+import { brazilianStates } from '@/data/agencies';
+import { GovernmentAPIService } from '@/services/government-api';
+import { AlertCircle, Pill, MapPin, User, Phone, Mail, Scale } from 'lucide-react';
+
+interface MedicationFormProps {
+  onSubmit: (request: MedicationRequest) => void;
+  isLoading: boolean;
+}
+
+export default function MedicationForm({ onSubmit, isLoading }: MedicationFormProps) {
+  const [formData, setFormData] = useState<Partial<MedicationRequest>>({
+    medicationName: '',
+    issueType: 'quality',
+    urgency: 'medium',
+    description: '',
+    patientInfo: {
+      hasChronicCondition: false,
+      isPregnant: false,
+      isBrazilianCitizen: true
+    },
+    location: {
+      state: '',
+      city: ''
+    },
+    contactInfo: {
+      name: '',
+      email: '',
+      phone: ''
+    }
+  });
+
+  const [cities, setCities] = useState<string[]>([]);
+  const [loadingCities, setLoadingCities] = useState(false);
+
+  const issueTypes = [
+    { value: 'shortage', label: 'Falta/Desabastecimento do medicamento' },
+    { value: 'quality', label: 'Problema de qualidade (defeito, contaminação)' },
+    { value: 'adverse_reaction', label: 'Reação adversa/Efeito colateral grave' },
+    { value: 'registration', label: 'Medicamento não registrado/aprovado' },
+    { value: 'price', label: 'Preço abusivo/Cartel de preços' },
+    { value: 'accessibility', label: 'Dificuldade de acesso no SUS' },
+    { value: 'import', label: 'Necessidade de importação' },
+    { value: 'other', label: 'Outro problema' }
+  ];
+
+  const urgencyLevels = [
+    { value: 'low', label: 'Baixa - Pode aguardar' },
+    { value: 'medium', label: 'Média - Situação preocupante' },
+    { value: 'high', label: 'Alta - Situação grave' },
+    { value: 'emergency', label: 'Emergencial - Risco de vida' }
+  ];
+
+  useEffect(() => {
+    if (formData.location?.state) {
+      loadCities(formData.location.state);
+    }
+  }, [formData.location?.state]);
+
+  const loadCities = async (stateCode: string) => {
+    setLoadingCities(true);
+    try {
+      const citiesList = await GovernmentAPIService.getCitiesByState(stateCode);
+      setCities(citiesList);
+    } catch (error) {
+      console.error('Erro ao carregar cidades:', error);
+    } finally {
+      setLoadingCities(false);
+    }
+  };
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    
+    if (!isFormValid()) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
+      return;
+    }
+
+    onSubmit(formData as MedicationRequest);
+  };
+
+  const isFormValid = () => {
+    return (
+      formData.medicationName &&
+      formData.description &&
+      formData.location?.state &&
+      formData.location?.city &&
+      formData.contactInfo?.name &&
+      formData.contactInfo?.email
+    );
+  };
+
+  const updateFormData = (path: string, value: any) => {
+    setFormData(prev => {
+      const newData = { ...prev };
+      const keys = path.split('.');
+      let current: any = newData;
+      
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (!current[keys[i]]) {
+          current[keys[i]] = {};
+        }
+        current = current[keys[i]];
+      }
+      
+      current[keys[keys.length - 1]] = value;
+      return newData;
+    });
+  };
+
+  return (
+    <div className="w-full mx-auto animate-fade-in">
+      <div className="card overflow-hidden w-full max-w-none">
+        <div className="gradient-primary text-white p-8">
+          <h1 className="text-4xl font-bold flex items-center gap-4 mb-4">
+            <div className="p-3 bg-white/20 rounded-xl animate-bounce-subtle">
+              <Pill className="h-10 w-10" />
+            </div>
+            DHS via PGS Medicamentos
+          </h1>
+          <p className="text-xl opacity-95 max-w-3xl leading-relaxed">
+            🚀 Sistema avançado com <strong>análise jurídica especializada</strong> que analisa seus direitos baseado na legislação brasileira atual. 
+            Desenvolvimento Harmônico Sustentável via Planejamento de Gestão Sistêmicos e métodos de NMC.
+          </p>
+          <div className="mt-6 flex flex-wrap gap-4 text-sm">
+            <div className="flex items-center gap-2 bg-white/20 px-3 py-2 rounded-lg">
+              <span>✅</span> Análise de Direitos Especializada
+            </div>
+            <div className="flex items-center gap-2 bg-white/20 px-3 py-2 rounded-lg">
+              <span>🏛️</span> Inclui MPE Estadual
+            </div>
+            <div className="flex items-center gap-2 bg-white/20 px-3 py-2 rounded-lg">
+              <span>📋</span> Base Legal Atualizada
+            </div>
+          </div>
+        </div>
+
+        <form onSubmit={handleSubmit} className="p-8 space-y-8 w-full">
+        {/* Informações do Medicamento */}
+        <div className="space-y-6 w-full">
+          <h2 className="text-xl font-bold text-gray-800 flex items-center gap-3 pb-3 border-b border-gray-200">
+            <div className="p-2 bg-blue-100 rounded-lg">
+              <Pill className="h-6 w-6 text-blue-600" />
+            </div>
+            Informações do Medicamento
+          </h2>
+          
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+            <div className="lg:col-span-2 w-full">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Nome do Medicamento *
+              </label>
+              <input
+                type="text"
+                value={formData.medicationName || ''}
+                onChange={(e) => updateFormData('medicationName', e.target.value)}
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-lg"
+                placeholder="Ex: Paracetamol 500mg, Dipirona, Omeprazol..."
+                required
+              />
+            </div>
+
+            <div className="w-full">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Tipo de Problema *
+              </label>
+              <select
+                value={formData.issueType || ''}
+                onChange={(e) => updateFormData('issueType', e.target.value)}
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-lg bg-white"
+                required
+              >
+                {issueTypes.map(type => (
+                  <option key={type.value} value={type.value}>
+                    {type.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="w-full">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Nível de Urgência *
+              </label>
+              <select
+                value={formData.urgency || ''}
+                onChange={(e) => updateFormData('urgency', e.target.value)}
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-lg bg-white"
+                required
+              >
+                {urgencyLevels.map(level => (
+                  <option key={level.value} value={level.value}>
+                    {level.label}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div className="lg:col-span-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Descrição Detalhada do Problema *
+              </label>
+              <textarea
+                value={formData.description || ''}
+                onChange={(e) => updateFormData('description', e.target.value)}
+                rows={4}
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-lg resize-none"
+                placeholder="Descreva detalhadamente o problema encontrado. Inclua informações como: onde comprou, quando aconteceu, sintomas observados, etc..."
+                required
+              />
+              <div className="text-sm text-gray-500 mt-2">
+                Quanto mais detalhes você fornecer, melhor será nossa orientação.
+              </div>
+            </div>
+          </div>
+        </div>        {/* Localização */}
+        <div className="space-y-6">
+          <h2 className="text-xl font-bold text-gray-800 flex items-center gap-3 pb-3 border-b border-gray-200">
+            <div className="p-2 bg-green-100 rounded-lg">
+              <MapPin className="h-6 w-6 text-green-600" />
+            </div>
+            Sua Localização
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Estado *
+              </label>
+              <select
+                value={formData.location?.state || ''}
+                onChange={(e) => updateFormData('location.state', e.target.value)}
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 text-lg bg-white"
+                required
+              >
+                <option value="">Selecione seu estado</option>
+                {brazilianStates.map(state => (
+                  <option key={state.code} value={state.code}>
+                    {state.name} ({state.code})
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Cidade *
+              </label>
+              <select
+                value={formData.location?.city || ''}
+                onChange={(e) => updateFormData('location.city', e.target.value)}
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 text-lg bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
+                disabled={!formData.location?.state || loadingCities}
+                required
+              >
+                <option value="">
+                  {loadingCities ? 'Carregando cidades...' : formData.location?.state ? 'Selecione sua cidade' : 'Primeiro selecione o estado'}
+                </option>
+                {cities.map(city => (
+                  <option key={city} value={city}>
+                    {city}
+                  </option>
+                ))}
+              </select>
+              {loadingCities && (
+                <div className="mt-2 flex items-center text-sm text-blue-600">
+                  <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
+                  Carregando cidades...
+                </div>
+              )}
+            </div>
+          </div>
+          <div className="bg-blue-50 border border-blue-200 rounded-xl p-4">
+            <div className="flex items-start space-x-3">
+              <MapPin className="h-5 w-5 text-blue-600 mt-0.5 flex-shrink-0" />
+              <div className="text-sm text-blue-800">
+                <p className="font-medium">Por que precisamos de sua localização?</p>
+                <p className="mt-1">
+                  Alguns órgãos têm representações regionais ou estaduais. Sua localização nos ajuda a direcioná-lo 
+                  para o escritório mais próximo e adequado.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Informações do Paciente */}
+        <div className="space-y-6">
+          <h2 className="text-xl font-bold text-gray-800 flex items-center gap-3 pb-3 border-b border-gray-200">
+            <div className="p-2 bg-purple-100 rounded-lg">
+              <User className="h-6 w-6 text-purple-600" />
+            </div>
+            Informações do Paciente
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Idade (opcional)
+              </label>
+              <input
+                type="number"
+                value={formData.patientInfo?.age || ''}
+                onChange={(e) => updateFormData('patientInfo.age', e.target.value ? parseInt(e.target.value) : undefined)}
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 transition-all duration-200 text-lg"
+                placeholder="Idade em anos"
+                min="0"
+                max="120"
+              />
+            </div>
+            <div></div>
+          </div>
+
+          <div className="bg-purple-50 border border-purple-200 rounded-xl p-6">
+            <h3 className="font-semibold text-purple-800 mb-4">Informações Adicionais (opcional)</h3>
+            <div className="space-y-4">
+              <label className="flex items-start space-x-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={formData.patientInfo?.hasChronicCondition || false}
+                  onChange={(e) => updateFormData('patientInfo.hasChronicCondition', e.target.checked)}
+                  className="h-5 w-5 text-purple-600 focus:ring-purple-500 border-2 border-gray-300 rounded mt-0.5"
+                />
+                <div>
+                  <span className="text-gray-800 font-medium group-hover:text-purple-700 transition-colors">
+                    Paciente tem condição crônica
+                  </span>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Ex: diabetes, hipertensão, doenças cardíacas, etc. Isso pode dar prioridade ao atendimento.
+                  </p>
+                </div>
+              </label>
+
+              <label className="flex items-start space-x-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={formData.patientInfo?.isPregnant || false}
+                  onChange={(e) => updateFormData('patientInfo.isPregnant', e.target.checked)}
+                  className="h-5 w-5 text-purple-600 focus:ring-purple-500 border-2 border-gray-300 rounded mt-0.5"
+                />
+                <div>
+                  <span className="text-gray-800 font-medium group-hover:text-purple-700 transition-colors">
+                    Paciente está grávida
+                  </span>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Gestantes têm prioridade especial nos atendimentos de saúde.
+                  </p>
+                </div>
+              </label>
+
+              <label className="flex items-start space-x-3 cursor-pointer group">
+                <input
+                  type="checkbox"
+                  checked={formData.patientInfo?.isBrazilianCitizen ?? true}
+                  onChange={(e) => updateFormData('patientInfo.isBrazilianCitizen', e.target.checked)}
+                  className="h-5 w-5 text-purple-600 focus:ring-purple-500 border-2 border-gray-300 rounded mt-0.5"
+                />
+                <div>
+                  <span className="text-gray-800 font-medium group-hover:text-purple-700 transition-colors">
+                    Cidadão brasileiro
+                  </span>
+                  <p className="text-sm text-gray-600 mt-1">
+                    Estrangeiros também têm direito ao atendimento no SUS e podem fazer denúncias.
+                  </p>
+                </div>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        {/* Informações de Contato */}
+        <div className="space-y-6">
+          <h2 className="text-xl font-bold text-gray-800 flex items-center gap-3 pb-3 border-b border-gray-200">
+            <div className="p-2 bg-orange-100 rounded-lg">
+              <Phone className="h-6 w-6 text-orange-600" />
+            </div>
+            Informações de Contato
+          </h2>
+          
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Nome Completo *
+              </label>
+              <input
+                type="text"
+                value={formData.contactInfo?.name || ''}
+                onChange={(e) => updateFormData('contactInfo.name', e.target.value)}
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-lg"
+                placeholder="Seu nome completo"
+                required
+              />
+            </div>
+
+            <div>
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                E-mail *
+              </label>
+              <input
+                type="email"
+                value={formData.contactInfo?.email || ''}
+                onChange={(e) => updateFormData('contactInfo.email', e.target.value)}
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-lg"
+                placeholder="seu.email@exemplo.com"
+                required
+              />
+            </div>
+
+            <div className="md:col-span-2">
+              <label className="block text-sm font-semibold text-gray-700 mb-2">
+                Telefone (opcional)
+              </label>
+              <input
+                type="tel"
+                value={formData.contactInfo?.phone || ''}
+                onChange={(e) => updateFormData('contactInfo.phone', e.target.value)}
+                className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-lg"
+                placeholder="(11) 99999-9999"
+              />
+            </div>
+          </div>
+
+          <div className="bg-orange-50 border border-orange-200 rounded-xl p-4">
+            <div className="flex items-start space-x-3">
+              <Mail className="h-5 w-5 text-orange-600 mt-0.5 flex-shrink-0" />
+              <div className="text-sm text-orange-800">
+                <p className="font-medium">Privacidade garantida</p>
+                <p className="mt-1">
+                  Seus dados pessoais são utilizados apenas para gerar as recomendações e não são armazenados 
+                  em nossos servidores. Você receberá orientações baseadas nas informações fornecidas.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Botão de Envio */}
+        <div className="gradient-secondary -mx-8 -mb-8 px-8 py-8 mt-8 text-white">
+          <div className="flex flex-col items-center space-y-6">
+            <div className="text-center mb-4">
+              <h3 className="text-xl font-bold mb-2">🚀 Gerar Análise Inteligente</h3>
+              <p className="opacity-90">Análise jurídica automatizada + Recomendação de órgãos competentes</p>
+            </div>
+            
+            <button
+              type="submit"
+              disabled={isLoading || !isFormValid()}
+              className="btn-primary text-xl py-5 px-16 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-4 shadow-2xl"
+            >
+              {isLoading ? (
+                <>
+                  <div className="animate-spin rounded-full h-7 w-7 border-b-3 border-white"></div>
+                  Analisando com IA Jurídica...
+                </>
+              ) : (
+                <>
+                  <Scale className="h-7 w-7" />
+                  Analisar Direitos e Gerar Orientação
+                </>
+              )}
+            </button>
+            
+            {!isFormValid() && (
+              <div className="status-error bg-red-100 border-red-300 text-red-800 max-w-md text-center">
+                <p className="font-medium">⚠️ Campos obrigatórios em falta</p>
+                <p className="text-sm mt-1">Verifique: medicamento, descrição, localização, nome e e-mail.</p>
+              </div>
+            )}
+            
+            <div className="text-sm text-center max-w-2xl opacity-80 bg-white/10 p-4 rounded-lg">
+              <p className="mb-2">🔒 <strong>Privacidade garantida</strong> - Seus dados são processados localmente</p>
+              <p>✅ Análise baseada na <strong>legislação brasileira mais recente (2024-2025)</strong></p>
+            </div>
+          </div>
+        </div>
+        </form>
+      </div>
+    </div>
+  );
+}

@@ -1,103 +1,300 @@
-import Image from "next/image";
+'use client';
+
+import Link from 'next/link';
+import { Users, UserCheck, FileText, Shield, Activity, TrendingUp } from 'lucide-react';
 
 export default function Home() {
   return (
-    <div className="font-sans grid grid-rows-[20px_1fr_20px] items-center justify-items-center min-h-screen p-8 pb-20 gap-16 sm:p-20">
-      <main className="flex flex-col gap-[32px] row-start-2 items-center sm:items-start">
-        <Image
-          className="dark:invert"
-          src="/next.svg"
-          alt="Next.js logo"
-          width={180}
-          height={38}
-          priority
-        />
-        <ol className="font-mono list-inside list-decimal text-sm/6 text-center sm:text-left">
-          <li className="mb-2 tracking-[-.01em]">
-            Get started by editing{" "}
-            <code className="bg-black/[.05] dark:bg-white/[.06] font-mono font-semibold px-1 py-0.5 rounded">
-              src/app/page.tsx
-            </code>
-            .
-          </li>
-          <li className="tracking-[-.01em]">
-            Save and see your changes instantly.
-          </li>
-        </ol>
+    <div className="min-h-screen bg-gradient-to-br from-red-50 via-red-50 to-red-100">
+      {/* Header */}
+      <header className="bg-white/80 backdrop-blur-md shadow-sm border-b border-red-100">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex justify-between items-center h-16">
+            <div className="flex items-center space-x-3">
+              <div className="w-8 h-8 bg-gradient-to-r from-red-600 to-red-700 rounded-lg flex items-center justify-center">
+                <Shield className="w-5 h-5 text-white" />
+              </div>
+              <h1 className="text-xl font-bold text-gray-900">
+                DHS via PGS Medicamentos
+              </h1>
+            </div>
+            <div className="text-sm text-gray-600">
+              Ministério Público - Defesa do Consumidor
+            </div>
+          </div>
+        </div>
+      </header>
 
-        <div className="flex gap-4 items-center flex-col sm:flex-row">
-          <a
-            className="rounded-full border border-solid border-transparent transition-colors flex items-center justify-center bg-foreground text-background gap-2 hover:bg-[#383838] dark:hover:bg-[#ccc] font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 sm:w-auto"
-            href="https://vercel.com/new?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            <Image
-              className="dark:invert"
-              src="/vercel.svg"
-              alt="Vercel logomark"
-              width={20}
-              height={20}
-            />
-            Deploy now
-          </a>
-          <a
-            className="rounded-full border border-solid border-black/[.08] dark:border-white/[.145] transition-colors flex items-center justify-center hover:bg-[#f2f2f2] dark:hover:bg-[#1a1a1a] hover:border-transparent font-medium text-sm sm:text-base h-10 sm:h-12 px-4 sm:px-5 w-full sm:w-auto md:w-[158px]"
-            href="https://nextjs.org/docs?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Read our docs
-          </a>
+      {/* Main Content */}
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <div className="text-center mb-12">
+          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+            Guia de Acesso a Medicamentos
+          </h2>
+          <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-6">
+            Guia de como ter acesso a medicamentos e de fomentar o Desenvolvimento Harmônico Sustentável (DHS) 
+            via atuações resolutivas de Planejamento de Gestão Sistêmicos (PGS), de Negociação, 
+            Mediação e Conciliação (NMC).
+          </p>
+          
+          {/* Explicação das Siglas */}
+          <div className="max-w-5xl mx-auto bg-red-50 rounded-xl p-6 border border-red-100">
+            <h3 className="text-lg font-semibold text-red-800 mb-4">📚 Metodologia Aplicada</h3>
+            <div className="grid md:grid-cols-3 gap-4 text-sm">
+              <div className="bg-white rounded-lg p-4 border border-red-200">
+                <h4 className="font-bold text-red-700 mb-2">🌱 DHS</h4>
+                <p className="text-gray-700">
+                  <strong>Desenvolvimento Harmônico Sustentável</strong><br/>
+                  Abordagem que equilibra acesso à saúde, sustentabilidade social e harmonia institucional.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-red-200">
+                <h4 className="font-bold text-red-700 mb-2">📊 PGS</h4>
+                <p className="text-gray-700">
+                  <strong>Planejamento de Gestão Sistêmicos</strong><br/>
+                  Estratégias integradas que conectam diferentes órgãos e níveis de governo para soluções eficazes.
+                </p>
+              </div>
+              <div className="bg-white rounded-lg p-4 border border-red-200">
+                <h4 className="font-bold text-red-700 mb-2">🤝 NMC</h4>
+                <p className="text-gray-700">
+                  <strong>Negociação, Mediação e Conciliação</strong><br/>
+                  Métodos alternativos de resolução que priorizam acordos colaborativos e soluções consensuais.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Profile Cards */}
+        <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
+          {/* Cidadão Card */}
+          <Link href="/cidadao">
+            <div className="group relative bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-red-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <div className="relative p-8">
+                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-xl mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                  <Users className="w-8 h-8 text-white" />
+                </div>
+                
+                <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
+                  Acesso Cidadão
+                </h3>
+                
+                <p className="text-gray-600 text-center mb-6">
+                  Consulte medicamentos, verifique seus direitos e receba orientações 
+                  personalizadas com base na legislação brasileira.
+                </p>
+                
+                <div className="space-y-3">
+                  <div className="flex items-center text-sm text-gray-600">
+                    <FileText className="w-4 h-4 mr-3 text-red-500" />
+                    Análise de direitos especializada
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Activity className="w-4 h-4 mr-3 text-green-500" />
+                    Consulta de medicamentos ANVISA
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Shield className="w-4 h-4 mr-3 text-red-600" />
+                    Recomendações do Ministério Público
+                  </div>
+                </div>
+                
+                <div className="mt-6 text-center">
+                  <span className="inline-flex items-center px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium group-hover:bg-red-200 transition-colors duration-300">
+                    Acessar como Cidadão
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Promotor Card */}
+          <Link href="/promotor">
+            <div className="group relative bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-red-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-red-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <div className="relative p-8">
+                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-red-600 to-red-700 rounded-xl mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                  <UserCheck className="w-8 h-8 text-white" />
+                </div>
+                
+                <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
+                  Ministério Público
+                </h3>
+                
+                <p className="text-gray-600 text-center mb-6">
+                  Dashboard executivo com análise de dados, estatísticas de casos 
+                  e monitoramento de requisições dos cidadãos.
+                </p>
+                
+                <div className="space-y-3">
+                  <div className="flex items-center text-sm text-gray-600">
+                    <TrendingUp className="w-4 h-4 mr-3 text-red-500" />
+                    Dashboard com dados em tempo real
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Activity className="w-4 h-4 mr-3 text-green-500" />
+                    Monitoramento de requisições
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <FileText className="w-4 h-4 mr-3 text-red-600" />
+                    Relatórios e estatísticas
+                  </div>
+                </div>
+                
+                <div className="mt-6 text-center">
+                  <span className="inline-flex items-center px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium group-hover:bg-red-200 transition-colors duration-300">
+                    Acessar MPE
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
+
+          {/* Defensoria Pública Card */}
+          <Link href="/defensoria">
+            <div className="group relative bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-red-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer overflow-hidden">
+              <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 to-red-800/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+              
+              <div className="relative p-8">
+                <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-red-700 to-red-800 rounded-xl mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
+                  <Shield className="w-8 h-8 text-white" />
+                </div>
+                
+                <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
+                  Defensoria Pública
+                </h3>
+                
+                <p className="text-gray-600 text-center mb-6">
+                  Acesso especializado para defesa dos direitos dos hipossuficientes 
+                  em questões medicamentosas e de saúde pública.
+                </p>
+                
+                <div className="space-y-3">
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Shield className="w-4 h-4 mr-3 text-red-700" />
+                    Defesa dos hipossuficientes
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <Users className="w-4 h-4 mr-3 text-red-600" />
+                    Assistência jurídica gratuita
+                  </div>
+                  <div className="flex items-center text-sm text-gray-600">
+                    <FileText className="w-4 h-4 mr-3 text-red-500" />
+                    Casos de vulnerabilidade social
+                  </div>
+                </div>
+                
+                <div className="mt-6 text-center">
+                  <span className="inline-flex items-center px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium group-hover:bg-red-200 transition-colors duration-300">
+                    Acessar Defensoria
+                  </span>
+                </div>
+              </div>
+            </div>
+          </Link>
+        </div>
+
+        {/* Stats Section */}
+        <div className="mt-16 bg-white/60 backdrop-blur-sm rounded-2xl shadow-lg border border-red-100 p-8">
+          <h3 className="text-2xl font-bold text-center text-gray-900 mb-4">
+            Impacto do Sistema - Resultados 2024/2025
+          </h3>
+          <p className="text-center text-gray-600 mb-8 max-w-4xl mx-auto">
+            Dados consolidados das ações realizadas pelo Ministério Público e Defensoria Pública 
+            em defesa dos direitos dos consumidores no setor de medicamentos e saúde.
+          </p>
+          
+          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+            <div className="text-center">
+              <div className="text-3xl font-bold text-red-600 mb-2">15.847</div>
+              <div className="text-sm text-gray-600">Casos Atendidos</div>
+              <div className="text-xs text-green-600 mt-1">↗ +23% vs 2023</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-green-600 mb-2">83.6%</div>
+              <div className="text-sm text-gray-600">Taxa de Resolução</div>
+              <div className="text-xs text-green-600 mt-1">↗ +15% vs 2023</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-red-700 mb-2">45 dias</div>
+              <div className="text-sm text-gray-600">Tempo Médio</div>
+              <div className="text-xs text-green-600 mt-1">↘ -18% vs 2023</div>
+            </div>
+            <div className="text-center">
+              <div className="text-3xl font-bold text-red-800 mb-2">R$ 8.2M</div>
+              <div className="text-sm text-gray-600">Ressarcimento aos Consumidores</div>
+              <div className="text-xs text-green-600 mt-1">↗ +41% vs 2023</div>
+            </div>
+          </div>
+          
+          {/* Explicação detalhada do Ressarcimento */}
+          <div className="mt-8 pt-6 border-t border-red-100">
+            <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">
+              📊 O que representa o "Ressarcimento aos Consumidores"?
+            </h4>
+            <div className="grid md:grid-cols-3 gap-6 text-sm">
+              <div className="bg-red-50 rounded-lg p-4">
+                <h5 className="font-semibold text-red-800 mb-2">💰 Reembolsos Diretos</h5>
+                <p className="text-gray-700">
+                  Valores devolvidos por laboratórios e farmácias após ações do MP/Defensoria por 
+                  cobranças indevidas, medicamentos com defeito ou práticas abusivas.
+                </p>
+              </div>
+              <div className="bg-red-50 rounded-lg p-4">
+                <h5 className="font-semibold text-red-800 mb-2">🏥 Medicamentos Fornecidos</h5>
+                <p className="text-gray-700">
+                  Valor estimado de medicamentos disponibilizados gratuitamente pelo SUS 
+                  após intervenções legais para garantir acesso à saúde.
+                </p>
+              </div>
+              <div className="bg-red-50 rounded-lg p-4">
+                <h5 className="font-semibold text-red-800 mb-2">⚖️ Indenizações</h5>
+                <p className="text-gray-700">
+                  Compensações por danos morais e materiais em casos de negativa de 
+                  tratamento, medicamentos vencidos ou efeitos adversos não declarados.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {/* Órgãos Integrados */}
+        <div className="mt-12 bg-gradient-to-r from-red-50 to-red-100 rounded-2xl p-8">
+          <h3 className="text-xl font-bold text-center text-gray-900 mb-6">
+            Órgãos e Instituições Integradas
+          </h3>
+          <div className="flex flex-wrap justify-center items-center gap-8 opacity-70">
+            <div className="text-center">
+              <div className="font-semibold text-red-700">ANVISA</div>
+              <div className="text-xs text-gray-600">Vigilância Sanitária</div>
+            </div>
+            <div className="text-center">
+              <div className="font-semibold text-green-700">MS</div>
+              <div className="text-xs text-gray-600">Ministério da Saúde</div>
+            </div>
+            <div className="text-center">
+              <div className="font-semibold text-red-800">PROCON</div>
+              <div className="text-xs text-gray-600">Defesa do Consumidor</div>
+            </div>
+            <div className="text-center">
+              <div className="font-semibold text-orange-700">ANS</div>
+              <div className="text-xs text-gray-600">Saúde Suplementar</div>
+            </div>
+            <div className="text-center">
+              <div className="font-semibold text-red-700">MPE</div>
+              <div className="text-xs text-gray-600">Ministério Público</div>
+            </div>
+            <div className="text-center">
+              <div className="font-semibold text-red-900">DPE</div>
+              <div className="text-xs text-gray-600">Defensoria Pública</div>
+            </div>
+          </div>
         </div>
       </main>
-      <footer className="row-start-3 flex gap-[24px] flex-wrap items-center justify-center">
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org/learn?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/file.svg"
-            alt="File icon"
-            width={16}
-            height={16}
-          />
-          Learn
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://vercel.com/templates?framework=next.js&utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/window.svg"
-            alt="Window icon"
-            width={16}
-            height={16}
-          />
-          Examples
-        </a>
-        <a
-          className="flex items-center gap-2 hover:underline hover:underline-offset-4"
-          href="https://nextjs.org?utm_source=create-next-app&utm_medium=appdir-template-tw&utm_campaign=create-next-app"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          <Image
-            aria-hidden
-            src="/globe.svg"
-            alt="Globe icon"
-            width={16}
-            height={16}
-          />
-          Go to nextjs.org →
-        </a>
-      </footer>
     </div>
   );
 }
