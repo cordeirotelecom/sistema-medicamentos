@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { MedicationRequest } from '@/types';
 import { brazilianStates } from '@/data/agencies';
 import { GovernmentAPIService } from '@/services/government-api';
@@ -38,12 +38,7 @@ export default function MedicationForm({ onSubmit, isLoading }: MedicationFormPr
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isFormValid, setIsFormValid] = useState(false);
 
-  // Validação em tempo real
-  useEffect(() => {
-    validateForm();
-  }, [formData]);
-
-  const validateForm = () => {
+  const validateForm = useCallback(() => {
     const newErrors: Record<string, string> = {};
 
     // Validar nome do medicamento
@@ -88,7 +83,12 @@ export default function MedicationForm({ onSubmit, isLoading }: MedicationFormPr
 
     setErrors(newErrors);
     setIsFormValid(Object.keys(newErrors).length === 0);
-  };
+  }, [formData]);
+
+  // Validação em tempo real
+  useEffect(() => {
+    validateForm();
+  }, [validateForm]);
 
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, '');
