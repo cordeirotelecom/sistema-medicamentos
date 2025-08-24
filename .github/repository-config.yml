@@ -1,0 +1,20 @@
+name: sistema-medicamentos-dhs
+description: "🏥 Sistema DHS via PGS Medicamentos - Plataforma integrada para orientação de acesso a medicamentos no Brasil através do Desenvolvimento Harmônico Sustentável (DHS), Planejamento de Gestão Sistêmicos (PGS) e Negociação, Mediação e Conciliação (NMC)"
+homepage: https://sistema-medicamentos-dhs.netlify.app
+topics:
+  - medicamentos
+  - anvisa
+  - ministerio-publico
+  - defensoria-publica
+  - saude-publica
+  - juridico
+  - brasil
+  - nextjs
+  - typescript
+  - dhs
+  - pgs
+  - nmc
+  - governo
+  - saude
+  - medicacao
+  - orientacao-juridica
