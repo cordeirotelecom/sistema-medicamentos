@@ -5,9 +5,7 @@ const nextConfig: NextConfig = {
   trailingSlash: true,
   images: {
     unoptimized: true
-  },
-  basePath: '/sistema-medicamentos',
-  assetPrefix: '/sistema-medicamentos/'
+  }
 };
 
 export default nextConfig;
