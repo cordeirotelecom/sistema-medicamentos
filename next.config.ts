@@ -1,12 +1,13 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  eslint: {
-    ignoreDuringBuilds: true,
+  output: 'export',
+  trailingSlash: true,
+  images: {
+    unoptimized: true
   },
-  typescript: {
-    ignoreBuildErrors: false,
-  },
+  basePath: '/sistema-medicamentos',
+  assetPrefix: '/sistema-medicamentos/'
 };
 
 export default nextConfig;

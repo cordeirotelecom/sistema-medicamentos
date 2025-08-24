@@ -234,7 +234,7 @@ export default function Home() {
           {/* Explicação detalhada do Ressarcimento */}
           <div className="mt-8 pt-6 border-t border-red-100">
             <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">
-              📊 O que representa o "Ressarcimento aos Consumidores"?
+              📊 O que representa o &quot;Ressarcimento aos Consumidores&quot;?
             </h4>
             <div className="grid md:grid-cols-3 gap-6 text-sm">
               <div className="bg-red-50 rounded-lg p-4">
