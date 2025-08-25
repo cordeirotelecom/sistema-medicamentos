@@ -56,15 +56,11 @@ export interface Recommendation {
 
 export interface LegalAnalysis {
   hasRight: boolean;
-  confidence: 'high' | 'medium' | 'low';
   legalBasis: string[];
   reasoning: string;
   requiredDocuments: string[];
-  estimatedCost: {
-    min: number;
-    max: number;
-    currency: string;
-  } | null;
+  competentAgency: string;
+  recommendedProcedure: string;
   urgencyJustification?: string;
 }
 

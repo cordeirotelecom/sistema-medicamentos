@@ -12,7 +12,7 @@ export default function LoadingSpinner() {
               <Search className="h-7 w-7 animate-bounce-subtle" />
               <div className="absolute -top-1 -right-1 w-3 h-3 bg-green-400 rounded-full animate-ping"></div>
             </div>
-            Análise Jurídica Especializada em Andamento
+            Consulta à Base Legal em Andamento
           </h1>
           <p className="mt-2 opacity-90 text-lg">
             Processando suas informações com base na legislação brasileira atualizada...

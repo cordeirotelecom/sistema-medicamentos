@@ -60,7 +60,7 @@ export class RecommendationService {
     // Critérios para recomendar MPE
     const shouldRecommendMPE = 
       // Casos onde há direito confirmado mas possível resistência dos órgãos
-      (legalAnalysis.hasRight && legalAnalysis.confidence === 'high') ||
+      legalAnalysis.hasRight ||
       // Casos de emergência ou alta urgência
       request.urgency === 'emergency' || request.urgency === 'high' ||
       // Problemas de acesso para condições crônicas
@@ -72,7 +72,7 @@ export class RecommendationService {
 
     let reason = '';
     if (shouldRecommendMPE) {
-      if (legalAnalysis.hasRight && legalAnalysis.confidence === 'high') {
+      if (legalAnalysis.hasRight) {
         reason = 'O MPE pode ajudar a garantir seus direitos constitucionais à saúde quando outros órgãos não respondem adequadamente.';
       } else if (request.urgency === 'emergency') {
         reason = 'Em casos de emergência, o MPE pode atuar rapidamente para garantir o acesso ao medicamento.';
@@ -311,13 +311,8 @@ export class RecommendationService {
 
     // Informações sobre direitos legais
     if (legalAnalysis.hasRight) {
-      info += `✅ SEUS DIREITOS: Você tem direito legal ao que está solicitando (confiança: ${legalAnalysis.confidence}). `;
-      
-      if (legalAnalysis.estimatedCost === null) {
-        info += 'Este serviço deve ser gratuito. ';
-      } else if (legalAnalysis.estimatedCost.min === 0) {
-        info += 'Você pode ter direito ao atendimento gratuito ou com desconto. ';
-      }
+      info += `✅ SEUS DIREITOS: Você tem direito legal ao que está solicitando conforme a legislação brasileira. `;
+      info += 'Os serviços de saúde pública são gratuitos conforme o SUS. ';
     } else {
       info += '⚠️ ATENÇÃO: Este caso pode não se enquadrar nos direitos garantidos, mas ainda vale buscar orientação. ';
     }

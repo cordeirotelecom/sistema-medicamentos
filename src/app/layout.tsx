@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   robots: "index, follow",
   openGraph: {
     title: "DHS via PGS Medicamentos",
-    description: "Sistema integrado de orientação para acesso a medicamentos com análise jurídica especializada",
+    description: "Sistema integrado de orientação para acesso a medicamentos com consulta à base legal atualizada",
     type: "website",
     locale: "pt_BR",
   },

@@ -2,15 +2,11 @@ import { MedicationRequest } from '@/types';
 
 export interface LegalAnalysis {
   hasRight: boolean;
-  confidence: 'high' | 'medium' | 'low';
   legalBasis: string[];
   reasoning: string;
   requiredDocuments: string[];
-  estimatedCost: {
-    min: number;
-    max: number;
-    currency: string;
-  } | null;
+  competentAgency: string;
+  recommendedProcedure: string;
   urgencyJustification?: string;
 }
 
@@ -38,236 +34,207 @@ export class LegalAnalysisService {
   static async analyzeRights(request: MedicationRequest): Promise<LegalAnalysis> {
     const analysis: LegalAnalysis = {
       hasRight: false,
-      confidence: 'medium',
       legalBasis: [],
       reasoning: '',
       requiredDocuments: [],
-      estimatedCost: null
+      competentAgency: 'ANVISA',
+      recommendedProcedure: 'Consulta aos órgãos competentes'
     };
 
     // Análise baseada no tipo de problema
     switch (request.issueType) {
       case 'shortage':
-        return this.analyzeShortageRights(request);
-      case 'accessibility':
-        return this.analyzeAccessibilityRights(request);
+        return this.analyzeShortage(request, analysis);
       case 'price':
-        return this.analyzePriceRights(request);
-      case 'quality':
-        return this.analyzeQualityRights(request);
-      case 'adverse_reaction':
-        return this.analyzeAdverseReactionRights(request);
+        return this.analyzeHighPrice(request, analysis);
+      case 'accessibility':
+        return this.analyzeAvailability(request, analysis);
       case 'registration':
-        return this.analyzeRegistrationRights(request);
+        return this.analyzeInsuranceDenial(request, analysis);
+      case 'quality':
+        return this.analyzeQualityIssue(request, analysis);
+      case 'adverse_reaction':
+        return this.analyzeSideEffects(request, analysis);
       case 'import':
-        return this.analyzeImportRights(request);
+        return this.analyzePrescriptionIssue(request, analysis);
+      case 'other':
+        return this.analyzeOther(request, analysis);
       default:
-        return this.analyzeGeneralRights(request);
+        return analysis;
     }
   }
 
-  private static analyzeShortageRights(request: MedicationRequest): LegalAnalysis {
+  private static analyzeShortage(request: MedicationRequest, analysis: LegalAnalysis): LegalAnalysis {
     const isCitizen = request.patientInfo?.isBrazilianCitizen ?? true;
-    const hasChronicCondition = request.patientInfo?.hasChronicCondition ?? false;
-    const isPregnant = request.patientInfo?.isPregnant ?? false;
-    const isUrgent = request.urgency === 'emergency' || request.urgency === 'high';
+    
+    analysis.hasRight = isCitizen;
+    analysis.legalBasis = [
+      this.LEGAL_FRAMEWORK.constitution.article196,
+      this.LEGAL_FRAMEWORK.laws.sus,
+      this.LEGAL_FRAMEWORK.recent.marco2024
+    ];
+    analysis.reasoning = isCitizen 
+      ? 'Todo cidadão brasileiro tem direito constitucional ao acesso a medicamentos essenciais. Em caso de desabastecimento, o Estado deve garantir alternativas ou suprimento adequado.'
+      : 'Para não-cidadãos, verificar direitos através de tratados internacionais e legislação específica de saúde do estrangeiro.';
+    
+    analysis.requiredDocuments = isCitizen ? [
+      'Documento de identificação',
+      'Prescrição médica',
+      'Comprovante de tentativa de aquisição',
+      'Relatório médico justificando necessidade'
+    ] : [
+      'Documento de identificação',
+      'Comprovante de residência ou situação migratória',
+      'Prescrição médica',
+      'Relatório médico'
+    ];
 
-    return {
-      hasRight: isCitizen || isUrgent, // Estrangeiros têm direito em emergências
-      confidence: isCitizen ? 'high' : 'medium',
-      legalBasis: [
-        this.LEGAL_FRAMEWORK.constitution.article196,
-        this.LEGAL_FRAMEWORK.laws.sus,
-        this.LEGAL_FRAMEWORK.laws.rename,
-        this.LEGAL_FRAMEWORK.recent.marco2024
-      ],
-      reasoning: `${isCitizen ? 'Como cidadão brasileiro, você' : 'Mesmo sendo estrangeiro, você'} tem direito constitucional à saúde. ${hasChronicCondition ? 'Sua condição crônica' : 'A falta do medicamento'} ${isPregnant ? 'e sua gravidez garantem' : 'garante'} prioridade no atendimento. O SUS deve fornecer medicamentos essenciais gratuitamente. ${isUrgent ? 'A urgência do caso justifica ação judicial imediata se necessário.' : 'Caso o medicamento não esteja disponível, você pode solicitar através do Componente Especializado da Assistência Farmacêutica (CEAF).'}`,
-      requiredDocuments: [
-        'Documento de identificação (RG, CPF ou passaporte)',
-        'Cartão SUS ou comprovante de cadastro',
-        'Prescrição médica com CID-10',
-        'Relatório médico justificando a necessidade',
-        'Comprovante de residência',
-        ...(hasChronicCondition ? ['Laudos comprovando condição crônica'] : []),
-        ...(isPregnant ? ['Cartão pré-natal ou atestado médico de gravidez'] : [])
-      ],
-      estimatedCost: null, // Gratuito pelo SUS
-      urgencyJustification: isUrgent ? 'Casos urgentes podem ter tramitação judicial acelerada conforme jurisprudência do STF.' : undefined
-    };
+    analysis.competentAgency = 'Ministério da Saúde';
+    analysis.recommendedProcedure = 'Solicitação formal ao órgão gestor de saúde local, com possibilidade de acionamento da Defensoria Pública se necessário.';
+    
+    if (request.urgency === 'high') {
+      analysis.urgencyJustification = 'Casos de urgência médica têm prioridade de tramitação conforme legislação de saúde pública.';
+    }
+
+    return analysis;
   }
 
-  private static analyzeAccessibilityRights(request: MedicationRequest): LegalAnalysis {
-    const isCitizen = request.patientInfo?.isBrazilianCitizen ?? true;
-    const hasChronicCondition = request.patientInfo?.hasChronicCondition ?? false;
-
-    return {
-      hasRight: true, // Todos têm direito ao acesso
-      confidence: 'high',
-      legalBasis: [
-        this.LEGAL_FRAMEWORK.constitution.article196,
-        this.LEGAL_FRAMEWORK.laws.sus,
-        this.LEGAL_FRAMEWORK.laws.ceaf,
-        this.LEGAL_FRAMEWORK.laws.farmaciaPopular,
-        this.LEGAL_FRAMEWORK.recent.resolucao2024
-      ],
-      reasoning: `O acesso a medicamentos é direito fundamental garantido pela Constituição Federal. Você tem direito a: 1) Medicamentos básicos gratuitos pelo SUS; 2) Medicamentos especializados pelo CEAF; 3) Medicamentos do Programa Farmácia Popular com desconto; 4) Medicamentos de alto custo através de processos administrativos ou judiciais. ${hasChronicCondition ? 'Sua condição crônica garante prioridade e acesso facilitado.' : ''} ${!isCitizen ? 'Estrangeiros residentes também têm direito ao SUS.' : ''}`,
-      requiredDocuments: [
-        'Documento de identificação',
-        'Cartão SUS',
-        'Prescrição médica atualizada',
-        'Exames que comprovem a necessidade',
-        'Comprovante de renda (para alguns programas)',
-        'Relatório de tentativa de acesso prévia'
-      ],
-      estimatedCost: {
-        min: 0,
-        max: 100,
-        currency: 'BRL'
-      }
-    };
+  private static analyzeHighPrice(request: MedicationRequest, analysis: LegalAnalysis): LegalAnalysis {
+    analysis.hasRight = true;
+    analysis.legalBasis = [
+      this.LEGAL_FRAMEWORK.laws.farmaciaPopular,
+      this.LEGAL_FRAMEWORK.constitution.article196,
+      'Lei 8.078/90 - Código de Defesa do Consumidor'
+    ];
+    analysis.reasoning = 'Existem programas governamentais para redução de custos de medicamentos, além de direitos do consumidor relacionados a preços abusivos.';
+    analysis.requiredDocuments = [
+      'Prescrição médica',
+      'Comprovantes de preços em diferentes farmácias',
+      'Documento de identificação',
+      'Comprovante de renda'
+    ];
+    analysis.competentAgency = 'Ministério da Saúde / PROCON';
+    analysis.recommendedProcedure = 'Verificar elegibilidade para Programa Farmácia Popular ou acionamento do PROCON para investigação de preços abusivos.';
+    
+    return analysis;
   }
 
-  private static analyzePriceRights(request: MedicationRequest): LegalAnalysis {
-    return {
-      hasRight: true,
-      confidence: 'high',
-      legalBasis: [
-        'CDC - Código de Defesa do Consumidor',
-        'Lei 8.137/90 - Crimes contra a ordem econômica',
-        'CMED - Câmara de Regulação do Mercado de Medicamentos',
-        this.LEGAL_FRAMEWORK.laws.farmaciaPopular
-      ],
-      reasoning: 'Você tem direito a medicamentos com preços justos e regulamentados. A CMED estabelece preços máximos para medicamentos. Práticas abusivas como cartel ou preços excessivos são crime. Você pode: 1) Denunciar ao PROCON; 2) Buscar alternativas no Farmácia Popular; 3) Solicitar medicamento genérico mais barato; 4) Recorrer ao SUS se elegível.',
-      requiredDocuments: [
-        'Comprovantes de preços em diferentes farmácias',
-        'Nota fiscal da compra',
-        'Prescrição médica',
-        'Pesquisa de preços online (print de sites)'
-      ],
-      estimatedCost: {
-        min: 0,
-        max: 50,
-        currency: 'BRL'
-      }
-    };
+  private static analyzeAvailability(request: MedicationRequest, analysis: LegalAnalysis): LegalAnalysis {
+    analysis.hasRight = true;
+    analysis.legalBasis = [
+      this.LEGAL_FRAMEWORK.constitution.article196,
+      this.LEGAL_FRAMEWORK.laws.ceaf,
+      this.LEGAL_FRAMEWORK.recent.resolucao2024
+    ];
+    analysis.reasoning = 'O direito à saúde inclui o acesso a medicamentos. Quando não disponíveis na rede pública, há procedimentos para solicitação excepcional.';
+    analysis.requiredDocuments = [
+      'Prescrição médica atualizada',
+      'Relatório médico detalhado',
+      'Exames que comprovem a necessidade',
+      'Formulário de solicitação excepcional'
+    ];
+    analysis.competentAgency = 'Secretaria de Saúde Estadual/Municipal';
+    analysis.recommendedProcedure = 'Solicitação de medicamento excepcional através da Secretaria de Saúde competente.';
+    
+    return analysis;
   }
 
-  private static analyzeQualityRights(request: MedicationRequest): LegalAnalysis {
-    return {
-      hasRight: true,
-      confidence: 'high',
-      legalBasis: [
-        'Lei 6.360/76 - Vigilância Sanitária',
-        'CDC - Direito à segurança e qualidade',
-        'RDC ANVISA nº 301/19 - Boas práticas de fabricação',
-        this.LEGAL_FRAMEWORK.recent.marco2024
-      ],
-      reasoning: 'Você tem direito a medicamentos seguros e de qualidade. Problemas de qualidade devem ser reportados imediatamente à ANVISA. Você tem direito a: 1) Troca imediata do produto; 2) Reembolso integral; 3) Indenização por danos; 4) Atendimento médico em caso de reação adversa. A empresa é responsável pelos danos causados.',
-      requiredDocuments: [
-        'Medicamento com defeito (se possível)',
-        'Embalagem original com lote e validade',
-        'Nota fiscal de compra',
-        'Fotos do problema',
-        'Relatório médico se houve consequências'
-      ],
-      estimatedCost: null
-    };
+  private static analyzeInsuranceDenial(request: MedicationRequest, analysis: LegalAnalysis): LegalAnalysis {
+    analysis.hasRight = true;
+    analysis.legalBasis = [
+      'Lei 9.656/98 - Lei dos Planos de Saúde',
+      'Resolução ANS nº 465/21',
+      'Lei 8.078/90 - Código de Defesa do Consumidor'
+    ];
+    analysis.reasoning = 'Planos de saúde têm obrigação de cobrir medicamentos conforme rol da ANS e prescrições médicas justificadas.';
+    analysis.requiredDocuments = [
+      'Contrato do plano de saúde',
+      'Prescrição médica',
+      'Negativa formal do plano',
+      'Relatório médico justificando necessidade'
+    ];
+    analysis.competentAgency = 'ANS (Agência Nacional de Saúde Suplementar)';
+    analysis.recommendedProcedure = 'Recurso administrativo junto à operadora do plano, com possibilidade de denúncia à ANS.';
+    
+    return analysis;
   }
 
-  private static analyzeAdverseReactionRights(request: MedicationRequest): LegalAnalysis {
-    const isUrgent = request.urgency === 'emergency' || request.urgency === 'high';
-
-    return {
-      hasRight: true,
-      confidence: 'high',
-      legalBasis: [
-        'RDC ANVISA nº 4/09 - Farmacovigilância',
-        'CDC - Responsabilidade por danos',
-        'CF/88 - Direito à saúde e segurança',
-        this.LEGAL_FRAMEWORK.recent.portaria2025
-      ],
-      reasoning: `Reações adversas graves devem ser notificadas obrigatoriamente. Você tem direito a: 1) Atendimento médico imediato e gratuito; 2) Medicamento alternativo; 3) Indenização se comprovado nexo causal; 4) Acompanhamento médico especializado. ${isUrgent ? 'Em casos graves, procure atendimento de emergência imediatamente.' : 'Notifique à ANVISA para proteger outros pacientes.'}`,
-      requiredDocuments: [
-        'Relatório médico detalhado da reação',
-        'Medicamento que causou a reação',
-        'Prescrição médica original',
-        'Exames médicos relacionados',
-        'Histórico médico do paciente'
-      ],
-      estimatedCost: null,
-      urgencyJustification: isUrgent ? 'Reações adversas graves são emergência médica com direito a atendimento imediato pelo SUS.' : undefined
-    };
+  private static analyzeQualityIssue(request: MedicationRequest, analysis: LegalAnalysis): LegalAnalysis {
+    analysis.hasRight = true;
+    analysis.legalBasis = [
+      'Lei 9.782/99 - Lei da ANVISA',
+      'Lei 8.078/90 - Código de Defesa do Consumidor',
+      'RDC ANVISA nº 216/06'
+    ];
+    analysis.reasoning = 'Problemas de qualidade em medicamentos são de competência da ANVISA e configuram violação dos direitos do consumidor.';
+    analysis.requiredDocuments = [
+      'Medicamento com problema (se possível)',
+      'Nota fiscal de compra',
+      'Relatório médico sobre efeitos adversos',
+      'Fotos ou evidências do problema'
+    ];
+    analysis.competentAgency = 'ANVISA';
+    analysis.recommendedProcedure = 'Notificação à ANVISA através do sistema de farmacovigilância e acionamento do PROCON para questões consumeristas.';
+    
+    return analysis;
   }
 
-  private static analyzeRegistrationRights(request: MedicationRequest): LegalAnalysis {
-    return {
-      hasRight: false,
-      confidence: 'high',
-      legalBasis: [
-        'Lei 6.360/76 - Controle sanitário',
-        'RDC ANVISA nº 200/17 - Registro de medicamentos'
-      ],
-      reasoning: 'Medicamentos não registrados não podem ser comercializados no Brasil por questões de segurança. Porém, você pode: 1) Verificar se existe medicamento similar registrado; 2) Solicitar importação para uso pessoal via ANVISA; 3) Participar de programas de acesso expandido; 4) Buscar tratamento em centros de pesquisa autorizados.',
-      requiredDocuments: [
-        'Prescrição médica justificando a necessidade',
-        'Relatório médico detalhado',
-        'Comprovação de inexistência de alternativa registrada'
-      ],
-      estimatedCost: {
-        min: 200,
-        max: 2000,
-        currency: 'BRL'
-      }
-    };
+  private static analyzeSideEffects(request: MedicationRequest, analysis: LegalAnalysis): LegalAnalysis {
+    analysis.hasRight = true;
+    analysis.legalBasis = [
+      'Lei 9.782/99 - Lei da ANVISA',
+      'RDC ANVISA nº 4/09 - Farmacovigilância',
+      this.LEGAL_FRAMEWORK.constitution.article196
+    ];
+    analysis.reasoning = 'Efeitos adversos de medicamentos devem ser notificados para garantir a segurança da população e o direito a tratamentos seguros.';
+    analysis.requiredDocuments = [
+      'Relatório médico sobre efeitos adversos',
+      'Prescrição original',
+      'Histórico médico relevante',
+      'Informações sobre o medicamento (lote, validade)'
+    ];
+    analysis.competentAgency = 'ANVISA';
+    analysis.recommendedProcedure = 'Notificação de evento adverso através do NOTIVISA (Sistema de Notificações em Vigilância Sanitária).';
+    
+    return analysis;
   }
 
-  private static analyzeImportRights(request: MedicationRequest): LegalAnalysis {
-    const isUrgent = request.urgency === 'emergency' || request.urgency === 'high';
-
-    return {
-      hasRight: true,
-      confidence: 'medium',
-      legalBasis: [
-        'RDC ANVISA nº 81/08 - Importação para uso próprio',
-        'Instrução Normativa RFB nº 1.059/10',
-        this.LEGAL_FRAMEWORK.recent.marco2024
-      ],
-      reasoning: `Você pode importar medicamentos para uso pessoal seguindo regras específicas: 1) Prescrição médica obrigatória; 2) Quantidade limitada (até 6 meses de tratamento); 3) Medicamento deve ser para uso próprio; 4) Alguns medicamentos precisam autorização especial da ANVISA. ${isUrgent ? 'Casos urgentes podem ter tramitação prioritária.' : 'O processo normal demora 30-60 dias.'}`,
-      requiredDocuments: [
-        'Prescrição médica com justificativa',
-        'Relatório médico detalhado',
-        'CPF e documento de identidade',
-        'Formulário de solicitação ANVISA',
-        'Comprovante de inexistência no mercado nacional'
-      ],
-      estimatedCost: {
-        min: 100,
-        max: 1000,
-        currency: 'BRL'
-      },
-      urgencyJustification: isUrgent ? 'Casos urgentes podem solicitar tramitação prioritária na ANVISA.' : undefined
-    };
+  private static analyzePrescriptionIssue(request: MedicationRequest, analysis: LegalAnalysis): LegalAnalysis {
+    analysis.hasRight = true;
+    analysis.legalBasis = [
+      'Lei 5.991/73 - Controle Sanitário do Comércio de Drogas',
+      'Resolução CFM nº 1.246/88',
+      'RDC ANVISA nº 20/11'
+    ];
+    analysis.reasoning = 'Prescrições médicas têm regulamentação específica e farmácias têm obrigações legais quanto à dispensação.';
+    analysis.requiredDocuments = [
+      'Prescrição médica original',
+      'Documento de identificação',
+      'Comprovante da recusa (se houver)',
+      'Relatório médico adicional (se necessário)'
+    ];
+    analysis.competentAgency = 'Conselho Regional de Farmácia / ANVISA';
+    analysis.recommendedProcedure = 'Verificação da prescrição junto ao médico prescritor e consulta ao Conselho Regional de Farmácia sobre irregularidades.';
+    
+    return analysis;
   }
 
-  private static analyzeGeneralRights(request: MedicationRequest): LegalAnalysis {
-    const isCitizen = request.patientInfo?.isBrazilianCitizen ?? true;
-
-    return {
-      hasRight: isCitizen,
-      confidence: 'medium',
-      legalBasis: [
-        this.LEGAL_FRAMEWORK.constitution.article196,
-        this.LEGAL_FRAMEWORK.laws.sus
-      ],
-      reasoning: isCitizen 
-        ? 'Como cidadão brasileiro, você tem direito constitucional à saúde. Consulte os órgãos competentes para orientação específica sobre seu caso.'
-        : 'Estrangeiros têm direito a atendimento de emergência pelo SUS. Para outros casos, consulte sua situação migratória.',
-      requiredDocuments: [
-        'Documento de identificação',
-        'Prescrição médica',
-        'Relatório médico'
-      ],
-      estimatedCost: null
-    };
+  private static analyzeOther(request: MedicationRequest, analysis: LegalAnalysis): LegalAnalysis {
+    analysis.hasRight = true;
+    analysis.legalBasis = [
+      this.LEGAL_FRAMEWORK.constitution.article196,
+      'Lei 8.078/90 - Código de Defesa do Consumidor'
+    ];
+    analysis.reasoning = 'Para situações não especificadas, aplicam-se os direitos fundamentais à saúde e proteção do consumidor.';
+    analysis.requiredDocuments = [
+      'Documento de identificação',
+      'Prescrição médica (se aplicável)',
+      'Documentos relacionados ao problema específico',
+      'Relatório médico (se necessário)'
+    ];
+    analysis.competentAgency = 'Órgão competente conforme natureza específica do problema';
+    analysis.recommendedProcedure = 'Análise caso a caso para direcionamento ao órgão competente adequado.';
+    
+    return analysis;
   }
 }

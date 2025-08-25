@@ -243,8 +243,9 @@ export default function RecommendationDisplay({ recommendation, onNewSearch }: R
                 <p className={`mt-1 ${recommendation.legalAnalysis.hasRight 
                   ? 'text-green-700' 
                   : 'text-amber-700'}`}>
-                  Confiança: {recommendation.legalAnalysis.confidence === 'high' ? 'Alta' : 
-                             recommendation.legalAnalysis.confidence === 'medium' ? 'Média' : 'Baixa'}
+                  {recommendation.legalAnalysis.hasRight 
+                    ? 'Análise baseada na legislação brasileira atual' 
+                    : 'Consulte órgãos competentes para mais informações'}
                 </p>
               </div>
             </div>
@@ -268,17 +269,13 @@ export default function RecommendationDisplay({ recommendation, onNewSearch }: R
             </div>
           )}
 
-          {/* Custo Estimado */}
-          {recommendation.legalAnalysis.estimatedCost && (
-            <div className="bg-purple-50 p-4 rounded-lg">
-              <h4 className="font-semibold text-purple-800 mb-2">💰 Custo Estimado</h4>
-              <p className="text-purple-700">
-                {recommendation.legalAnalysis.estimatedCost.min === 0 
-                  ? 'Gratuito' 
-                  : `R$ ${recommendation.legalAnalysis.estimatedCost.min} a R$ ${recommendation.legalAnalysis.estimatedCost.max}`}
-              </p>
-            </div>
-          )}
+          {/* Informação sobre Gratuidade do SUS */}
+          <div className="bg-purple-50 p-4 rounded-lg">
+            <h4 className="font-semibold text-purple-800 mb-2">💰 Informação sobre Custos</h4>
+            <p className="text-purple-700">
+              Os serviços de saúde pública no Brasil são gratuitos através do SUS (Sistema Único de Saúde).
+            </p>
+          </div>
 
           {/* MPE Recomendação */}
           {recommendation.mpeRecommendation?.recommended && (

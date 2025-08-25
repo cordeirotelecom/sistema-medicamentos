@@ -2,6 +2,7 @@
 
 import Link from 'next/link';
 import { Users, UserCheck, FileText, Shield, Activity, TrendingUp } from 'lucide-react';
+import { AnvisaConsultationWidget } from '@/components/AnvisaConsultationWidget';
 
 export default function Home() {
   return (
@@ -32,37 +33,37 @@ export default function Home() {
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Guia de Acesso a Medicamentos
+            Sistema de Orientação para Acesso a Medicamentos
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-6">
-            Guia de como ter acesso a medicamentos e de fomentar o Desenvolvimento Harmônico Sustentável (DHS) 
-            via atuações resolutivas de Planejamento de Gestão Sistêmicos (PGS), de Negociação, 
-            Mediação e Conciliação (NMC).
+            Sistema público gratuito que promove <strong>atuações resolutivas de Planejamento e de Gestão Sistêmicos</strong>, 
+            <strong>Negociação</strong>, <strong>Mediação</strong> e <strong>Conciliação</strong> para garantir o acesso aos direitos de saúde 
+            através do <strong>Desenvolvimento Harmônico Sustentável (DHS)</strong>.
           </p>
           
           {/* Explicação das Siglas */}
           <div className="max-w-5xl mx-auto bg-red-50 rounded-xl p-6 border border-red-100">
-            <h3 className="text-lg font-semibold text-red-800 mb-4">📚 Metodologia Aplicada</h3>
+            <h3 className="text-lg font-semibold text-red-800 mb-4">📚 Metodologia de Atuações Resolutivas</h3>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <div className="bg-white rounded-lg p-4 border border-red-200">
                 <h4 className="font-bold text-red-700 mb-2">🌱 DHS</h4>
                 <p className="text-gray-700">
                   <strong>Desenvolvimento Harmônico Sustentável</strong><br/>
-                  Abordagem que equilibra acesso à saúde, sustentabilidade social e harmonia institucional.
+                  Equilibra o acesso efetivo à saúde com sustentabilidade institucional, promovendo soluções duradouras.
                 </p>
               </div>
               <div className="bg-white rounded-lg p-4 border border-red-200">
                 <h4 className="font-bold text-red-700 mb-2">📊 PGS</h4>
                 <p className="text-gray-700">
-                  <strong>Planejamento de Gestão Sistêmicos</strong><br/>
-                  Estratégias integradas que conectam diferentes órgãos e níveis de governo para soluções eficazes.
+                  <strong>Planejamento e Gestão Sistêmicos</strong><br/>
+                  <strong>Foco em atuações resolutivas de planejamento</strong> que conectam diferentes órgãos para soluções eficazes.
                 </p>
               </div>
               <div className="bg-white rounded-lg p-4 border border-red-200">
                 <h4 className="font-bold text-red-700 mb-2">🤝 NMC</h4>
                 <p className="text-gray-700">
                   <strong>Negociação, Mediação e Conciliação</strong><br/>
-                  Métodos alternativos de resolução que priorizam acordos colaborativos e soluções consensuais.
+                  Métodos consensuais que priorizam soluções colaborativas antes da judicialização.
                 </p>
               </div>
             </div>
@@ -82,18 +83,18 @@ export default function Home() {
                 </div>
                 
                 <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
-                  Acesso Cidadão
+                  Portal do Cidadão
                 </h3>
                 
                 <p className="text-gray-600 text-center mb-6">
-                  Consulte medicamentos, verifique seus direitos e receba orientações 
-                  personalizadas com base na legislação brasileira.
+                  Consulte medicamentos, conheça seus direitos e receba orientações 
+                  sobre procedimentos junto aos órgãos competentes.
                 </p>
                 
                 <div className="space-y-3">
                   <div className="flex items-center text-sm text-gray-600">
                     <FileText className="w-4 h-4 mr-3 text-red-500" />
-                    Análise de direitos especializada
+                    Orientações sobre direitos e procedimentos
                   </div>
                   <div className="flex items-center text-sm text-gray-600">
                     <Activity className="w-4 h-4 mr-3 text-green-500" />
@@ -101,13 +102,13 @@ export default function Home() {
                   </div>
                   <div className="flex items-center text-sm text-gray-600">
                     <Shield className="w-4 h-4 mr-3 text-red-600" />
-                    Recomendações do Ministério Público
+                    Indicação de órgãos competentes
                   </div>
                 </div>
                 
                 <div className="mt-6 text-center">
                   <span className="inline-flex items-center px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium group-hover:bg-red-200 transition-colors duration-300">
-                    Acessar como Cidadão
+                    Acessar Portal do Cidadão
                   </span>
                 </div>
               </div>
@@ -129,22 +130,22 @@ export default function Home() {
                 </h3>
                 
                 <p className="text-gray-600 text-center mb-6">
-                  Dashboard executivo com análise de dados, estatísticas de casos 
-                  e monitoramento de requisições dos cidadãos.
+                  Painel de monitoramento para acompanhar demandas da comunidade 
+                  e implementar atuações resolutivas de planejamento sistêmico.
                 </p>
                 
                 <div className="space-y-3">
                   <div className="flex items-center text-sm text-gray-600">
                     <TrendingUp className="w-4 h-4 mr-3 text-red-500" />
-                    Dashboard com dados em tempo real
+                    Dados para planejamento de ações
                   </div>
                   <div className="flex items-center text-sm text-gray-600">
                     <Activity className="w-4 h-4 mr-3 text-green-500" />
-                    Monitoramento de requisições
+                    Monitoramento de demandas
                   </div>
                   <div className="flex items-center text-sm text-gray-600">
                     <FileText className="w-4 h-4 mr-3 text-red-600" />
-                    Relatórios e estatísticas
+                    Gestão sistêmica de casos
                   </div>
                 </div>
                 
@@ -378,6 +379,9 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      {/* Widget de Consulta ANVISA */}
+      <AnvisaConsultationWidget />
     </div>
   );
 }

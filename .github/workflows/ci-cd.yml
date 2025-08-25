@@ -1,0 +1,160 @@
+name: 🚀 CI/CD Pipeline
+
+on:
+  push:
+    branches: [ main, develop ]
+  pull_request:
+    branches: [ main ]
+
+jobs:
+  lint-and-type-check:
+    name: 🔍 Lint & Type Check
+    runs-on: ubuntu-latest
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📂 Install Dependencies
+        run: npm ci
+
+      - name: 🔍 Run ESLint
+        run: npm run lint
+
+      - name: 🔍 Type Check
+        run: npm run type-check
+
+      - name: 🎨 Check Prettier
+        run: npm run format:check
+
+  build:
+    name: 🏗️ Build Application
+    runs-on: ubuntu-latest
+    needs: lint-and-type-check
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📂 Install Dependencies
+        run: npm ci
+
+      - name: 🏗️ Build Project
+        run: npm run build
+        env:
+          NEXT_PUBLIC_APP_VERSION: ${{ github.sha }}
+
+      - name: 📊 Bundle Analysis
+        run: du -sh out/*
+
+      - name: 📦 Upload Build Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: build-artifacts
+          path: out/
+          retention-days: 30
+
+  deploy-demo:
+    name: 🌐 Deploy Demo
+    runs-on: ubuntu-latest
+    needs: build
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: 📥 Download Build Artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-artifacts
+          path: out/
+
+      - name: 🚀 Deploy Demo Information
+        run: |
+          echo "✅ Build artifacts ready for deployment"
+          echo "📦 Deploy command: netlify deploy --prod --dir=out"
+          echo "⚙️ Note: Configure deployment secrets in repository settings for production"
+          echo "📁 Build directory contents:"
+          ls -la out/ || echo "Build directory not found"
+
+  security-scan:
+    name: 🔒 Security Scan
+    runs-on: ubuntu-latest
+    needs: lint-and-type-check
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 📦 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '18'
+          cache: 'npm'
+
+      - name: 📂 Install Dependencies
+        run: npm ci
+
+      - name: 🔒 Run npm audit
+        run: npm audit --audit-level=high
+
+      - name: 🔍 Run CodeQL Analysis
+        uses: github/codeql-action/init@v3
+        with:
+          languages: typescript
+
+      - name: 🔍 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+
+  lighthouse:
+    name: 🔍 Lighthouse Performance
+    runs-on: ubuntu-latest
+    needs: deploy-demo
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
+    steps:
+      - name: 📥 Checkout Code
+        uses: actions/checkout@v4
+
+      - name: 🔍 Run Lighthouse CI (Demo URLs)
+        uses: treosh/lighthouse-ci-action@v10
+        with:
+          urls: |
+            https://sistema-medicamentos-dhs.netlify.app
+            https://sistema-medicamentos-dhs.netlify.app/cidadao
+            https://sistema-medicamentos-dhs.netlify.app/promotor
+            https://sistema-medicamentos-dhs.netlify.app/defensoria
+          configPath: './lighthouserc.json'
+          uploadArtifacts: true
+          temporaryPublicStorage: true
+
+  notify-success:
+    name: 📢 Notify Success
+    runs-on: ubuntu-latest
+    needs: [deploy-demo, lighthouse]
+    if: success() && github.ref == 'refs/heads/main'
+    steps:
+      - name: 📢 Success Notification
+        run: |
+          echo "✅ Deploy realizado com sucesso!"
+          echo "🌐 Site: https://sistema-medicamentos-dhs.netlify.app"
+          echo "📊 Commit: ${{ github.sha }}"
+          echo "👤 Autor: ${{ github.actor }}"
+
+  notify-failure:
+    name: ❌ Notify Failure
+    runs-on: ubuntu-latest
+    needs: [build, deploy-demo]
+    if: failure()
+    steps:
+      - name: ❌ Failure Notification
+        run: |
+          echo "❌ Deploy falhou!"
+          echo "📊 Commit: ${{ github.sha }}"
+          echo "👤 Autor: ${{ github.actor }}"
+          echo "🔗 Verifique os logs: ${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }}"

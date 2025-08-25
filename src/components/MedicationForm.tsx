@@ -190,12 +190,12 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
             DHS via PGS Medicamentos
           </h1>
           <p className="text-xl opacity-95 max-w-3xl leading-relaxed">
-            🚀 Sistema avançado com <strong>análise jurídica especializada</strong> que analisa seus direitos baseado na legislação brasileira atual. 
+            🚀 Sistema integrado de orientação com <strong>consulta à base legal atualizada</strong> que verifica seus direitos conforme a legislação brasileira vigente. 
             Desenvolvimento Harmônico Sustentável via Planejamento de Gestão Sistêmicos e métodos de NMC.
           </p>
           <div className="mt-6 flex flex-wrap gap-4 text-sm">
             <div className="flex items-center gap-2 bg-white/20 px-3 py-2 rounded-lg">
-              <span>✅</span> Análise de Direitos Especializada
+              <span>✅</span> Verificação de Direitos Legais
             </div>
             <div className="flex items-center gap-2 bg-white/20 px-3 py-2 rounded-lg">
               <span>🏛️</span> Inclui MPE Estadual
