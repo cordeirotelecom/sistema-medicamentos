@@ -282,4 +282,5 @@ Este projeto está licenciado sob a **Licença MIT** - veja o arquivo [LICENSE](
 
 [🌐 **Acesse o Sistema**](https://sistema-medicamentos-dhs.netlify.app) | [📖 **Documentação**](https://github.com/cordeirotelecom/sistema-medicamentos/wiki) | [🐛 **Reportar Bug**](https://github.com/cordeirotelecom/sistema-medicamentos/issues)
 
-</div>
+</div>#   T e s t a n d o   d e p l o y   a u t o m a t i c o  
+ 
