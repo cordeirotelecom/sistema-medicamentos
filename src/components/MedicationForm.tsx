@@ -533,7 +533,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               ) : (
                 <>
                   <Scale className="h-7 w-7" />
-                  Analisar Direitos e Gerar Orientação
+                  Fazer Consulta
                 </>
               )}
             </button>

@@ -12,42 +12,56 @@ export class RecommendationService {
       stateAgency: GovernmentAgency | null;
     }
   }> {
-    // Determina o órgão principal baseado no tipo de problema
-    const primaryAgency = this.getPrimaryAgencyByIssue(request.issueType);
+    console.log('🔍 RecommendationService.generateRecommendation iniciado com:', request);
     
-    // Determina órgãos secundários que podem ajudar
-    const secondaryAgencies = this.getSecondaryAgencies(request, primaryAgency);
-    
-    // Análise de direitos baseada na legislação
-    const legalAnalysis = await LegalAnalysisService.analyzeRights(request);
-    
-    // Análise de recomendação do MPE
-    const mpeRecommendation = this.analyzeMPERecommendation(request, legalAnalysis);
-    
-    // Adiciona MPE aos órgãos secundários se recomendado
-    const finalSecondaryAgencies = mpeRecommendation.recommended 
-      ? [...secondaryAgencies, mpeRecommendation.stateAgency!].filter(Boolean)
-      : secondaryAgencies;
-    
-    // Gera os passos de recomendação
-    const steps = await this.generateSteps(request, primaryAgency, finalSecondaryAgencies, mpeRecommendation);
-    
-    // Estima o tempo de resolução
-    const estimatedTime = this.estimateResolutionTime(request, primaryAgency);
-    
-    // Informações adicionais baseadas no contexto
-    const additionalInfo = this.generateAdditionalInfo(request, legalAnalysis);
+    try {
+      // Determina o órgão principal baseado no tipo de problema
+      console.log('🏛️ Determinando órgão principal...');
+      const primaryAgency = this.getPrimaryAgencyByIssue(request.issueType);
+      console.log('✅ Órgão principal:', primaryAgency.name);
+      
+      // Determina órgãos secundários que podem ajudar
+      console.log('🏢 Determinando órgãos secundários...');
+      const secondaryAgencies = this.getSecondaryAgencies(request, primaryAgency);
+      console.log('✅ Órgãos secundários:', secondaryAgencies.map(a => a.name));
+      
+      // Análise de direitos baseada na legislação
+      console.log('⚖️ Analisando direitos legais...');
+      const legalAnalysis = await LegalAnalysisService.analyzeRights(request);
+      console.log('✅ Análise legal concluída:', legalAnalysis);
+      
+      // Análise de recomendação do MPE
+      const mpeRecommendation = this.analyzeMPERecommendation(request, legalAnalysis);
+      
+      // Adiciona MPE aos órgãos secundários se recomendado
+      const finalSecondaryAgencies = mpeRecommendation.recommended 
+        ? [...secondaryAgencies, mpeRecommendation.stateAgency!].filter(Boolean)
+        : secondaryAgencies;
+      
+      // Gera os passos de recomendação
+      const steps = await this.generateSteps(request, primaryAgency, finalSecondaryAgencies, mpeRecommendation);
+      
+      // Estima o tempo de resolução
+      const estimatedTime = this.estimateResolutionTime(request, primaryAgency);
+      
+      // Informações adicionais baseadas no contexto
+      const additionalInfo = this.generateAdditionalInfo(request, legalAnalysis);
 
-    return {
-      primaryAgency,
-      secondaryAgencies: finalSecondaryAgencies,
-      steps,
-      estimatedTime,
-      urgencyLevel: request.urgency,
-      additionalInfo,
-      legalAnalysis,
-      mpeRecommendation
-    };
+      console.log('✅ RecommendationService concluído');
+      return {
+        primaryAgency,
+        secondaryAgencies: finalSecondaryAgencies,
+        steps,
+        estimatedTime,
+        urgencyLevel: request.urgency,
+        additionalInfo,
+        legalAnalysis,
+        mpeRecommendation
+      };
+    } catch (error) {
+      console.error('❌ Erro no RecommendationService:', error);
+      throw error;
+    }
   }
 
   private static analyzeMPERecommendation(request: MedicationRequest, legalAnalysis: LegalAnalysis): {
