@@ -6,16 +6,23 @@ import { ArrowLeft, Shield } from 'lucide-react';
 import MedicationForm from '@/components/MedicationForm';
 import RecommendationDisplay from '@/components/RecommendationDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
+import UnsavedChangesIndicator from '@/components/UnsavedChangesIndicator';
 import { RecommendationService } from '@/services/recommendation';
+import { useBeforeUnload } from '@/components/BeforeUnloadHandler';
 
 export default function CidadaoPage() {
   const [currentStep, setCurrentStep] = useState<'form' | 'loading' | 'result'>('form');
   const [recommendation, setRecommendation] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
+  const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
+
+  // Hook para controlar a confirmação de saída
+  useBeforeUnload(hasUnsavedChanges && currentStep === 'form');
 
   const handleFormSubmit = async (formData: any) => {
     setIsLoading(true);
     setCurrentStep('loading');
+    setHasUnsavedChanges(false); // Resetar ao enviar
     
     try {
       const result = await RecommendationService.generateRecommendation(formData);
@@ -31,6 +38,11 @@ export default function CidadaoPage() {
   const handleBackToForm = () => {
     setCurrentStep('form');
     setRecommendation(null);
+    setHasUnsavedChanges(false); // Resetar ao voltar
+  };
+
+  const handleFormChange = (hasChanges: boolean) => {
+    setHasUnsavedChanges(hasChanges);
   };
 
   return (
@@ -71,7 +83,11 @@ export default function CidadaoPage() {
                 Verifique seus direitos e receba orientações baseadas na legislação brasileira
               </p>
             </div>
-            <MedicationForm onSubmit={handleFormSubmit} isLoading={isLoading} />
+            <MedicationForm 
+              onSubmit={handleFormSubmit} 
+              isLoading={isLoading}
+              onFormChange={handleFormChange}
+            />
           </div>
         )}
         

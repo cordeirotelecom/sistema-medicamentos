@@ -9,9 +9,10 @@ import { AlertCircle, Pill, MapPin, User, Phone, Mail, Scale } from 'lucide-reac
 interface MedicationFormProps {
   onSubmit: (request: MedicationRequest) => void;
   isLoading: boolean;
+  onFormChange?: (hasChanges: boolean) => void;
 }
 
-export default function MedicationForm({ onSubmit, isLoading }: MedicationFormProps) {
+export default function MedicationForm({ onSubmit, isLoading, onFormChange }: MedicationFormProps) {
   const [formData, setFormData] = useState<Partial<MedicationRequest>>({
     medicationName: '',
     issueType: 'quality',
@@ -89,6 +90,21 @@ export default function MedicationForm({ onSubmit, isLoading }: MedicationFormPr
   useEffect(() => {
     validateForm();
   }, [validateForm]);
+
+  // Detectar mudanças no formulário
+  useEffect(() => {
+    const hasChanges = !!(
+      formData.medicationName?.trim() ||
+      formData.description?.trim() ||
+      formData.contactInfo?.name?.trim() ||
+      formData.contactInfo?.email?.trim() ||
+      formData.contactInfo?.phone?.trim() ||
+      formData.location?.state ||
+      formData.location?.city
+    );
+    
+    onFormChange?.(hasChanges);
+  }, [formData, onFormChange]);
 
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, '');
