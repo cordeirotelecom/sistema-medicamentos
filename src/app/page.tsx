@@ -43,24 +43,24 @@ export default function Home() {
           
           {/* Explicação das Siglas */}
           <div className="max-w-5xl mx-auto bg-red-50 rounded-xl p-6 border border-red-100">
-            <h3 className="text-lg font-semibold text-red-800 mb-4">📚 Metodologia de Atuações Resolutivas</h3>
+            <h3 className="text-lg font-semibold text-red-800 mb-4">Metodologia de Atuações Resolutivas</h3>
             <div className="grid md:grid-cols-3 gap-4 text-sm">
               <div className="bg-white rounded-lg p-4 border border-red-200">
-                <h4 className="font-bold text-red-700 mb-2">🌱 DHS</h4>
+                <h4 className="font-bold text-red-700 mb-2">DHS</h4>
                 <p className="text-gray-700">
                   <strong>Desenvolvimento Harmônico Sustentável</strong><br/>
                   Equilibra o acesso efetivo à saúde com sustentabilidade institucional, promovendo soluções duradouras.
                 </p>
               </div>
               <div className="bg-white rounded-lg p-4 border border-red-200">
-                <h4 className="font-bold text-red-700 mb-2">📊 PGS</h4>
+                <h4 className="font-bold text-red-700 mb-2">PGS</h4>
                 <p className="text-gray-700">
                   <strong>Planejamento e Gestão Sistêmicos</strong><br/>
                   <strong>Foco em atuações resolutivas de planejamento</strong> que conectam diferentes órgãos para soluções eficazes.
                 </p>
               </div>
               <div className="bg-white rounded-lg p-4 border border-red-200">
-                <h4 className="font-bold text-red-700 mb-2">🤝 NMC</h4>
+                <h4 className="font-bold text-red-700 mb-2">NMC</h4>
                 <p className="text-gray-700">
                   <strong>Negociação, Mediação e Conciliação</strong><br/>
                   Métodos consensuais que priorizam soluções colaborativas antes da judicialização.
@@ -253,7 +253,7 @@ export default function Home() {
             Descubra seus direitos e receba recomendações personalizadas.
           </p>
           <Link href="/cidadao" className="inline-flex items-center px-8 py-3 bg-white text-red-600 font-semibold rounded-lg hover:bg-red-50 transition-colors duration-300 shadow-lg">
-            Começar Consulta Gratuita
+            Começar Consulta
           </Link>
         </div>
 
