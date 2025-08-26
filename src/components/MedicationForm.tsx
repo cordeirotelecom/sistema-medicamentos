@@ -130,6 +130,8 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
   }, [validateForm]);
 
   const updateFormData = (path: string, value: any) => {
+    console.log('🔄 UPDATE FORM DATA:', { path, value });
+    
     setFormData(prev => {
       const newData = { ...prev };
       const keys = path.split('.');
@@ -143,6 +145,8 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
       }
       
       current[keys[keys.length - 1]] = value;
+      
+      console.log('🔄 NOVO FORM DATA:', newData);
       return newData;
     });
   };
@@ -214,7 +218,18 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    console.log('🚀 SUBMIT FORÇADO - Dados enviados:', formData);
+    console.log('🚀 SUBMIT DETALHADO:', {
+      formData: JSON.stringify(formData, null, 2),
+      medicationName: formData.medicationName,
+      medicationNameTrim: formData.medicationName?.trim(),
+      medicationNameLength: formData.medicationName?.length,
+      isEmpty: !formData.medicationName?.trim(),
+      description: formData.description,
+      contactName: formData.contactInfo?.name,
+      email: formData.contactInfo?.email,
+      state: formData.location?.state,
+      city: formData.location?.city
+    });
     
     // Validação básica apenas para evitar envio vazio
     if (!formData.medicationName?.trim()) {
