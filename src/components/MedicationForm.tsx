@@ -314,8 +314,9 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 name="medication-name"
                 autoComplete="off"
                 value={formData.medicationName || ''}
-                onChange={(e) => updateFormData('medicationName', e.target.value)}
-                onInput={(e) => updateFormData('medicationName', (e.target as HTMLInputElement).value)}
+                onChange={(e) => {
+                  setFormData(prev => ({ ...prev, medicationName: e.target.value }));
+                }}
                 className={`w-full p-4 border-2 rounded-xl focus:ring-2 transition-all duration-200 text-lg ${
                   errors.medicationName 
                     ? 'border-red-300 focus:ring-red-500 focus:border-red-500' 
@@ -375,8 +376,9 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 name="description"
                 autoComplete="off"
                 value={formData.description || ''}
-                onChange={(e) => updateFormData('description', e.target.value)}
-                onInput={(e) => updateFormData('description', (e.target as HTMLTextAreaElement).value)}
+                onChange={(e) => {
+                  setFormData(prev => ({ ...prev, description: e.target.value }));
+                }}
                 rows={4}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-lg resize-none"
                 placeholder="Descreva detalhadamente o problema encontrado. Inclua informações como: onde comprou, quando aconteceu, sintomas observados, etc..."
@@ -572,8 +574,17 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 name="contact-name"
                 autoComplete="off"
                 value={formData.contactInfo?.name || ''}
-                onChange={(e) => updateFormData('contactInfo.name', e.target.value)}
-                onInput={(e) => updateFormData('contactInfo.name', (e.target as HTMLInputElement).value)}
+                onChange={(e) => {
+                  setFormData(prev => ({
+                    ...prev,
+                    contactInfo: { 
+                      ...prev.contactInfo, 
+                      name: e.target.value,
+                      email: prev.contactInfo?.email || '',
+                      phone: prev.contactInfo?.phone || ''
+                    }
+                  }));
+                }}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-lg"
                 placeholder="Seu nome completo"
                 required
@@ -592,8 +603,17 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 name="contact-email"
                 autoComplete="off"
                 value={formData.contactInfo?.email || ''}
-                onChange={(e) => updateFormData('contactInfo.email', e.target.value)}
-                onInput={(e) => updateFormData('contactInfo.email', (e.target as HTMLInputElement).value)}
+                onChange={(e) => {
+                  setFormData(prev => ({
+                    ...prev,
+                    contactInfo: { 
+                      ...prev.contactInfo, 
+                      email: e.target.value,
+                      name: prev.contactInfo?.name || '',
+                      phone: prev.contactInfo?.phone || ''
+                    }
+                  }));
+                }}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-lg"
                 placeholder="seu.email@exemplo.com"
                 required
