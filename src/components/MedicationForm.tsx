@@ -670,47 +670,14 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
           <div className="flex flex-col items-center space-y-6">
             <div className="text-center mb-4">
               <h3 className="text-xl font-bold mb-2">Gerar Análise Inteligente</h3>
-              <p className="opacity-90">Análise jurídica automatizada + Recomendação de órgãos competentes</p>
+              <p className="opacity-90">Análise legal + Recomendação de órgãos competentes</p>
             </div>
             
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 w-full max-w-4xl">
-              <button
-                type="button"
-                onClick={() => {
-                  // Teste rápido com dados válidos
-                  const testData = {
-                    medicationName: 'Dipirona',
-                    description: 'Teste com descrição de mais de vinte caracteres para validar o formulário corretamente',
-                    contactInfo: {
-                      name: 'João Silva',
-                      email: 'joao@teste.com',
-                      phone: ''
-                    },
-                    location: {
-                      state: 'SP',
-                      city: 'São Paulo'
-                    }
-                  };
-                  setFormData(prev => ({ ...prev, ...testData }));
-                  console.log('🧪 TESTE: Dados preenchidos automaticamente para debug');
-                }}
-                className="btn-outline text-sm py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-200 hover:scale-105"
-              >
-                Teste Rápido
-              </button>
-
-              <button
-                type="button"
-                onClick={clearForm}
-                className="btn-secondary text-sm py-3 px-4 rounded-lg flex items-center justify-center gap-2 transition-all duration-200 hover:scale-105"
-              >
-                Limpar Formulário
-              </button>
-              
+            <div className="flex flex-col items-center space-y-4 w-full max-w-4xl">
               <button
                 type="submit"
                 disabled={isLoading || !isFormValid}
-                className="btn-primary text-lg py-4 px-6 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3 shadow-lg col-span-1 md:col-span-2 lg:col-span-1"
+                className="btn-primary text-lg py-4 px-8 rounded-lg disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center justify-center gap-3 shadow-lg w-full max-w-md"
               >
                 {isLoading ? (
                   <>
@@ -724,17 +691,25 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                   </>
                 )}
               </button>
-
-              {/* Botão para abrir Compêndio Legal */}
+              
               <button
                 type="button"
-                onClick={() => setShowLegislation(!showLegislation)}
-                className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-4 rounded-lg text-sm font-medium hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+                onClick={clearForm}
+                className="text-xs text-gray-400 hover:text-gray-600 underline hover:no-underline transition-all duration-200 mt-2"
               >
-                <BookOpen className="h-4 w-4" />
-                {showLegislation ? 'Ocultar' : 'Abrir'} Compêndio Legal
+                Limpar Campos
               </button>
             </div>
+
+            {/* Botão para abrir Guia Resumo Legislativo */}
+            <button
+              type="button"
+              onClick={() => setShowLegislation(!showLegislation)}
+              className="bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-3 px-4 rounded-lg text-sm font-medium hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-2"
+            >
+              <BookOpen className="h-4 w-4" />
+              {showLegislation ? 'Ocultar' : 'Abrir'} Guia Resumo Legislativo
+            </button>
             
             {!isFormValid && (
               <div className="status-error bg-red-100 border-red-300 text-red-800 max-w-md text-center">
@@ -751,7 +726,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
         </div>
         </form>
 
-        {/* Seção do Compêndio Legal */}
+        {/* Seção do Guia Resumo Legislativo */}
         {showLegislation && (
           <div className="mt-8">
             <LegislationBrowser 

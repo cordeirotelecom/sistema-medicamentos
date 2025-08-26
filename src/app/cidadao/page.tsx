@@ -80,148 +80,116 @@ export default function CidadaoPage() {
       <main className="w-full px-4 sm:px-6 lg:px-8 py-12">
         <div className="max-w-6xl mx-auto w-full">
         {currentStep === 'form' && (
-          <div className="w-full space-y-8">
-            {/* Hero Section Melhorada */}
-            <div className="text-center bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-8 border border-blue-200">
-              <h2 className="text-4xl font-bold text-gray-900 mb-4">
+          <div className="w-full space-y-6">
+            {/* Hero Section Simplificada */}
+            <div className="text-center bg-white/80 backdrop-blur-sm rounded-2xl shadow-xl p-6 border border-blue-200">
+              <h2 className="text-3xl font-bold text-gray-900 mb-3">
                 Consulta de Medicamentos
               </h2>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                Obtenha orientações personalizadas sobre seus direitos relacionados a medicamentos, 
-                baseadas na legislação brasileira vigente
+              <p className="text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                Orientações personalizadas sobre seus direitos relacionados a medicamentos
               </p>
-              <div className="mt-6 flex flex-wrap justify-center gap-3">
-                <span className="px-4 py-2 bg-blue-100 text-blue-800 rounded-full text-sm font-medium">
-                  Análise Jurídica com IA
-                </span>
-                <span className="px-4 py-2 bg-green-100 text-green-800 rounded-full text-sm font-medium">
-                  Legislação Atualizada 2024-2025
-                </span>
-                <span className="px-4 py-2 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
-                  Recomendações Personalizadas
-                </span>
-              </div>
             </div>
 
             {/* Contatos de Emergência */}
             <EmergencyContacts />
+
+            {/* Formulário Principal - Movido para cima */}
+            <MedicationForm 
+              onSubmit={handleFormSubmit} 
+              isLoading={isLoading}
+              onFormChange={handleFormChange}
+            />
             
-            {/* Links Úteis Melhorados */}
-            <div className="bg-white/70 backdrop-blur-sm rounded-xl shadow-lg border border-blue-100 p-6">
-              <h3 className="text-xl font-bold text-gray-900 mb-6 text-center">
-                Acesso Rápido - Serviços Oficiais
+            {/* Links Úteis - Simplificados */}
+            <div className="bg-white/70 backdrop-blur-sm rounded-xl shadow-lg border border-blue-100 p-4">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">
+                Serviços Oficiais
               </h3>
-              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-3">
                 <a 
                   href="https://bulas.anvisa.gov.br/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="group flex items-center space-x-3 p-4 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-all duration-300 hover:shadow-md"
+                  className="group flex items-center space-x-2 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-all duration-300"
                 >
-                  <div className="w-10 h-10 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-sm font-bold">📋</span>
+                  <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">📋</span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-blue-900 text-sm">Bulas ANVISA</div>
-                    <div className="text-xs text-blue-700">Consultar bulas oficiais de medicamentos</div>
                   </div>
-                  <span className="text-blue-400 group-hover:text-blue-600 text-sm">→</span>
                 </a>
 
                 <a 
                   href="https://www.gov.br/saude/pt-br/acesso-a-informacao/acoes-e-programas/farmacia-popular" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="group flex items-center space-x-3 p-4 bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 transition-all duration-300 hover:shadow-md"
+                  className="group flex items-center space-x-2 p-3 bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 transition-all duration-300"
                 >
-                  <div className="w-10 h-10 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-sm font-bold">Rx</span>
+                  <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">Rx</span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-green-900 text-sm">Farmácia Popular</div>
-                    <div className="text-xs text-green-700">Medicamentos com desconto e gratuitos</div>
                   </div>
-                  <span className="text-green-400 group-hover:text-green-600 text-sm">→</span>
                 </a>
 
                 <a 
                   href="https://www.procon.rs.gov.br/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="group flex items-center space-x-3 p-4 bg-orange-50 hover:bg-orange-100 rounded-lg border border-orange-200 transition-all duration-300 hover:shadow-md"
+                  className="group flex items-center space-x-2 p-3 bg-orange-50 hover:bg-orange-100 rounded-lg border border-orange-200 transition-all duration-300"
                 >
-                  <div className="w-10 h-10 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-sm font-bold">⚖</span>
+                  <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">⚖</span>
                   </div>
                   <div className="flex-1 min-w-0">
                     <div className="font-medium text-orange-900 text-sm">PROCON/RS</div>
-                    <div className="text-xs text-orange-700">Defesa dos direitos do consumidor</div>
                   </div>
-                  <span className="text-orange-400 group-hover:text-orange-600 text-sm">→</span>
                 </a>
 
                 <a 
                   href="https://www.defensoria.rs.def.br/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="group flex items-center space-x-3 p-4 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-all duration-300 hover:shadow-md"
+                  className="group flex items-center space-x-2 p-3 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-all duration-300"
                 >
-                  <div className="w-10 h-10 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-sm font-bold">DP</span>
+                  <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">DP</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-purple-900 text-sm">Defensoria Pública/RS</div>
-                    <div className="text-xs text-purple-700">Assistência jurídica gratuita</div>
+                    <div className="font-medium text-purple-900 text-sm">Defensoria Pública</div>
                   </div>
-                  <span className="text-purple-400 group-hover:text-purple-600 text-sm">→</span>
                 </a>
 
                 <a 
                   href="https://www.gov.br/pt-br/servicos/obter-medicamentos-do-componente-especializado" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="group flex items-center space-x-3 p-4 bg-red-50 hover:bg-red-100 rounded-lg border border-red-200 transition-all duration-300 hover:shadow-md"
+                  className="group flex items-center space-x-2 p-3 bg-red-50 hover:bg-red-100 rounded-lg border border-red-200 transition-all duration-300"
                 >
-                  <div className="w-10 h-10 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-sm font-bold">SUS</span>
+                  <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">SUS</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-red-900 text-sm">Medicamentos Especializados</div>
-                    <div className="text-xs text-red-700">Alto custo pelo SUS</div>
+                    <div className="font-medium text-red-900 text-sm">Medicamentos SUS</div>
                   </div>
-                  <span className="text-red-400 group-hover:text-red-600 text-sm">→</span>
                 </a>
 
                 <a 
                   href="https://www.mprs.mp.br/cidadao/" 
                   target="_blank" 
                   rel="noopener noreferrer"
-                  className="group flex items-center space-x-3 p-4 bg-indigo-50 hover:bg-indigo-100 rounded-lg border border-indigo-200 transition-all duration-300 hover:shadow-md"
+                  className="group flex items-center space-x-2 p-3 bg-indigo-50 hover:bg-indigo-100 rounded-lg border border-indigo-200 transition-all duration-300"
                 >
-                  <div className="w-10 h-10 bg-indigo-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-sm font-bold">MP</span>
+                  <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">MP</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-indigo-900 text-sm">Ministério Público/RS</div>
-                    <div className="text-xs text-indigo-700">Canal do cidadão - denúncias</div>
+                    <div className="font-medium text-indigo-900 text-sm">Ministério Público</div>
                   </div>
-                  <span className="text-indigo-400 group-hover:text-indigo-600 text-sm">→</span>
                 </a>
-              </div>
-              
-              <div className="mt-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-                <div className="flex items-start space-x-3">
-                  <div className="w-6 h-6 bg-blue-500 rounded-full flex items-center justify-center flex-shrink-0 mt-1">
-                    <span className="text-white text-xs">i</span>
-                  </div>
-                  <div>
-                    <h4 className="font-medium text-blue-900 mb-1">Informação Importante</h4>
-                    <p className="text-sm text-blue-800">
-                      Use estes links para acessar diretamente os serviços oficiais. 
-                      O formulário abaixo oferece orientações personalizadas baseadas em sua situação específica.
-                    </p>
-                  </div>
-                </div>
               </div>
             </div>
             

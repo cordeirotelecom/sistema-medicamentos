@@ -2,7 +2,6 @@
 
 import Link from 'next/link';
 import { Users, UserCheck, FileText, Shield, Activity, TrendingUp } from 'lucide-react';
-import { AnvisaConsultationWidget } from '@/components/AnvisaConsultationWidget';
 
 export default function Home() {
   return (
@@ -28,6 +27,30 @@ export default function Home() {
           </div>
         </div>
       </header>
+
+      {/* Contatos Úteis e Acesso Rápido */}
+      <div className="bg-red-600 text-white py-3">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="flex flex-wrap justify-center items-center gap-6 text-sm">
+            <div className="flex items-center space-x-2">
+              <Shield className="w-4 h-4" />
+              <span>Emergência: 192 (SAMU)</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Activity className="w-4 h-4" />
+              <span>Farmácia Popular: 136</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <FileText className="w-4 h-4" />
+              <span>PROCON: 151</span>
+            </div>
+            <div className="flex items-center space-x-2">
+              <Users className="w-4 h-4" />
+              <span>Defensoria: 129</span>
+            </div>
+          </div>
+        </div>
+      </div>
 
       {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -227,7 +250,7 @@ export default function Home() {
             <div className="space-y-3">
               <div className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-red-500 rounded-full"></div>
-                <span className="text-sm text-gray-700">Análise jurídica automatizada com IA</span>
+                <span className="text-sm text-gray-700">Orientação baseada na legislação brasileira</span>
               </div>
               <div className="flex items-center space-x-3">
                 <div className="w-2 h-2 bg-green-500 rounded-full"></div>
@@ -559,9 +582,6 @@ export default function Home() {
           </div>
         </div>
       </main>
-
-      {/* Widget de Consulta ANVISA */}
-      <AnvisaConsultationWidget />
     </div>
   );
 }
