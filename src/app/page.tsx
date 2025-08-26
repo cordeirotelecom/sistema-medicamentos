@@ -202,31 +202,6 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Seção de Estatísticas */}
-        <div className="mt-16 bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg p-8 border border-red-100">
-          <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
-            📊 Estatísticas do Sistema
-          </h3>
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            <div className="text-center">
-              <div className="text-3xl font-bold text-red-600 mb-2">2.847</div>
-              <div className="text-sm text-gray-600">Consultas Realizadas</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">1.203</div>
-              <div className="text-sm text-gray-600">Casos Resolvidos</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-blue-600 mb-2">847</div>
-              <div className="text-sm text-gray-600">Medicamentos Liberados</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-purple-600 mb-2">96%</div>
-              <div className="text-sm text-gray-600">Taxa de Sucesso</div>
-            </div>
-          </div>
-        </div>
-
         {/* Seção de Notícias/Atualizações */}
         <div className="mt-12 grid md:grid-cols-2 gap-8">
           <div className="bg-white/70 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-red-100">
@@ -282,64 +257,59 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Stats Section */}
+        {/* Sistema Information */}
         <div className="mt-16 bg-white/60 backdrop-blur-sm rounded-2xl shadow-lg border border-red-100 p-8">
           <h3 className="text-2xl font-bold text-center text-gray-900 mb-4">
-            Impacto do Sistema - Resultados 2024/2025
+            Sistema de Orientação Medicamentosa
           </h3>
           <p className="text-center text-gray-600 mb-8 max-w-4xl mx-auto">
-            Dados consolidados das ações realizadas pelo Ministério Público e Defensoria Pública 
-            em defesa dos direitos dos consumidores no setor de medicamentos e saúde.
+            Plataforma digital desenvolvida para orientar cidadãos, promotores e defensores públicos 
+            sobre direitos relacionados ao acesso a medicamentos, baseada na legislação brasileira vigente.
           </p>
           
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
-              <div className="text-3xl font-bold text-red-600 mb-2">15.847</div>
-              <div className="text-sm text-gray-600">Casos Atendidos</div>
-              <div className="text-xs text-green-600 mt-1">↗ +23% vs 2023</div>
+              <div className="text-3xl font-bold text-red-600 mb-2">6</div>
+              <div className="text-sm text-gray-600">Leis Principais</div>
+              <div className="text-xs text-gray-500 mt-1">Base legal atualizada</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-green-600 mb-2">83.6%</div>
-              <div className="text-sm text-gray-600">Taxa de Resolução</div>
-              <div className="text-xs text-green-600 mt-1">↗ +15% vs 2023</div>
+              <div className="text-3xl font-bold text-green-600 mb-2">12</div>
+              <div className="text-sm text-gray-600">Órgãos Integrados</div>
+              <div className="text-xs text-gray-500 mt-1">ANVISA, MS, PROCON e outros</div>
             </div>
             <div className="text-center">
-              <div className="text-3xl font-bold text-red-700 mb-2">45 dias</div>
-              <div className="text-sm text-gray-600">Tempo Médio</div>
-              <div className="text-xs text-green-600 mt-1">↘ -18% vs 2023</div>
-            </div>
-            <div className="text-center">
-              <div className="text-3xl font-bold text-red-800 mb-2">R$ 8.2M</div>
-              <div className="text-sm text-gray-600">Ressarcimento aos Consumidores</div>
-              <div className="text-xs text-green-600 mt-1">↗ +41% vs 2023</div>
+              <div className="text-3xl font-bold text-blue-600 mb-2">3</div>
+              <div className="text-sm text-gray-600">Perfis de Usuário</div>
+              <div className="text-xs text-gray-500 mt-1">Cidadão, MP e Defensoria</div>
             </div>
           </div>
           
-          {/* Explicação detalhada do Ressarcimento */}
+          {/* Explicação sobre o Sistema */}
           <div className="mt-8 pt-6 border-t border-red-100">
             <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">
-              📊 O que representa o &quot;Ressarcimento aos Consumidores&quot;?
+              🎯 Objetivos do Sistema
             </h4>
             <div className="grid md:grid-cols-3 gap-6 text-sm">
               <div className="bg-red-50 rounded-lg p-4">
-                <h5 className="font-semibold text-red-800 mb-2">💰 Reembolsos Diretos</h5>
+                <h5 className="font-semibold text-red-800 mb-2">� Orientação Legal</h5>
                 <p className="text-gray-700">
-                  Valores devolvidos por laboratórios e farmácias após ações do MP/Defensoria por 
-                  cobranças indevidas, medicamentos com defeito ou práticas abusivas.
+                  Fornecer informações precisas sobre direitos e procedimentos legais 
+                  relacionados ao acesso a medicamentos com base na legislação vigente.
                 </p>
               </div>
               <div className="bg-red-50 rounded-lg p-4">
-                <h5 className="font-semibold text-red-800 mb-2">🏥 Medicamentos Fornecidos</h5>
+                <h5 className="font-semibold text-red-800 mb-2">🤝 Mediação Preventiva</h5>
                 <p className="text-gray-700">
-                  Valor estimado de medicamentos disponibilizados gratuitamente pelo SUS 
-                  após intervenções legais para garantir acesso à saúde.
+                  Promover soluções consensuais e extrajudiciais através de negociação, 
+                  mediação e conciliação antes da judicialização.
                 </p>
               </div>
               <div className="bg-red-50 rounded-lg p-4">
-                <h5 className="font-semibold text-red-800 mb-2">⚖️ Indenizações</h5>
+                <h5 className="font-semibold text-red-800 mb-2">⚖️ Suporte Institucional</h5>
                 <p className="text-gray-700">
-                  Compensações por danos morais e materiais em casos de negativa de 
-                  tratamento, medicamentos vencidos ou efeitos adversos não declarados.
+                  Auxiliar promotores e defensores públicos com dados e análises para 
+                  atuações resolutivas de planejamento sistêmico.
                 </p>
               </div>
             </div>
