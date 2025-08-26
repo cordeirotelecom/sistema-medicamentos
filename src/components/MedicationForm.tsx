@@ -67,10 +67,12 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
       newErrors.contactEmail = 'Email inválido';
     }
 
-    if (!formData.contactInfo?.phone?.trim()) {
-      newErrors.contactPhone = 'Telefone é obrigatório';
-    } else if (!/^\(\d{2}\)\s\d{4,5}-\d{4}$/.test(formData.contactInfo.phone)) {
-      newErrors.contactPhone = 'Formato: (11) 99999-9999';
+    // Telefone é opcional, mas se preenchido deve estar no formato correto
+    if (formData.contactInfo?.phone?.trim()) {
+      const phoneNumbers = formData.contactInfo.phone.replace(/\D/g, '');
+      if (phoneNumbers.length < 10 || phoneNumbers.length > 11) {
+        newErrors.contactPhone = 'Formato: (11) 99999-9999';
+      }
     }
 
     // Validar localização
@@ -108,10 +110,15 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
 
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, '');
-    if (numbers.length <= 11) {
-      return numbers.replace(/(\d{2})(\d{4,5})(\d{4})/, '($1) $2-$3');
-    }
-    return value;
+    
+    if (numbers.length === 0) return '';
+    if (numbers.length <= 2) return `(${numbers}`;
+    if (numbers.length <= 6) return `(${numbers.slice(0, 2)}) ${numbers.slice(2)}`;
+    if (numbers.length <= 10) return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 6)}-${numbers.slice(6)}`;
+    if (numbers.length === 11) return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7)}`;
+    
+    // Limita a 11 dígitos
+    return `(${numbers.slice(0, 2)}) ${numbers.slice(2, 7)}-${numbers.slice(7, 11)}`;
   };
 
   const issueTypes = [
@@ -286,6 +293,9 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 placeholder="Descreva detalhadamente o problema encontrado. Inclua informações como: onde comprou, quando aconteceu, sintomas observados, etc..."
                 required
               />
+              {errors.description && (
+                <p className="text-red-500 text-sm mt-1">{errors.description}</p>
+              )}
               <div className="text-sm text-gray-500 mt-2">
                 Quanto mais detalhes você fornecer, melhor será nossa orientação.
               </div>
@@ -318,6 +328,9 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                   </option>
                 ))}
               </select>
+              {errors.locationState && (
+                <p className="text-red-500 text-sm mt-1">{errors.locationState}</p>
+              )}
             </div>
 
             <div>
@@ -340,6 +353,9 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                   </option>
                 ))}
               </select>
+              {errors.locationCity && (
+                <p className="text-red-500 text-sm mt-1">{errors.locationCity}</p>
+              )}
               {loadingCities && (
                 <div className="mt-2 flex items-center text-sm text-blue-600">
                   <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-blue-600 mr-2"></div>
@@ -468,6 +484,9 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 placeholder="Seu nome completo"
                 required
               />
+              {errors.contactName && (
+                <p className="text-red-500 text-sm mt-1">{errors.contactName}</p>
+              )}
             </div>
 
             <div>
@@ -482,6 +501,9 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 placeholder="seu.email@exemplo.com"
                 required
               />
+              {errors.contactEmail && (
+                <p className="text-red-500 text-sm mt-1">{errors.contactEmail}</p>
+              )}
             </div>
 
             <div className="md:col-span-2">
@@ -491,10 +513,16 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               <input
                 type="tel"
                 value={formData.contactInfo?.phone || ''}
-                onChange={(e) => updateFormData('contactInfo.phone', e.target.value)}
+                onChange={(e) => {
+                  const formatted = formatPhone(e.target.value);
+                  updateFormData('contactInfo.phone', formatted);
+                }}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-lg"
                 placeholder="(11) 99999-9999"
               />
+              {errors.contactPhone && (
+                <p className="text-red-500 text-sm mt-1">{errors.contactPhone}</p>
+              )}
             </div>
           </div>
 
