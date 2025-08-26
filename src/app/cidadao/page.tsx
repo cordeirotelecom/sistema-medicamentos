@@ -7,6 +7,7 @@ import MedicationForm from '@/components/MedicationForm';
 import RecommendationDisplay from '@/components/RecommendationDisplay';
 import LoadingSpinner from '@/components/LoadingSpinner';
 import UnsavedChangesIndicator from '@/components/UnsavedChangesIndicator';
+import EmergencyContacts from '@/components/EmergencyContacts';
 import { RecommendationService } from '@/services/recommendation';
 import { useBeforeUnload } from '@/components/BeforeUnloadHandler';
 
@@ -88,6 +89,9 @@ export default function CidadaoPage() {
                 Verifique seus direitos e receba orientações baseadas na legislação brasileira
               </p>
             </div>
+
+            {/* Contatos de Emergência - Antes do Formulário */}
+            <EmergencyContacts />
             <MedicationForm 
               onSubmit={handleFormSubmit} 
               isLoading={isLoading}

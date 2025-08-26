@@ -3,6 +3,7 @@
 import { useState } from 'react';
 import Link from 'next/link';
 import LegislationBrowser from '@/components/LegislationBrowser';
+import IntelligenceDashboard from '@/components/IntelligenceDashboard';
 import { 
   ArrowLeft, 
   Shield, 
@@ -26,7 +27,8 @@ import {
   Mail,
   Globe,
   MapPin,
-  BookOpen
+  BookOpen,
+  Brain
 } from 'lucide-react';
 import {
   BarChart,
@@ -561,6 +563,7 @@ export default function PromotorPage() {
             {[
               { id: 'overview', label: 'Visão Geral', icon: BarChart3 },
               { id: 'cases', label: 'Casos', icon: FileText },
+              { id: 'intelligence', label: 'Inteligência Analítica', icon: Brain },
               { id: 'laws', label: 'Legislação', icon: Scale },
               { id: 'agencies', label: 'Órgãos', icon: Building2 },
               { id: 'legislation', label: 'Compêndio Legal', icon: BookOpen }
@@ -1236,6 +1239,13 @@ export default function PromotorPage() {
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Nova Aba: Inteligência Analítica */}
+        {activeTab === 'intelligence' && (
+          <div className="bg-white rounded-lg shadow-sm">
+            <IntelligenceDashboard />
           </div>
         )}
 
