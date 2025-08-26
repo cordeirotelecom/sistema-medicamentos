@@ -38,6 +38,38 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
   const [loadingCities, setLoadingCities] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isFormValid, setIsFormValid] = useState(false);
+  const [formInitialized, setFormInitialized] = useState(false);
+
+  // Limpar cache e forçar estado inicial
+  useEffect(() => {
+    const clearBrowserCache = () => {
+      // Limpar formulários do histórico do navegador
+      if (typeof window !== 'undefined') {
+        const forms = document.querySelectorAll('form');
+        forms.forEach(form => {
+          if (form instanceof HTMLFormElement) {
+            form.reset();
+          }
+        });
+
+        // Limpar campos individualmente
+        const inputs = document.querySelectorAll('input, textarea, select');
+        inputs.forEach(input => {
+          if (input instanceof HTMLInputElement || input instanceof HTMLTextAreaElement) {
+            input.value = '';
+            input.defaultValue = '';
+          } else if (input instanceof HTMLSelectElement) {
+            input.selectedIndex = 0;
+          }
+        });
+
+        // Forçar re-renderização do estado
+        setTimeout(() => setFormInitialized(true), 100);
+      }
+    };
+
+    clearBrowserCache();
+  }, []);
 
   const validateForm = useCallback(() => {
     const newErrors: Record<string, string> = {};
@@ -85,94 +117,32 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
     }
 
     setErrors(newErrors);
-    setIsFormValid(Object.keys(newErrors).length === 0);
-  }, [formData]);
-
-  // Validação em tempo real
-  useEffect(() => {
-    validateForm();
-  }, [validateForm]);
-
-  // Detectar campos preenchidos por autocompletar
-  useEffect(() => {
-    const checkForAutofill = () => {
-      const form = document.querySelector('form');
-      if (!form) return;
-
-      const inputs = form.querySelectorAll('input, textarea, select');
-      inputs.forEach((input) => {
-        const element = input as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
-        
-        // Se o campo tem valor mas o React state não tem, sincronizar
-        if (element.value && element.name) {
-          const currentReactValue = getFormFieldValue(element.name);
-          if (currentReactValue !== element.value) {
-            const fieldPath = getFieldPath(element.name);
-            if (fieldPath) {
-              updateFormData(fieldPath, element.value);
-            }
-          }
+    const isValid = Object.keys(newErrors).length === 0;
+    setIsFormValid(isValid);
+    
+    // Log para debug
+    if (formInitialized) {
+      console.log('Validação do formulário:', {
+        isValid,
+        errors: newErrors,
+        formData: {
+          medicationName: formData.medicationName,
+          description: formData.description,
+          name: formData.contactInfo?.name,
+          email: formData.contactInfo?.email,
+          state: formData.location?.state,
+          city: formData.location?.city
         }
-      });
-    };
-
-    const getFormFieldValue = (name: string): string => {
-      switch (name) {
-        case 'medication-name': return formData.medicationName || '';
-        case 'description': return formData.description || '';
-        case 'contact-name': return formData.contactInfo?.name || '';
-        case 'contact-email': return formData.contactInfo?.email || '';
-        case 'contact-phone': return formData.contactInfo?.phone || '';
-        default: return '';
-      }
-    };
-
-    const getFieldPath = (name: string): string | null => {
-      switch (name) {
-        case 'medication-name': return 'medicationName';
-        case 'description': return 'description';
-        case 'contact-name': return 'contactInfo.name';
-        case 'contact-email': return 'contactInfo.email';
-        case 'contact-phone': return 'contactInfo.phone';
-        default: return null;
-      }
-    };
-
-    // Verificação inicial
-    setTimeout(checkForAutofill, 100);
-    setTimeout(checkForAutofill, 500);
-    setTimeout(checkForAutofill, 1000);
-
-    // Observer para mudanças no DOM
-    const observer = new MutationObserver((mutations) => {
-      let shouldCheck = false;
-      mutations.forEach((mutation) => {
-        if (mutation.type === 'attributes' && mutation.attributeName === 'value') {
-          shouldCheck = true;
-        }
-        if (mutation.type === 'childList') {
-          shouldCheck = true;
-        }
-      });
-      if (shouldCheck) {
-        setTimeout(checkForAutofill, 50);
-      }
-    });
-
-    const form = document.querySelector('form');
-    if (form) {
-      observer.observe(form, {
-        attributes: true,
-        attributeFilter: ['value'],
-        childList: true,
-        subtree: true
       });
     }
+  }, [formData, formInitialized]);
 
-    return () => {
-      observer.disconnect();
-    };
-  }, [formData]);
+  // Validação em tempo real - só após inicialização
+  useEffect(() => {
+    if (formInitialized) {
+      validateForm();
+    }
+  }, [validateForm, formInitialized]);
 
   const updateFormData = (path: string, value: any) => {
     setFormData(prev => {
@@ -194,18 +164,20 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
 
   // Detectar mudanças no formulário
   useEffect(() => {
-    const hasChanges = !!(
-      formData.medicationName?.trim() ||
-      formData.description?.trim() ||
-      formData.contactInfo?.name?.trim() ||
-      formData.contactInfo?.email?.trim() ||
-      formData.contactInfo?.phone?.trim() ||
-      formData.location?.state ||
-      formData.location?.city
-    );
-    
-    onFormChange?.(hasChanges);
-  }, [formData, onFormChange]);
+    if (formInitialized) {
+      const hasChanges = !!(
+        formData.medicationName?.trim() ||
+        formData.description?.trim() ||
+        formData.contactInfo?.name?.trim() ||
+        formData.contactInfo?.email?.trim() ||
+        formData.contactInfo?.phone?.trim() ||
+        formData.location?.state ||
+        formData.location?.city
+      );
+      
+      onFormChange?.(hasChanges);
+    }
+  }, [formData, onFormChange, formInitialized]);
 
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, '');
@@ -267,6 +239,40 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
     onSubmit(formData as MedicationRequest);
   };
 
+  const clearForm = () => {
+    setFormData({
+      medicationName: '',
+      issueType: 'quality',
+      urgency: 'medium',
+      description: '',
+      patientInfo: {
+        hasChronicCondition: false,
+        isPregnant: false,
+        isBrazilianCitizen: true
+      },
+      location: {
+        state: '',
+        city: ''
+      },
+      contactInfo: {
+        name: '',
+        email: '',
+        phone: ''
+      }
+    });
+    setCities([]);
+    setErrors({});
+    setIsFormValid(false);
+    
+    // Limpar campos DOM também
+    setTimeout(() => {
+      const form = document.querySelector('form');
+      if (form instanceof HTMLFormElement) {
+        form.reset();
+      }
+    }, 100);
+  };
+
   return (
     <div className="w-full mx-auto animate-fade-in">
       <div className="card overflow-hidden w-full max-w-none">
@@ -294,7 +300,11 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
           </div>
         </div>
 
-        <form onSubmit={handleSubmit} className="p-8 space-y-8 w-full">
+        <form 
+          onSubmit={handleSubmit} 
+          autoComplete="off" 
+          className="p-8 space-y-8 w-full"
+        >
         {/* Informações do Medicamento */}
         <div className="space-y-6 w-full">
           <h2 className="text-xl font-bold text-gray-800 flex items-center gap-3 pb-3 border-b border-gray-200">
@@ -312,6 +322,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               <input
                 type="text"
                 name="medication-name"
+                autoComplete="off"
                 value={formData.medicationName || ''}
                 onChange={(e) => updateFormData('medicationName', e.target.value)}
                 onInput={(e) => updateFormData('medicationName', (e.target as HTMLInputElement).value)}
@@ -370,6 +381,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               </label>
               <textarea
                 name="description"
+                autoComplete="off"
                 value={formData.description || ''}
                 onChange={(e) => updateFormData('description', e.target.value)}
                 onInput={(e) => updateFormData('description', (e.target as HTMLTextAreaElement).value)}
@@ -564,6 +576,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               <input
                 type="text"
                 name="contact-name"
+                autoComplete="off"
                 value={formData.contactInfo?.name || ''}
                 onChange={(e) => updateFormData('contactInfo.name', e.target.value)}
                 onInput={(e) => updateFormData('contactInfo.name', (e.target as HTMLInputElement).value)}
@@ -583,6 +596,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               <input
                 type="email"
                 name="contact-email"
+                autoComplete="off"
                 value={formData.contactInfo?.email || ''}
                 onChange={(e) => updateFormData('contactInfo.email', e.target.value)}
                 onInput={(e) => updateFormData('contactInfo.email', (e.target as HTMLInputElement).value)}
@@ -602,6 +616,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               <input
                 type="tel"
                 name="contact-phone"
+                autoComplete="off"
                 value={formData.contactInfo?.phone || ''}
                 onChange={(e) => {
                   const formatted = formatPhone(e.target.value);
@@ -642,23 +657,34 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               <p className="opacity-90">Análise jurídica automatizada + Recomendação de órgãos competentes</p>
             </div>
             
-            <button
-              type="submit"
-              disabled={isLoading || !isFormValid}
-              className="btn-primary text-xl py-5 px-16 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-4 shadow-2xl"
-            >
-              {isLoading ? (
-                <>
-                  <div className="animate-spin rounded-full h-7 w-7 border-b-3 border-white"></div>
-                  Analisando com IA Jurídica...
-                </>
-              ) : (
-                <>
-                  <Scale className="h-7 w-7" />
-                  Fazer Consulta
-                </>
-              )}
-            </button>
+            <div className="flex flex-col sm:flex-row items-center gap-4">
+              <button
+                type="button"
+                onClick={clearForm}
+                className="btn-secondary text-lg py-4 px-8 rounded-xl flex items-center gap-3 transition-all duration-200 hover:scale-105"
+              >
+                <span>🗑️</span>
+                Limpar Formulário
+              </button>
+              
+              <button
+                type="submit"
+                disabled={isLoading || !isFormValid}
+                className="btn-primary text-xl py-5 px-16 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-4 shadow-2xl"
+              >
+                {isLoading ? (
+                  <>
+                    <div className="animate-spin rounded-full h-7 w-7 border-b-3 border-white"></div>
+                    Analisando com IA Jurídica...
+                  </>
+                ) : (
+                  <>
+                    <Scale className="h-7 w-7" />
+                    Fazer Consulta
+                  </>
+                )}
+              </button>
+            </div>
             
             {!isFormValid && (
               <div className="status-error bg-red-100 border-red-300 text-red-800 max-w-md text-center">
