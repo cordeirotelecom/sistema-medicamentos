@@ -23,10 +23,13 @@
 - Status do Sistema: ✅ Operacional 24/7
 
 ### 🆕 **Novidades Agosto 2025**
-- ✅ Base legal atualizada com legislação 2024-2025
-- ✅ Integração aprimorada com dados governamentais
-- ✅ Interface otimizada para dispositivos móveis
-- ✅ Sistema de feedback da comunidade implementado
+- ✅ **Widget ANVISA** - Consulta rápida de medicamentos registrados
+- ✅ **Sugestões Inteligentes** - Sistema "Você quis dizer...?" para erros de digitação
+- ✅ **Base expandida** - 15+ medicamentos comuns do SUS incluídos
+- ✅ **Base legal atualizada** com legislação 2024-2025
+- ✅ **Interface responsiva** otimizada para dispositivos móveis
+- ✅ **Sistema de logs** para debugging e monitoramento
+- ✅ **Deploy automático** via GitHub Actions
 
 ### 📱 **Funcionalidades por Perfil**
 
@@ -79,12 +82,32 @@ Métodos consensuais de resolução que priorizam:
 - **Deploy:** Netlify (Geração Estática)
 
 ### **Integrações Governamentais**
-- 🏛️ **ANVISA** - Base de dados de medicamentos
+- 🏛️ **ANVISA** - Base de dados de medicamentos registrados
 - 🏥 **Ministério da Saúde** - Políticas e programas de saúde
 - ⚖️ **Ministério Público** - Defesa de direitos coletivos
 - 🛡️ **Defensoria Pública** - Assistência jurídica gratuita
 - 🛒 **PROCON** - Proteção do consumidor
 - 📊 **ANS** - Saúde suplementar
+
+### 🔍 **Widget de Consulta ANVISA**
+**Nova funcionalidade 2025** - Consulta instantânea de medicamentos
+
+#### 📱 **Como Usar:**
+1. **Acesse qualquer página** do sistema
+2. **Clique no botão azul flutuante** (canto inferior direito)
+3. **Digite o nome do medicamento** (ex: "paracetamol")
+4. **Visualize informações completas:**
+   - ✅ Status do registro ANVISA
+   - 💊 Disponibilidade no SUS
+   - 🏪 Acesso via Farmácia Popular
+   - ⚖️ Base legal aplicável
+   - 📋 Próximos passos recomendados
+
+#### 🤖 **Funcionalidades Inteligentes:**
+- **"Você quis dizer...?"** - Correção automática de erros de digitação
+- **Medicamentos similares** - Alternativas com mesmo princípio ativo
+- **Sugestões baseadas em IA** - Algoritmo de similaridade avançado
+- **Base atualizada** - 15+ medicamentos comuns do SUS
 
 ## 📈 Impacto Social
 

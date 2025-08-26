@@ -230,8 +230,32 @@ export function AnvisaConsultationWidget() {
                 <XCircle className="w-12 h-12 text-gray-400 mx-auto mb-2" />
                 <p className="text-gray-600 mb-4">Medicamento não encontrado na base de dados</p>
                 
+                {/* Sugestões "Você quis dizer..." */}
+                {result.suggestions && result.suggestions.length > 0 && (
+                  <div className="text-left mb-4">
+                    <h5 className="font-medium text-orange-800 mb-2 flex items-center gap-1">
+                      <Info className="w-4 h-4" />
+                      Você quis dizer...?
+                    </h5>
+                    <div className="space-y-1">
+                      {result.suggestions.map((suggestion, index) => (
+                        <button
+                          key={index}
+                          onClick={() => {
+                            setSearchTerm(suggestion);
+                            handleSearch();
+                          }}
+                          className="block w-full text-left text-sm p-2 bg-orange-50 hover:bg-orange-100 rounded border-l-4 border-orange-400 transition-colors cursor-pointer"
+                        >
+                          <p className="font-medium text-orange-800">{suggestion}</p>
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
+
                 {result.alternatives && result.alternatives.length > 0 && (
-                  <div className="text-left">
+                  <div className="text-left mb-4">
                     <h5 className="font-medium text-gray-900 mb-2">Medicamentos similares encontrados:</h5>
                     <div className="space-y-2">
                       {result.alternatives.slice(0, 3).map((alt, index) => (

@@ -21,6 +21,7 @@ export interface AnvisaConsultationResult {
   found: boolean;
   medication?: MedicationInfo;
   alternatives?: MedicationInfo[];
+  suggestions?: string[]; // Sugestões "Você quis dizer..."
   publicAccessInfo: {
     susAvailable: boolean;
     farmaciaPopularAvailable: boolean;
@@ -98,8 +99,178 @@ export class AnvisaConsultationService {
       genericAvailable: true,
       susIncluded: true,
       coafIncluded: false
+    },
+    // Medicamentos adicionais comuns
+    {
+      name: 'CAPTOPRIL 25MG',
+      activeSubstance: 'Captopril',
+      registrationNumber: '1.0068.0112',
+      status: 'VÁLIDO',
+      expiryDate: '2028-12-15',
+      company: 'LABORATÓRIO FARMACÊUTICO DO ESTADO DE PERNAMBUCO',
+      category: 'INIBIDOR DA ECA',
+      controlledSubstance: false,
+      genericAvailable: true,
+      susIncluded: true,
+      coafIncluded: false
+    },
+    {
+      name: 'METFORMINA 850MG',
+      activeSubstance: 'Cloridrato de Metformina',
+      registrationNumber: '1.0497.0234',
+      status: 'VÁLIDO',
+      expiryDate: '2030-06-30',
+      company: 'LABORATÓRIO TEUTO BRASILEIRO S/A',
+      category: 'ANTIDIABÉTICO',
+      controlledSubstance: false,
+      genericAvailable: true,
+      susIncluded: true,
+      coafIncluded: false
+    },
+    {
+      name: 'DIPIRONA 500MG',
+      activeSubstance: 'Dipirona Sódica',
+      registrationNumber: '1.0235.0345',
+      status: 'VÁLIDO',
+      expiryDate: '2029-09-20',
+      company: 'FUNDAÇÃO PARA O REMÉDIO POPULAR - FURP',
+      category: 'ANALGÉSICO/ANTITÉRMICO',
+      controlledSubstance: false,
+      genericAvailable: true,
+      susIncluded: true,
+      coafIncluded: false
+    },
+    {
+      name: 'SINVASTATINA 20MG',
+      activeSubstance: 'Sinvastatina',
+      registrationNumber: '1.0068.0567',
+      status: 'VÁLIDO',
+      expiryDate: '2028-03-10',
+      company: 'LABORATÓRIO QUÍMICO FARMACÊUTICO BERGAMO LTDA',
+      category: 'HIPOLIPEMIANTE',
+      controlledSubstance: false,
+      genericAvailable: true,
+      susIncluded: true,
+      coafIncluded: false
+    },
+    {
+      name: 'AMOXICILINA 500MG',
+      activeSubstance: 'Amoxicilina',
+      registrationNumber: '1.0497.0678',
+      status: 'VÁLIDO',
+      expiryDate: '2029-11-25',
+      company: 'FUNDAÇÃO EZEQUIEL DIAS - FUNED',
+      category: 'ANTIBIÓTICO',
+      controlledSubstance: false,
+      genericAvailable: true,
+      susIncluded: true,
+      coafIncluded: false
+    },
+    {
+      name: 'HIDROCLOROTIAZIDA 25MG',
+      activeSubstance: 'Hidroclorotiazida',
+      registrationNumber: '1.0235.0789',
+      status: 'VÁLIDO',
+      expiryDate: '2028-07-15',
+      company: 'LABORATÓRIO FARMACÊUTICO DO ESTADO DE PERNAMBUCO',
+      category: 'DIURÉTICO',
+      controlledSubstance: false,
+      genericAvailable: true,
+      susIncluded: true,
+      coafIncluded: false
+    },
+    {
+      name: 'PREDNISONA 20MG',
+      activeSubstance: 'Prednisona',
+      registrationNumber: '1.0068.0890',
+      status: 'VÁLIDO',
+      expiryDate: '2029-01-30',
+      company: 'LABORATÓRIO TEUTO BRASILEIRO S/A',
+      category: 'CORTICOSTEROIDE',
+      controlledSubstance: false,
+      genericAvailable: true,
+      susIncluded: true,
+      coafIncluded: false
+    },
+    {
+      name: 'LEVOTIROXINA 50MCG',
+      activeSubstance: 'Levotiroxina Sódica',
+      registrationNumber: '1.0497.0901',
+      status: 'VÁLIDO',
+      expiryDate: '2030-04-20',
+      company: 'FUNDAÇÃO PARA O REMÉDIO POPULAR - FURP',
+      category: 'HORMÔNIO TIREOIDIANO',
+      controlledSubstance: false,
+      genericAvailable: true,
+      susIncluded: true,
+      coafIncluded: false
+    },
+    {
+      name: 'GLIBENCLAMIDA 5MG',
+      activeSubstance: 'Glibenclamida',
+      registrationNumber: '1.0235.1012',
+      status: 'VÁLIDO',
+      expiryDate: '2028-10-05',
+      company: 'LABORATÓRIO QUÍMICO FARMACÊUTICO BERGAMO LTDA',
+      category: 'ANTIDIABÉTICO',
+      controlledSubstance: false,
+      genericAvailable: true,
+      susIncluded: true,
+      coafIncluded: false
     }
   ];
+
+  /**
+   * Calcula similaridade entre duas strings (algoritmo de Levenshtein simplificado)
+   */
+  private static calculateSimilarity(str1: string, str2: string): number {
+    const s1 = str1.toLowerCase();
+    const s2 = str2.toLowerCase();
+    
+    if (s1 === s2) return 1;
+    if (s1.length === 0 || s2.length === 0) return 0;
+    
+    // Verifica se uma string contém a outra
+    if (s1.includes(s2) || s2.includes(s1)) return 0.8;
+    
+    // Verifica prefixos comuns
+    let commonPrefix = 0;
+    for (let i = 0; i < Math.min(s1.length, s2.length); i++) {
+      if (s1[i] === s2[i]) commonPrefix++;
+      else break;
+    }
+    
+    const prefixSimilarity = commonPrefix / Math.max(s1.length, s2.length);
+    
+    // Algoritmo simples baseado em caracteres comuns
+    const chars1 = new Set(s1);
+    const chars2 = new Set(s2);
+    const intersection = new Set([...chars1].filter(x => chars2.has(x)));
+    const union = new Set([...chars1, ...chars2]);
+    
+    const jaccardSimilarity = intersection.size / union.size;
+    
+    return Math.max(prefixSimilarity, jaccardSimilarity);
+  }
+
+  /**
+   * Gera sugestões baseadas em similaridade de nomes
+   */
+  private static generateSuggestions(searchTerm: string): string[] {
+    const similarities = this.MEDICATION_DATABASE.map(med => ({
+      name: med.name,
+      similarity: Math.max(
+        this.calculateSimilarity(searchTerm, med.name),
+        this.calculateSimilarity(searchTerm, med.activeSubstance)
+      )
+    }));
+
+    return similarities
+      .filter(item => item.similarity > 0.3 && item.similarity < 1) // Não incluir matches exatos
+      .sort((a, b) => b.similarity - a.similarity)
+      .slice(0, 3)
+      .map(item => item.name);
+  }
 
   /**
    * Consulta medicamento na base de dados ANVISA simulada
@@ -124,6 +295,7 @@ export class AnvisaConsultationService {
         found: true,
         medication: found,
         alternatives,
+        suggestions: [], // Não precisa de sugestões quando encontra
         publicAccessInfo: this.getPublicAccessInfo(found),
         legalFramework: this.getLegalFramework(found),
         nextSteps: this.getNextSteps(found)
@@ -141,9 +313,13 @@ export class AnvisaConsultationService {
       );
     });
 
+    // Gera sugestões "Você quis dizer..."
+    const suggestions = this.generateSuggestions(searchTerm);
+
     return {
       found: false,
       alternatives: similar,
+      suggestions: suggestions,
       publicAccessInfo: {
         susAvailable: false,
         farmaciaPopularAvailable: false,
