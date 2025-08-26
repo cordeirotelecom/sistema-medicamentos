@@ -371,6 +371,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 Tipo de Problema *
               </label>
               <select
+                title="Selecione o tipo de problema"
                 value={formData.issueType || ''}
                 onChange={(e) => updateFormData('issueType', e.target.value)}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-lg bg-white"
@@ -389,6 +390,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 Nível de Urgência *
               </label>
               <select
+                title="Selecione o nível de urgência"
                 value={formData.urgency || ''}
                 onChange={(e) => updateFormData('urgency', e.target.value)}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-lg bg-white"
@@ -440,6 +442,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 Estado *
               </label>
               <select
+                title="Selecione seu estado"
                 value={formData.location?.state || ''}
                 onChange={(e) => updateFormData('location.state', e.target.value)}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 text-lg bg-white"
@@ -462,6 +465,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 Cidade *
               </label>
               <select
+                title="Selecione sua cidade"
                 value={formData.location?.city || ''}
                 onChange={(e) => updateFormData('location.city', e.target.value)}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-green-500 focus:border-green-500 transition-all duration-200 text-lg bg-white disabled:bg-gray-100 disabled:cursor-not-allowed"
