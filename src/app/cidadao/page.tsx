@@ -88,6 +88,121 @@ export default function CidadaoPage() {
 
             {/* Contatos de Emergência - Antes do Formulário */}
             <EmergencyContacts />
+            
+            {/* Links Úteis para Cidadãos */}
+            <div className="mt-8 mb-8 bg-white/70 backdrop-blur-sm rounded-xl shadow-lg border border-blue-100 p-6">
+              <h3 className="text-lg font-bold text-gray-900 mb-4 text-center">
+                🔗 Links Diretos - Serviços Essenciais
+              </h3>
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-4">
+                <a 
+                  href="https://bulas.anvisa.gov.br/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group flex items-center space-x-3 p-3 bg-blue-50 hover:bg-blue-100 rounded-lg border border-blue-200 transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">🏥</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-blue-900 text-sm">Bulas ANVISA</div>
+                    <div className="text-xs text-blue-700">Consultar bulas oficiais</div>
+                  </div>
+                  <span className="text-blue-400 group-hover:text-blue-600 text-sm">→</span>
+                </a>
+
+                <a 
+                  href="https://www.gov.br/saude/pt-br/acesso-a-informacao/acoes-e-programas/farmacia-popular" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group flex items-center space-x-3 p-3 bg-green-50 hover:bg-green-100 rounded-lg border border-green-200 transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">💊</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-green-900 text-sm">Farmácia Popular</div>
+                    <div className="text-xs text-green-700">Medicamentos gratuitos</div>
+                  </div>
+                  <span className="text-green-400 group-hover:text-green-600 text-sm">→</span>
+                </a>
+
+                <a 
+                  href="https://www.procon.rs.gov.br/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group flex items-center space-x-3 p-3 bg-orange-50 hover:bg-orange-100 rounded-lg border border-orange-200 transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">⚖️</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-orange-900 text-sm">PROCON/RS</div>
+                    <div className="text-xs text-orange-700">Defender seus direitos</div>
+                  </div>
+                  <span className="text-orange-400 group-hover:text-orange-600 text-sm">→</span>
+                </a>
+
+                <a 
+                  href="https://www.defensoria.rs.def.br/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group flex items-center space-x-3 p-3 bg-purple-50 hover:bg-purple-100 rounded-lg border border-purple-200 transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">🛡️</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-purple-900 text-sm">Defensoria/RS</div>
+                    <div className="text-xs text-purple-700">Assistência gratuita</div>
+                  </div>
+                  <span className="text-purple-400 group-hover:text-purple-600 text-sm">→</span>
+                </a>
+
+                <a 
+                  href="https://www.gov.br/pt-br/servicos/obter-medicamentos-do-componente-especializado" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group flex items-center space-x-3 p-3 bg-red-50 hover:bg-red-100 rounded-lg border border-red-200 transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">🏛️</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-red-900 text-sm">Med. Especializados</div>
+                    <div className="text-xs text-red-700">Alto custo/SUS</div>
+                  </div>
+                  <span className="text-red-400 group-hover:text-red-600 text-sm">→</span>
+                </a>
+
+                <a 
+                  href="https://www.mprs.mp.br/cidadao/" 
+                  target="_blank" 
+                  rel="noopener noreferrer"
+                  className="group flex items-center space-x-3 p-3 bg-indigo-50 hover:bg-indigo-100 rounded-lg border border-indigo-200 transition-all duration-300"
+                >
+                  <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center flex-shrink-0">
+                    <span className="text-white text-xs font-bold">📋</span>
+                  </div>
+                  <div className="flex-1 min-w-0">
+                    <div className="font-medium text-indigo-900 text-sm">MP/RS Cidadão</div>
+                    <div className="text-xs text-indigo-700">Denúncias e ouvidoria</div>
+                  </div>
+                  <span className="text-indigo-400 group-hover:text-indigo-600 text-sm">→</span>
+                </a>
+              </div>
+              
+              <div className="mt-4 p-3 bg-yellow-50 border border-yellow-200 rounded-lg">
+                <div className="flex items-start space-x-2">
+                  <span className="text-yellow-600 text-sm mt-0.5">💡</span>
+                  <p className="text-xs text-yellow-800">
+                    <strong>Dica:</strong> Use estes links para acessar diretamente os serviços oficiais. 
+                    O sistema abaixo oferece orientações personalizadas baseadas em sua situação específica.
+                  </p>
+                </div>
+              </div>
+            </div>
+            
             <MedicationForm 
               onSubmit={handleFormSubmit} 
               isLoading={isLoading}

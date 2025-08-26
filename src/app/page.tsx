@@ -348,6 +348,216 @@ export default function Home() {
             </div>
           </div>
         </div>
+
+        {/* Links Úteis */}
+        <div className="mt-12 bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-red-100 p-8">
+          <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
+            🔗 Links Úteis - Órgãos Oficiais
+          </h3>
+          
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {/* ANVISA */}
+            <a 
+              href="https://www.gov.br/anvisa/pt-br" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group bg-red-50 hover:bg-red-100 rounded-xl p-6 border border-red-200 transition-all duration-300 hover:shadow-md"
+            >
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-8 h-8 bg-red-500 rounded-lg flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="font-bold text-red-700">ANVISA</h4>
+              </div>
+              <p className="text-sm text-gray-600 mb-3">
+                Agência Nacional de Vigilância Sanitária - Consultas de medicamentos e regulamentações
+              </p>
+              <span className="text-xs text-red-600 group-hover:text-red-700 font-medium">
+                Acessar site oficial →
+              </span>
+            </a>
+
+            {/* Ministério da Saúde */}
+            <a 
+              href="https://www.gov.br/saude/pt-br" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group bg-green-50 hover:bg-green-100 rounded-xl p-6 border border-green-200 transition-all duration-300 hover:shadow-md"
+            >
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-8 h-8 bg-green-500 rounded-lg flex items-center justify-center">
+                  <Activity className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="font-bold text-green-700">Ministério da Saúde</h4>
+              </div>
+              <p className="text-sm text-gray-600 mb-3">
+                Portal oficial com políticas de saúde, programas governamentais e informações sobre SUS
+              </p>
+              <span className="text-xs text-green-600 group-hover:text-green-700 font-medium">
+                Acessar site oficial →
+              </span>
+            </a>
+
+            {/* Farmácia Popular */}
+            <a 
+              href="https://www.gov.br/saude/pt-br/acesso-a-informacao/acoes-e-programas/farmacia-popular" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group bg-blue-50 hover:bg-blue-100 rounded-xl p-6 border border-blue-200 transition-all duration-300 hover:shadow-md"
+            >
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-8 h-8 bg-blue-500 rounded-lg flex items-center justify-center">
+                  <Users className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="font-bold text-blue-700">Farmácia Popular</h4>
+              </div>
+              <p className="text-sm text-gray-600 mb-3">
+                Programa que disponibiliza medicamentos gratuitos e com desconto para a população
+              </p>
+              <span className="text-xs text-blue-600 group-hover:text-blue-700 font-medium">
+                Consultar medicamentos →
+              </span>
+            </a>
+
+            {/* PROCON */}
+            <a 
+              href="https://www.procon.rs.gov.br/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group bg-orange-50 hover:bg-orange-100 rounded-xl p-6 border border-orange-200 transition-all duration-300 hover:shadow-md"
+            >
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-8 h-8 bg-orange-500 rounded-lg flex items-center justify-center">
+                  <FileText className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="font-bold text-orange-700">PROCON/RS</h4>
+              </div>
+              <p className="text-sm text-gray-600 mb-3">
+                Proteção e Defesa do Consumidor - Denúncias e orientações sobre direitos do consumidor
+              </p>
+              <span className="text-xs text-orange-600 group-hover:text-orange-700 font-medium">
+                Fazer denúncia →
+              </span>
+            </a>
+
+            {/* Defensoria Pública RS */}
+            <a 
+              href="https://www.defensoria.rs.def.br/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group bg-purple-50 hover:bg-purple-100 rounded-xl p-6 border border-purple-200 transition-all duration-300 hover:shadow-md"
+            >
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-8 h-8 bg-purple-500 rounded-lg flex items-center justify-center">
+                  <Shield className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="font-bold text-purple-700">Defensoria Pública/RS</h4>
+              </div>
+              <p className="text-sm text-gray-600 mb-3">
+                Assistência jurídica gratuita para pessoas de baixa renda e grupos vulneráveis
+              </p>
+              <span className="text-xs text-purple-600 group-hover:text-purple-700 font-medium">
+                Solicitar atendimento →
+              </span>
+            </a>
+
+            {/* Ministério Público RS */}
+            <a 
+              href="https://www.mprs.mp.br/" 
+              target="_blank" 
+              rel="noopener noreferrer"
+              className="group bg-red-50 hover:bg-red-100 rounded-xl p-6 border border-red-200 transition-all duration-300 hover:shadow-md"
+            >
+              <div className="flex items-center space-x-3 mb-3">
+                <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
+                  <UserCheck className="w-5 h-5 text-white" />
+                </div>
+                <h4 className="font-bold text-red-700">Ministério Público/RS</h4>
+              </div>
+              <p className="text-sm text-gray-600 mb-3">
+                Canal de denúncias e acompanhamento de ações do Ministério Público gaúcho
+              </p>
+              <span className="text-xs text-red-600 group-hover:text-red-700 font-medium">
+                Portal do MP/RS →
+              </span>
+            </a>
+          </div>
+
+          {/* Seção de Links Nacionais */}
+          <div className="mt-8 pt-6 border-t border-gray-200">
+            <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">
+              📋 Serviços Nacionais Importantes
+            </h4>
+            <div className="grid md:grid-cols-2 gap-4">
+              <a 
+                href="https://www.gov.br/conectegov/catalogo/saude/consultar-situacao-do-medicamento" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-lg border transition-all duration-300"
+              >
+                <div>
+                  <div className="font-medium text-gray-900">Consulta de Medicamentos - Gov.br</div>
+                  <div className="text-sm text-gray-600">Verificar situação de medicamentos no sistema</div>
+                </div>
+                <span className="text-gray-400 group-hover:text-gray-600">→</span>
+              </a>
+
+              <a 
+                href="https://bulas.anvisa.gov.br/" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-lg border transition-all duration-300"
+              >
+                <div>
+                  <div className="font-medium text-gray-900">Banco de Bulas - ANVISA</div>
+                  <div className="text-sm text-gray-600">Consultar bulas oficiais de medicamentos</div>
+                </div>
+                <span className="text-gray-400 group-hover:text-gray-600">→</span>
+              </a>
+
+              <a 
+                href="https://www.gov.br/pt-br/servicos/obter-medicamentos-do-componente-especializado" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-lg border transition-all duration-300"
+              >
+                <div>
+                  <div className="font-medium text-gray-900">Medicamentos Especializados</div>
+                  <div className="text-sm text-gray-600">Como obter medicamentos de alto custo</div>
+                </div>
+                <span className="text-gray-400 group-hover:text-gray-600">→</span>
+              </a>
+
+              <a 
+                href="https://www.gov.br/saude/pt-br/acesso-a-informacao/acoes-e-programas/rename" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="group flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-lg border transition-all duration-300"
+              >
+                <div>
+                  <div className="font-medium text-gray-900">RENAME - Lista Nacional</div>
+                  <div className="text-sm text-gray-600">Relação Nacional de Medicamentos Essenciais</div>
+                </div>
+                <span className="text-gray-400 group-hover:text-gray-600">→</span>
+              </a>
+            </div>
+          </div>
+
+          {/* Nota Importante */}
+          <div className="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
+            <div className="flex items-start space-x-3">
+              <div className="w-5 h-5 text-yellow-600 mt-0.5">⚠️</div>
+              <div>
+                <h5 className="font-medium text-yellow-800 mb-1">Importante</h5>
+                <p className="text-sm text-yellow-700">
+                  Os links direcionam para sites oficiais dos órgãos governamentais. 
+                  Este sistema oferece orientações, mas não substitui o atendimento oficial destes órgãos.
+                  Em caso de emergência médica, procure atendimento médico imediatamente.
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
       </main>
 
       {/* Widget de Consulta ANVISA */}
