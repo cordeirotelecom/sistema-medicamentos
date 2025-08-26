@@ -268,26 +268,27 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
   return (
     <div className="w-full mx-auto animate-fade-in">
       <div className="card overflow-hidden w-full max-w-none">
-        <div className="gradient-primary text-white p-8">
-          <h1 className="text-4xl font-bold flex items-center gap-4 mb-4">
-            <div className="p-3 bg-white/20 rounded-xl animate-bounce-subtle">
-              <Pill className="h-10 w-10" />
+        <div className="gradient-primary text-white p-4 sm:p-6 lg:p-8">
+          <h1 className="text-2xl sm:text-3xl lg:text-4xl font-bold flex items-center gap-2 sm:gap-4 mb-3 sm:mb-4">
+            <div className="p-2 sm:p-3 bg-white/20 rounded-xl animate-bounce-subtle">
+              <Pill className="h-6 w-6 sm:h-8 sm:w-8 lg:h-10 lg:w-10" />
             </div>
-            DHS via PGS Medicamentos
+            <span className="hidden sm:inline">DHS via PGS Medicamentos</span>
+            <span className="sm:hidden">Med DHS</span>
           </h1>
-          <p className="text-xl opacity-95 max-w-3xl leading-relaxed">
+          <p className="text-sm sm:text-lg lg:text-xl opacity-95 max-w-3xl leading-relaxed">
             🚀 Sistema integrado de orientação com <strong>consulta à base legal atualizada</strong> que verifica seus direitos conforme a legislação brasileira vigente. 
-            Desenvolvimento Harmônico Sustentável via Planejamento de Gestão Sistêmicos e métodos de NMC.
+            <span className="hidden sm:inline">Desenvolvimento Harmônico Sustentável via Planejamento de Gestão Sistêmicos e métodos de NMC.</span>
           </p>
-          <div className="mt-6 flex flex-wrap gap-4 text-sm">
-            <div className="flex items-center gap-2 bg-white/20 px-3 py-2 rounded-lg">
-              <span>✅</span> Verificação de Direitos Legais
+          <div className="mt-4 sm:mt-6 flex flex-wrap gap-2 sm:gap-4 text-xs sm:text-sm">
+            <div className="flex items-center gap-1 sm:gap-2 bg-white/20 px-2 sm:px-3 py-1 sm:py-2 rounded-lg">
+              <span>✅</span> <span className="hidden sm:inline">Verificação de </span>Direitos Legais
             </div>
-            <div className="flex items-center gap-2 bg-white/20 px-3 py-2 rounded-lg">
-              <span>🏛️</span> Inclui MPE Estadual
+            <div className="flex items-center gap-1 sm:gap-2 bg-white/20 px-2 sm:px-3 py-1 sm:py-2 rounded-lg">
+              <span>🏛️</span> <span className="hidden sm:inline">Inclui </span>MPE Estadual
             </div>
-            <div className="flex items-center gap-2 bg-white/20 px-3 py-2 rounded-lg">
-              <span>📋</span> Base Legal Atualizada
+            <div className="flex items-center gap-1 sm:gap-2 bg-white/20 px-2 sm:px-3 py-1 sm:py-2 rounded-lg">
+              <span>📋</span> Base Legal<span className="hidden sm:inline"> Atualizada</span>
             </div>
           </div>
         </div>
@@ -295,7 +296,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
         <form 
           onSubmit={handleSubmit} 
           autoComplete="off" 
-          className="p-8 space-y-8 w-full"
+          className="p-4 sm:p-6 lg:p-8 space-y-6 sm:space-y-8 w-full"
         >
         {/* Informações do Medicamento */}
         <div className="space-y-6 w-full">

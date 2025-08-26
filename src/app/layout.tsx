@@ -15,6 +15,22 @@ export const metadata: Metadata = {
   creator: "DHS via PGS Medicamentos",
   publisher: "Ministério Público",
   robots: "index, follow",
+  manifest: "/manifest.json",
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+      { url: "/icon-192x192.png", sizes: "192x192", type: "image/png" },
+      { url: "/icon-512x512.png", sizes: "512x512", type: "image/png" }
+    ],
+    apple: [
+      { url: "/icon-180x180.png", sizes: "180x180", type: "image/png" }
+    ]
+  },
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: "default",
+    title: "Med DHS"
+  },
   openGraph: {
     title: "DHS via PGS Medicamentos",
     description: "Sistema integrado de orientação para acesso a medicamentos com consulta à base legal atualizada",
@@ -41,6 +57,18 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="pt-BR">
+      <head>
+        <meta name="application-name" content="Med DHS" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+        <meta name="apple-mobile-web-app-title" content="Med DHS" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="mobile-web-app-capable" content="yes" />
+        <meta name="msapplication-TileColor" content="#dc2626" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <link rel="apple-touch-icon" href="/icon-180x180.png" />
+        <link rel="manifest" href="/manifest.json" />
+      </head>
       <body className={`${inter.variable} font-sans antialiased`}>
         {children}
       </body>
