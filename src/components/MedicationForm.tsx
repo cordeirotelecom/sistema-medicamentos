@@ -4,7 +4,8 @@ import { useState, useEffect, useCallback } from 'react';
 import { MedicationRequest } from '@/types';
 import { brazilianStates } from '@/data/agencies';
 import { GovernmentAPIService } from '@/services/government-api';
-import { AlertCircle, Pill, MapPin, User, Phone, Mail, Scale } from 'lucide-react';
+import { AlertCircle, Pill, MapPin, User, Phone, Mail, Scale, BookOpen } from 'lucide-react';
+import LegislationBrowser from './LegislationBrowser';
 
 interface MedicationFormProps {
   onSubmit: (request: MedicationRequest) => void;
@@ -38,6 +39,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
   const [loadingCities, setLoadingCities] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isFormValid, setIsFormValid] = useState(false);
+  const [showLegislation, setShowLegislation] = useState(false);
 
   // Limpar cache e forçar estado inicial
   useEffect(() => {
@@ -724,6 +726,16 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                   </>
                 )}
               </button>
+
+              {/* Botão para abrir Bíblia da Legislação */}
+              <button
+                type="button"
+                onClick={() => setShowLegislation(!showLegislation)}
+                className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 px-8 rounded-xl text-lg font-medium hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
+              >
+                <BookOpen className="h-7 w-7" />
+                {showLegislation ? 'Ocultar' : 'Abrir'} Bíblia da Legislação
+              </button>
             </div>
             
             {!isFormValid && (
@@ -740,6 +752,21 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
           </div>
         </div>
         </form>
+
+        {/* Seção da Bíblia da Legislação */}
+        {showLegislation && (
+          <div className="mt-8">
+            <LegislationBrowser 
+              userType="cidadao"
+              medicationContext={{
+                name: formData.medicationName,
+                urgency: formData.urgency,
+                state: formData.location?.state,
+                city: formData.location?.city
+              }}
+            />
+          </div>
+        )}
       </div>
     </div>
   );

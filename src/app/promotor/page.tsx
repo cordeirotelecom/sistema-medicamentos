@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import LegislationBrowser from '@/components/LegislationBrowser';
 import { 
   ArrowLeft, 
   Shield, 
@@ -24,7 +25,8 @@ import {
   Phone,
   Mail,
   Globe,
-  MapPin
+  MapPin,
+  BookOpen
 } from 'lucide-react';
 import {
   BarChart,
@@ -161,6 +163,7 @@ export default function PromotorPage() {
   const [filterUrgency, setFilterUrgency] = useState('all');
   const [filterCategory, setFilterCategory] = useState('all');
   const [isGeneratingReport, setIsGeneratingReport] = useState(false);
+  const [showLegislation, setShowLegislation] = useState(false);
 
   // Função para gerar relatório
   const handleGenerateReport = async () => {
@@ -559,7 +562,8 @@ export default function PromotorPage() {
               { id: 'overview', label: 'Visão Geral', icon: BarChart3 },
               { id: 'cases', label: 'Casos', icon: FileText },
               { id: 'laws', label: 'Legislação', icon: Scale },
-              { id: 'agencies', label: 'Órgãos', icon: Building2 }
+              { id: 'agencies', label: 'Órgãos', icon: Building2 },
+              { id: 'legislation', label: 'Bíblia da Legislação', icon: BookOpen }
             ].map(tab => (
               <button
                 key={tab.id}
@@ -1232,6 +1236,13 @@ export default function PromotorPage() {
                 </div>
               </div>
             </div>
+          </div>
+        )}
+
+        {/* Nova Aba: Bíblia da Legislação */}
+        {activeTab === 'legislation' && (
+          <div className="bg-white rounded-lg shadow-sm">
+            <LegislationBrowser userType="mp" />
           </div>
         )}
         </div>
