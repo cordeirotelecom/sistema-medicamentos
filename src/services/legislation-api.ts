@@ -376,9 +376,6 @@ export class LegislationAPIService {
     return externalMockData;
   }
 
-  /**
-   * Gera relatório personalizado baseado no perfil do usuário
-   */
   static generatePersonalizedReport(
     userType: 'cidadao' | 'mp' | 'defensoria',
     medicationInfo: {

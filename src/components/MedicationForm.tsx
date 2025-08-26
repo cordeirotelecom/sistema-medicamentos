@@ -727,14 +727,14 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 )}
               </button>
 
-              {/* Botão para abrir Bíblia da Legislação */}
+              {/* Botão para abrir Compêndio Legal */}
               <button
                 type="button"
                 onClick={() => setShowLegislation(!showLegislation)}
                 className="w-full bg-gradient-to-r from-purple-600 to-indigo-600 text-white py-4 px-8 rounded-xl text-lg font-medium hover:from-purple-700 hover:to-indigo-700 transform hover:scale-105 transition-all duration-200 shadow-lg hover:shadow-xl flex items-center justify-center gap-3"
               >
                 <BookOpen className="h-7 w-7" />
-                {showLegislation ? 'Ocultar' : 'Abrir'} Bíblia da Legislação
+                {showLegislation ? 'Ocultar' : 'Abrir'} Compêndio Legal
               </button>
             </div>
             
@@ -753,7 +753,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
         </div>
         </form>
 
-        {/* Seção da Bíblia da Legislação */}
+        {/* Seção do Compêndio Legal */}
         {showLegislation && (
           <div className="mt-8">
             <LegislationBrowser 

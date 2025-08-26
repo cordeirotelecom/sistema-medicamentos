@@ -563,7 +563,7 @@ export default function PromotorPage() {
               { id: 'cases', label: 'Casos', icon: FileText },
               { id: 'laws', label: 'Legislação', icon: Scale },
               { id: 'agencies', label: 'Órgãos', icon: Building2 },
-              { id: 'legislation', label: 'Bíblia da Legislação', icon: BookOpen }
+              { id: 'legislation', label: 'Compêndio Legal', icon: BookOpen }
             ].map(tab => (
               <button
                 key={tab.id}
@@ -1239,7 +1239,7 @@ export default function PromotorPage() {
           </div>
         )}
 
-        {/* Nova Aba: Bíblia da Legislação */}
+        {/* Nova Aba: Compêndio Legal */}
         {activeTab === 'legislation' && (
           <div className="bg-white rounded-lg shadow-sm">
             <LegislationBrowser userType="mp" />

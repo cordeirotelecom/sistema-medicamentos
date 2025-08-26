@@ -1,5 +1,5 @@
 /**
- * Componente de Consulta de Legislação - "Bíblia da Legislação"
+ * Componente de Consulta de Legislação - "Compêndio Legal de Medicamentos"
  * Integração completa com APIs governamentais para consulta de leis sobre medicamentos gratuitos
  */
 
@@ -139,7 +139,7 @@ export default function LegislationBrowser({ userType, medicationContext }: Legi
         <div className="flex items-center gap-3 mb-4">
           <BookOpen className="w-8 h-8" />
           <div>
-            <h1 className="text-2xl font-bold">Bíblia da Legislação sobre Medicamentos</h1>
+            <h1 className="text-2xl font-bold">Compêndio Legal de Medicamentos</h1>
             <p className="text-blue-100">Consulta completa de leis, decretos e orientações</p>
           </div>
         </div>
@@ -220,7 +220,7 @@ export default function LegislationBrowser({ userType, medicationContext }: Legi
             {[
               { id: 'laws', label: 'Legislações', icon: FileText },
               { id: 'agencies', label: 'Órgãos e Contatos', icon: Building },
-              { id: 'report', label: 'Relatório Personalizado', icon: Download }
+              { id: 'report', label: 'Guia Personalizado', icon: Download }
             ].map(({ id, label, icon: Icon }) => (
               <button
                 key={id}
