@@ -32,7 +32,17 @@ const eslintConfig = [
     ignores: [
       "node_modules/**/*",
       ".next/**/*",
-      "out/**/*"
+      "out/**/*",
+      ".vercel/**/*",
+      "build/**/*",
+      "dist/**/*",
+      "**/*.d.ts",
+      ".env*",
+      "public/**/*",
+      "*.config.js",
+      "*.config.ts",
+      ".eslintrc.json",
+      "next-env.d.ts"
     ]
   }
 ];
