@@ -13,9 +13,6 @@ interface MedicationFormProps {
 }
 
 export default function MedicationForm({ onSubmit, isLoading, onFormChange }: MedicationFormProps) {
-  // Estado simplificado para teste
-  const [testMedicationName, setTestMedicationName] = useState('');
-  
   const [formData, setFormData] = useState<Partial<MedicationRequest>>({
     medicationName: '',
     issueType: 'quality',
@@ -116,14 +113,6 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
     const isValid = Object.keys(newErrors).length === 0;
     setIsFormValid(isValid);
     
-    // Log para debug sempre - DETALHADO
-    console.log('🔍 VALIDAÇÃO SIMPLIFICADA:', {
-      isValid,
-      totalErrors: Object.keys(newErrors).length,
-      errors: newErrors,
-      isFormValidState: isValid
-    });
-    
     return isValid;
   }, [formData]);
 
@@ -133,8 +122,6 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
   }, [validateForm]);
 
   const updateFormData = (path: string, value: any) => {
-    console.log('🔄 UPDATE FORM DATA:', { path, value });
-    
     setFormData(prev => {
       const newData = { ...prev };
       const keys = path.split('.');
@@ -148,8 +135,6 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
       }
       
       current[keys[keys.length - 1]] = value;
-      
-      console.log('🔄 NOVO FORM DATA:', newData);
       return newData;
     });
   };
@@ -221,31 +206,12 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    console.log('🚀 SUBMIT DETALHADO:', {
-      testMedicationName,
-      testLength: testMedicationName.length,
-      formData: JSON.stringify(formData, null, 2),
-      medicationName: formData.medicationName,
-      medicationNameTrim: formData.medicationName?.trim(),
-      medicationNameLength: formData.medicationName?.length,
-      isEmpty: !formData.medicationName?.trim()
-    });
-    
-    // Usar o campo de teste se preenchido
-    const medicationToUse = testMedicationName || formData.medicationName;
-    
-    if (!medicationToUse?.trim()) {
-      alert('Por favor, preencha o nome do medicamento.');
+    if (!isFormValid) {
+      alert('Por favor, preencha todos os campos obrigatórios.');
       return;
     }
 
-    // Criar dados para envio com o campo de teste
-    const dataToSubmit = {
-      ...formData,
-      medicationName: medicationToUse
-    };
-
-    onSubmit(dataToSubmit as MedicationRequest);
+    onSubmit(formData as MedicationRequest);
   };
 
   const clearForm = () => {
@@ -324,27 +290,9 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
           </h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
-            {/* Campo de teste simples */}
-            <div className="lg:col-span-2 w-full bg-yellow-50 p-4 rounded-xl border-2 border-yellow-300">
-              <label className="block text-sm font-semibold text-yellow-800 mb-2">
-                🧪 TESTE SIMPLES - Nome do Medicamento
-              </label>
-              <input
-                type="text"
-                placeholder="Digite aqui para teste (ex: Dipirona)"
-                value={testMedicationName}
-                onChange={(e) => {
-                  setTestMedicationName(e.target.value);
-                  console.log('🧪 TESTE INPUT:', e.target.value);
-                }}
-                className="w-full p-4 border-2 border-yellow-400 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all duration-200 text-lg bg-white"
-              />
-              <p className="text-yellow-700 text-sm mt-1">Campo de teste independente - digite aqui primeiro</p>
-            </div>
-            
             <div className="lg:col-span-2 w-full">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Nome do Medicamento * (Campo Original)
+                Nome do Medicamento *
               </label>
               <input
                 type="text"
@@ -726,14 +674,7 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               
               <button
                 type="submit"
-                disabled={isLoading}
-                onClick={() => {
-                  console.log('🔘 CLIQUE NO BOTÃO (FORÇADO):', {
-                    isLoading,
-                    isFormValid,
-                    formData
-                  });
-                }}
+                disabled={isLoading || !isFormValid}
                 className="btn-primary text-xl py-5 px-16 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-4 shadow-2xl"
               >
                 {isLoading ? (
