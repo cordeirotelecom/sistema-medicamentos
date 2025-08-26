@@ -100,14 +100,6 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
       newErrors.contactEmail = 'Email inválido';
     }
 
-    // Telefone é opcional, mas se preenchido deve estar no formato correto
-    if (formData.contactInfo?.phone?.trim()) {
-      const phoneNumbers = formData.contactInfo.phone.replace(/\D/g, '');
-      if (phoneNumbers.length < 10 || phoneNumbers.length > 11) {
-        newErrors.contactPhone = 'Formato: (11) 99999-9999';
-      }
-    }
-
     // Validar localização
     if (!formData.location?.state) {
       newErrors.locationState = 'Estado é obrigatório';
@@ -121,19 +113,12 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
     const isValid = Object.keys(newErrors).length === 0;
     setIsFormValid(isValid);
     
-    // Log para debug sempre
-    console.log('Validação do formulário:', {
+    // Log para debug sempre - DETALHADO
+    console.log('🔍 VALIDAÇÃO SIMPLIFICADA:', {
       isValid,
-      errors: newErrors,
       totalErrors: Object.keys(newErrors).length,
-      formData: {
-        medicationName: formData.medicationName?.length || 0,
-        description: formData.description?.length || 0,
-        name: formData.contactInfo?.name?.length || 0,
-        email: formData.contactInfo?.email?.length || 0,
-        state: formData.location?.state || 'vazio',
-        city: formData.location?.city || 'vazio'
-      }
+      errors: newErrors,
+      isFormValidState: isValid
     });
     
     return isValid;
@@ -658,6 +643,32 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
             <div className="flex flex-col sm:flex-row items-center gap-4">
               <button
                 type="button"
+                onClick={() => {
+                  // Teste rápido com dados válidos
+                  const testData = {
+                    medicationName: 'Dipirona',
+                    description: 'Teste com descrição de mais de vinte caracteres para validar o formulário corretamente',
+                    contactInfo: {
+                      name: 'João Silva',
+                      email: 'joao@teste.com',
+                      phone: ''
+                    },
+                    location: {
+                      state: 'SP',
+                      city: 'São Paulo'
+                    }
+                  };
+                  setFormData(prev => ({ ...prev, ...testData }));
+                  console.log('🧪 TESTE: Dados preenchidos automaticamente para debug');
+                }}
+                className="btn-outline text-lg py-4 px-8 rounded-xl flex items-center gap-3 transition-all duration-200 hover:scale-105 mr-4"
+              >
+                <span>🧪</span>
+                Teste Rápido
+              </button>
+
+              <button
+                type="button"
                 onClick={clearForm}
                 className="btn-secondary text-lg py-4 px-8 rounded-xl flex items-center gap-3 transition-all duration-200 hover:scale-105"
               >
@@ -668,6 +679,14 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               <button
                 type="submit"
                 disabled={isLoading || !isFormValid}
+                onClick={() => {
+                  console.log('🔘 CLIQUE NO BOTÃO:', {
+                    isLoading,
+                    isFormValid,
+                    disabled: isLoading || !isFormValid,
+                    formData
+                  });
+                }}
                 className="btn-primary text-xl py-5 px-16 rounded-2xl disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none flex items-center gap-4 shadow-2xl"
               >
                 {isLoading ? (
