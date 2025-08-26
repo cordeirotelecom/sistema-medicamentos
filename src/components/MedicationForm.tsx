@@ -13,6 +13,9 @@ interface MedicationFormProps {
 }
 
 export default function MedicationForm({ onSubmit, isLoading, onFormChange }: MedicationFormProps) {
+  // Estado simplificado para teste
+  const [testMedicationName, setTestMedicationName] = useState('');
+  
   const [formData, setFormData] = useState<Partial<MedicationRequest>>({
     medicationName: '',
     issueType: 'quality',
@@ -219,25 +222,30 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
     e.preventDefault();
     
     console.log('🚀 SUBMIT DETALHADO:', {
+      testMedicationName,
+      testLength: testMedicationName.length,
       formData: JSON.stringify(formData, null, 2),
       medicationName: formData.medicationName,
       medicationNameTrim: formData.medicationName?.trim(),
       medicationNameLength: formData.medicationName?.length,
-      isEmpty: !formData.medicationName?.trim(),
-      description: formData.description,
-      contactName: formData.contactInfo?.name,
-      email: formData.contactInfo?.email,
-      state: formData.location?.state,
-      city: formData.location?.city
+      isEmpty: !formData.medicationName?.trim()
     });
     
-    // Validação básica apenas para evitar envio vazio
-    if (!formData.medicationName?.trim()) {
-      alert('Por favor, preencha pelo menos o nome do medicamento.');
+    // Usar o campo de teste se preenchido
+    const medicationToUse = testMedicationName || formData.medicationName;
+    
+    if (!medicationToUse?.trim()) {
+      alert('Por favor, preencha o nome do medicamento.');
       return;
     }
 
-    onSubmit(formData as MedicationRequest);
+    // Criar dados para envio com o campo de teste
+    const dataToSubmit = {
+      ...formData,
+      medicationName: medicationToUse
+    };
+
+    onSubmit(dataToSubmit as MedicationRequest);
   };
 
   const clearForm = () => {
@@ -316,9 +324,27 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
           </h2>
           
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 w-full">
+            {/* Campo de teste simples */}
+            <div className="lg:col-span-2 w-full bg-yellow-50 p-4 rounded-xl border-2 border-yellow-300">
+              <label className="block text-sm font-semibold text-yellow-800 mb-2">
+                🧪 TESTE SIMPLES - Nome do Medicamento
+              </label>
+              <input
+                type="text"
+                placeholder="Digite aqui para teste (ex: Dipirona)"
+                value={testMedicationName}
+                onChange={(e) => {
+                  setTestMedicationName(e.target.value);
+                  console.log('🧪 TESTE INPUT:', e.target.value);
+                }}
+                className="w-full p-4 border-2 border-yellow-400 rounded-xl focus:ring-2 focus:ring-yellow-500 focus:border-yellow-500 transition-all duration-200 text-lg bg-white"
+              />
+              <p className="text-yellow-700 text-sm mt-1">Campo de teste independente - digite aqui primeiro</p>
+            </div>
+            
             <div className="lg:col-span-2 w-full">
               <label className="block text-sm font-semibold text-gray-700 mb-2">
-                Nome do Medicamento *
+                Nome do Medicamento * (Campo Original)
               </label>
               <input
                 type="text"
