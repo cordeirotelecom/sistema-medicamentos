@@ -22,7 +22,7 @@ export default function Home() {
               </div>
             </div>
             <div className="text-sm text-gray-600 font-medium">
-              Orientação de Procedimentos de Acesso a Medicamentos
+              Orientação de Acesso a Medicamentos
             </div>
           </div>
         </div>
@@ -355,7 +355,7 @@ export default function Home() {
             </div>
             <div className="text-center">
               <div className="font-semibold text-red-800">PROCON</div>
-              <div className="text-xs text-gray-600">Orientação Procedimental</div>
+              <div className="text-xs text-gray-600">Orientação ao Consumidor</div>
             </div>
             <div className="text-center">
               <div className="font-semibold text-orange-700">ANS</div>
@@ -363,7 +363,7 @@ export default function Home() {
             </div>
             <div className="text-center">
               <div className="font-semibold text-red-700">MPE</div>
-              <div className="text-xs text-gray-600">Gestão de Procedimentos</div>
+              <div className="text-xs text-gray-600">Gestão Pública</div>
             </div>
             <div className="text-center">
               <div className="font-semibold text-red-900">DPE</div>
@@ -456,7 +456,7 @@ export default function Home() {
                 <h4 className="font-bold text-orange-700">PROCON/RS</h4>
               </div>
               <p className="text-sm text-gray-600 mb-3">
-                Orientação de Procedimentos de Acesso a Medicamentos - Denúncias e orientações sobre direitos
+                Orientação ao Consumidor - Denúncias e orientações sobre direitos
               </p>
               <span className="text-xs text-orange-600 group-hover:text-orange-700 font-medium">
                 Fazer denúncia →
@@ -484,7 +484,7 @@ export default function Home() {
               </span>
             </a>
 
-            {/* Gestão de Procedimentos RS */}
+            {/* Gestão Pública RS */}
             <a 
               href="https://www.mprs.mp.br/" 
               target="_blank" 
@@ -495,13 +495,13 @@ export default function Home() {
                 <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
                   <UserCheck className="w-5 h-5 text-white" />
                 </div>
-                <h4 className="font-bold text-red-700">Gestão de Procedimentos/RS</h4>
+                <h4 className="font-bold text-red-700">Gestão Pública/RS</h4>
               </div>
               <p className="text-sm text-gray-600 mb-3">
                 Portal de orientação e acompanhamento de procedimentos de acesso a medicamentos
               </p>
               <span className="text-xs text-red-600 group-hover:text-red-700 font-medium">
-                Portal de Procedimentos →
+                Portal Oficial →
               </span>
             </a>
           </div>
@@ -590,10 +590,10 @@ export default function Home() {
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Sistema DHS</h3>
               <p className="text-sm text-gray-600 mb-3">
-                Desenvolvimento Harmônico Sustentável via Planejamento de Gestão Sistêmicos
+                Sistema Integrado de Acesso a Medicamentos
               </p>
               <p className="text-xs text-gray-500">
-                Orientação de procedimentos de acesso a medicamentos
+                Orientação de acesso a medicamentos
               </p>
             </div>
             
@@ -620,7 +620,7 @@ export default function Home() {
           
           <div className="mt-8 pt-6 border-t border-gray-200 text-center">
             <p className="text-sm text-gray-500">
-              © 2025 Sistema de Orientação de Procedimentos de Acesso a Medicamentos. 
+              © 2025 Sistema Integrado de Acesso a Medicamentos. 
               Desenvolvido com ❤️ para o Brasil.
             </p>
           </div>

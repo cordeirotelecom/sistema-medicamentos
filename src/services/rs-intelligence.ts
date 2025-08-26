@@ -125,7 +125,7 @@ export class RSIntelligenceService {
             'Incidência esperada de câncer: 0.4%',
             'Volume indica 5.7% da população em tratamento'
           ],
-          recommendation: 'Auditoria urgente - possível desvio ou superfaturamento',
+          recommendation: 'Verificação recomendada - divergência nos dados reportados',
           relatedCases: ['CASE-2024-234'],
           detectedAt: '2025-01-19T14:15:00Z',
           status: 'investigando'
@@ -297,15 +297,15 @@ export class RSIntelligenceService {
       const mockNews: NewsItem[] = [
         {
           id: 'NEWS-2025-001',
-          title: 'MP-RS obtém economia de R$ 2,3 milhões em medicamentos oncológicos',
-          summary: 'Ação civil pública resultou na redução de preços de medicamentos para câncer em 12 municípios gaúchos',
-          content: 'O Ministério Público do Rio Grande do Sul conseguiu uma redução média de 35% nos preços de medicamentos oncológicos...',
-          source: 'MP-RS',
+          title: 'ANVISA publica nova lista de medicamentos genéricos',
+          summary: 'Lista atualizada com 150 novos medicamentos genéricos aprovados pela ANVISA para 2025',
+          content: 'A ANVISA publicou sua lista atualizada de medicamentos genéricos aprovados, incluindo novos tratamentos para diabetes e hipertensão...',
+          source: 'ANVISA',
           publishedAt: '2025-01-15T08:00:00Z',
-          category: 'juridico',
+          category: 'medicamentos',
           relevanceScore: 0.95,
-          tags: ['economia', 'oncologia', 'sucesso', 'rs'],
-          url: 'https://www.mprs.mp.br/noticias/2025/janeiro/economia-medicamentos',
+          tags: ['genéricos', 'anvisa', 'aprovação', 'lista'],
+          url: 'https://www.anvisa.gov.br/medicamentos/genericos',
           isSuccessCase: true
         },
         {
@@ -336,16 +336,16 @@ export class RSIntelligenceService {
         },
         {
           id: 'NEWS-2025-004',
-          title: 'Operação da PF investiga esquema de superfaturamento em licitações de medicamentos',
-          summary: 'Investigação apura irregularidades em contratos de R$ 45 milhões para fornecimento ao SUS',
-          content: 'A Polícia Federal deflagrou operação para investigar superfaturamento...',
-          source: 'Polícia Federal',
+          title: 'ANVISA atualiza lista de medicamentos genéricos intercambiáveis',
+          summary: 'Nova resolução define critérios mais rigorosos para intercambialidade de medicamentos',
+          content: 'A ANVISA publicou resolução atualizada sobre critérios de intercambialidade...',
+          source: 'ANVISA',
           publishedAt: '2025-01-12T16:45:00Z',
-          category: 'juridico',
+          category: 'medicamentos',
           relevanceScore: 0.91,
-          tags: ['investigacao', 'superfaturamento', 'pf', 'licitacao'],
-          url: 'https://www.pf.gov.br/agencia/noticias/2025/01/operacao-medicamentos',
-          isSuccessCase: false
+          tags: ['genéricos', 'intercambialidade', 'anvisa', 'resolução'],
+          url: 'https://www.anvisa.gov.br/medicamentos/intercambialidade',
+          isSuccessCase: true
         }
       ];
 

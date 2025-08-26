@@ -10,10 +10,10 @@ const inter = Inter({
 export const metadata: Metadata = {
   title: "DHS via PGS Medicamentos | Guia de Acesso a Medicamentos",
   description: "Guia de como ter acesso a medicamentos e fomentar o Desenvolvimento Harmônico Sustentável (DHS) via atuações resolutivas de Planejamento de Gestão Sistêmicos (PGS), Negociação, Mediação e Conciliação (NMC).",
-  keywords: "medicamentos, DHS, PGS, NMC, ANVISA, orientação procedimental, acesso a medicamentos, saúde, Brasil, governo, mediação, conciliação",
-  authors: [{ name: "Sistema de Orientação de Procedimentos" }],
+  keywords: "medicamentos, DHS, PGS, NMC, ANVISA, orientação, acesso a medicamentos, saúde, Brasil, governo, mediação, conciliação",
+  authors: [{ name: "Sistema Integrado de Medicamentos" }],
   creator: "DHS via PGS Medicamentos",
-  publisher: "Sistema de Orientação de Procedimentos",
+  publisher: "Sistema Integrado de Medicamentos",
   robots: "index, follow",
   manifest: "/manifest.json",
   icons: {

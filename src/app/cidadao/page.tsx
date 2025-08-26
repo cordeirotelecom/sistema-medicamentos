@@ -187,17 +187,11 @@ export default function CidadaoPage() {
                     <span className="text-white text-xs font-bold">GP</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-indigo-900 text-sm">Gestão de Procedimentos</div>
+                    <div className="font-medium text-indigo-900 text-sm">Gestão Pública</div>
                   </div>
                 </a>
               </div>
             </div>
-            
-            <MedicationForm 
-              onSubmit={handleFormSubmit} 
-              isLoading={isLoading}
-              onFormChange={handleFormChange}
-            />
           </div>
         )}
         
