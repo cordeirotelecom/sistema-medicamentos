@@ -25,7 +25,7 @@ export class AdvancedNotificationService {
       if ('Notification' in window) {
         const permission = await Notification.requestPermission();
         if (permission === 'granted') {
-          console.log('Permissão para notificações concedida');
+          // console.log('Permissão para notificações concedida');
         }
       }
 
@@ -297,12 +297,12 @@ export class AdvancedNotificationService {
 
   private async sendSMS(notification: NotificationItem): Promise<void> {
     // Integração com serviço de SMS (simulado)
-    console.log('SMS enviado:', notification.message);
+    // console.log('SMS enviado:', notification.message);
   }
 
   private async sendEmail(notification: NotificationItem): Promise<void> {
     // Integração com serviço de email (simulado)
-    console.log('Email enviado:', notification.title);
+    // console.log('Email enviado:', notification.title);
   }
 
   private showInAppNotification(notification: NotificationItem): void {

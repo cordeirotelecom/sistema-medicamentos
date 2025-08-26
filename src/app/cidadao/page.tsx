@@ -17,20 +17,20 @@ export default function CidadaoPage() {
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
 
   const handleFormSubmit = async (formData: any) => {
-    console.log('🚀 handleFormSubmit iniciado com dados:', formData);
+    // console.log('🚀 handleFormSubmit iniciado com dados:', formData);
     setIsLoading(true);
     setCurrentStep('loading');
     setHasUnsavedChanges(false); // Resetar ao enviar
     
     try {
-      console.log('📞 Chamando RecommendationService.generateRecommendation...');
+      // console.log('📞 Chamando RecommendationService.generateRecommendation...');
       const result = await RecommendationService.generateRecommendation(formData);
-      console.log('✅ Resultado obtido:', result);
+      // console.log('✅ Resultado obtido:', result);
       setRecommendation(result);
       setCurrentStep('result');
     } catch (error) {
       console.error('❌ Erro ao obter recomendação:', error);
-      alert('Erro ao processar consulta. Verifique o console para mais detalhes.');
+      alert('Erro ao processar consulta. Tente novamente em alguns instantes.');
       setCurrentStep('form'); // Voltar ao formulário em caso de erro
     } finally {
       setIsLoading(false);

@@ -14,7 +14,16 @@ const nextConfig: NextConfig = {
   distDir: 'out',
   images: {
     unoptimized: true
-  }
+  },
+  // Configuração específica para Turbopack (atualizada)
+  turbopack: {
+    rules: {
+      '*.svg': {
+        loaders: ['@svgr/webpack'],
+        as: '*.js',
+      },
+    },
+  },
 };
 
 export default withPWA(nextConfig);

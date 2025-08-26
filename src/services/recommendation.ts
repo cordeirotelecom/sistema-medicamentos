@@ -12,23 +12,23 @@ export class RecommendationService {
       stateAgency: GovernmentAgency | null;
     }
   }> {
-    console.log('🔍 RecommendationService.generateRecommendation iniciado com:', request);
+    // console.log('🔍 RecommendationService.generateRecommendation iniciado com:', request);
     
     try {
       // Determina o órgão principal baseado no tipo de problema
-      console.log('🏛️ Determinando órgão principal...');
+      // console.log('🏛️ Determinando órgão principal...');
       const primaryAgency = this.getPrimaryAgencyByIssue(request.issueType);
-      console.log('✅ Órgão principal:', primaryAgency.name);
+      // console.log('✅ Órgão principal:', primaryAgency.name);
       
       // Determina órgãos secundários que podem ajudar
-      console.log('🏢 Determinando órgãos secundários...');
+      // console.log('🏢 Determinando órgãos secundários...');
       const secondaryAgencies = this.getSecondaryAgencies(request, primaryAgency);
-      console.log('✅ Órgãos secundários:', secondaryAgencies.map(a => a.name));
+      // console.log('✅ Órgãos secundários:', secondaryAgencies.map(a => a.name));
       
       // Análise de direitos baseada na legislação
-      console.log('⚖️ Analisando direitos legais...');
+      // console.log('⚖️ Analisando direitos legais...');
       const legalAnalysis = await LegalAnalysisService.analyzeRights(request);
-      console.log('✅ Análise legal concluída:', legalAnalysis);
+      // console.log('✅ Análise legal concluída:', legalAnalysis);
       
       // Análise de recomendação do MPE
       const mpeRecommendation = this.analyzeMPERecommendation(request, legalAnalysis);
@@ -47,7 +47,7 @@ export class RecommendationService {
       // Informações adicionais baseadas no contexto
       const additionalInfo = this.generateAdditionalInfo(request, legalAnalysis);
 
-      console.log('✅ RecommendationService concluído');
+      // console.log('✅ RecommendationService concluído');
       return {
         primaryAgency,
         secondaryAgencies: finalSecondaryAgencies,

@@ -20,7 +20,7 @@ export class RealTimeMonitoringService {
       await this.setupServerSentEvents();
       await this.startHealthChecks();
       await this.initializeAlertSystem();
-      console.log('Sistema de monitoramento inicializado com sucesso');
+      // console.log('Sistema de monitoramento inicializado com sucesso');
     } catch (error) {
       console.error('Erro ao inicializar monitoramento:', error);
     }
@@ -37,7 +37,7 @@ export class RealTimeMonitoringService {
       this.websocket = new WebSocket(wsUrl);
 
       this.websocket.onopen = () => {
-        console.log('WebSocket conectado para monitoramento');
+        // console.log('WebSocket conectado para monitoramento');
         this.sendHeartbeat();
       };
 
@@ -46,7 +46,7 @@ export class RealTimeMonitoringService {
       };
 
       this.websocket.onclose = () => {
-        console.log('WebSocket desconectado, tentando reconectar...');
+        // console.log('WebSocket desconectado, tentando reconectar...');
         setTimeout(() => this.setupWebSocketConnection(), 5000);
       };
 
@@ -582,7 +582,7 @@ export class RealTimeMonitoringService {
 
   private async sendCriticalAlert(alert: MonitoringAlert): Promise<void> {
     // Integrar com sistemas de notificação externa
-    console.log('Alerta crítico enviado:', alert);
+    // console.log('Alerta crítico enviado:', alert);
   }
 
   private handleMetricUpdate(data: any): void {

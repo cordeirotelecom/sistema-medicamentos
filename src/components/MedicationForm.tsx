@@ -117,17 +117,17 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
     
     // Log temporário para debug
     if (Object.keys(newErrors).length > 0) {
-      console.log('❌ CAMPOS COM ERRO:', {
-        errors: newErrors,
-        formData: {
-          medicationName: `"${formData.medicationName}" (${formData.medicationName?.length} chars)`,
-          description: `"${formData.description}" (${formData.description?.length} chars)`,
-          contactName: `"${formData.contactInfo?.name}" (${formData.contactInfo?.name?.length} chars)`,
-          contactEmail: `"${formData.contactInfo?.email}" (${formData.contactInfo?.email?.length} chars)`,
-          state: `"${formData.location?.state}"`,
-          city: `"${formData.location?.city}"`
-        }
-      });
+      // console.log('❌ CAMPOS COM ERRO:', {
+      //   errors: newErrors,
+      //   formData: {
+      //     medicationName: `"${formData.medicationName}" (${formData.medicationName?.length} chars)`,
+      //     description: `"${formData.description}" (${formData.description?.length} chars)`,
+      //     contactName: `"${formData.contactInfo?.name}" (${formData.contactInfo?.name?.length} chars)`,
+      //     contactEmail: `"${formData.contactInfo?.email}" (${formData.contactInfo?.email?.length} chars)`,
+      //     state: `"${formData.location?.state}"`,
+      //     city: `"${formData.location?.city}"`
+      //   }
+      // });
     }
     
     return isValid;
