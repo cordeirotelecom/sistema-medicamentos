@@ -740,14 +740,14 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
             
             {!isFormValid && (
               <div className="status-error bg-red-100 border-red-300 text-red-800 max-w-md text-center">
-                <p className="font-medium">⚠️ Campos obrigatórios em falta</p>
+                <p className="font-medium">Campos obrigatórios em falta</p>
                 <p className="text-sm mt-1">Verifique: medicamento, descrição, localização, nome e e-mail.</p>
               </div>
             )}
             
             <div className="text-sm text-center max-w-2xl opacity-80 bg-white/10 p-4 rounded-lg">
-              <p className="mb-2">🔒 <strong>Privacidade garantida</strong> - Seus dados são processados localmente</p>
-              <p>✅ Análise baseada na <strong>legislação brasileira mais recente (2024-2025)</strong></p>
+              <p className="mb-2"><strong>Privacidade garantida</strong> - Seus dados são processados localmente</p>
+              <p>Análise baseada na <strong>legislação brasileira mais recente (2024-2025)</strong></p>
             </div>
           </div>
         </div>

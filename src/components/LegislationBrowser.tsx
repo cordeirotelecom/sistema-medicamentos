@@ -317,7 +317,7 @@ export default function LegislationBrowser({ userType, medicationContext }: Legi
             <div className="space-y-4">
               <div className="bg-blue-50 border border-blue-200 rounded-lg p-4">
                 <h3 className="font-bold text-blue-800 mb-2">
-                  💡 Órgãos Recomendados para {getUserTypeLabel()}
+                  Órgãos Recomendados para {getUserTypeLabel()}
                 </h3>
                 <p className="text-blue-700 text-sm">
                   Lista ordenada por efetividade e rapidez de resposta

@@ -198,7 +198,7 @@ export default function EmergencyContacts() {
           <Phone className="w-6 h-6 text-blue-600" />
           <div>
             <h2 className="text-xl font-bold text-gray-800">
-              🆘 Contatos Úteis - Busque Ajuda Primeiro!
+              Contatos Úteis - Busque Ajuda Primeiro
             </h2>
             <p className="text-gray-600 text-sm">
               Antes de fazer sua solicitação, tente estes órgãos que podem resolver rapidamente
@@ -365,10 +365,10 @@ export default function EmergencyContacts() {
         <div className="flex items-start gap-2">
           <HelpCircle className="w-5 h-5 text-orange-600 flex-shrink-0 mt-0.5" />
           <div className="text-sm">
-            <p className="font-medium text-orange-800 mb-1">💡 Dica Importante:</p>
+            <p className="font-medium text-orange-800 mb-1">Dica Importante:</p>
             <p className="text-orange-700">
               Muitas vezes seus direitos podem ser atendidos rapidamente através destes órgãos, 
-              evitando processos mais demorados. <strong>Tente primeiro!</strong>
+              evitando processos mais demorados. <strong>Tente primeiro</strong>
             </p>
           </div>
         </div>

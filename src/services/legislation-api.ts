@@ -410,9 +410,9 @@ export class LegislationAPIService {
 
   private static getReportTitle(userType: string): string {
     const titles = {
-      cidadao: '📋 Guia Completo: Seus Direitos a Medicamentos Gratuitos',
-      mp: '⚖️ Relatório Jurídico: Base Legal para Ações de Medicamentos',
-      defensoria: '🛡️ Manual de Atuação: Defesa do Direito à Saúde'
+      cidadao: 'Guia Completo: Seus Direitos a Medicamentos Gratuitos',
+      mp: 'Relatório Jurídico: Base Legal para Ações de Medicamentos',
+      defensoria: 'Manual de Atuação: Defesa do Direito à Saúde'
     };
     return titles[userType as keyof typeof titles];
   }
@@ -458,25 +458,25 @@ export class LegislationAPIService {
   private static getLegalTips(userType: string): string[] {
     const tips = {
       cidadao: [
-        '💡 O SUS deve fornecer TODOS os medicamentos da RENAME gratuitamente',
-        '📋 Guarde sempre os comprovantes de tentativas de obtenção do medicamento',
-        '⏰ Medicamentos de urgência podem ser obtidos via liminar judicial',
-        '🏥 Conheça seus direitos: tratamento integral é garantido por lei',
-        '📞 Use os canais de ouvidoria para reclamações sobre negativas'
+        'O SUS deve fornecer TODOS os medicamentos da RENAME gratuitamente',
+        'Guarde sempre os comprovantes de tentativas de obtenção do medicamento',
+        'Medicamentos de urgência podem ser obtidos via liminar judicial',
+        'Conheça seus direitos: tratamento integral é garantido por lei',
+        'Use os canais de ouvidoria para reclamações sobre negativas'
       ],
       mp: [
-        '⚖️ Lei 8.080/90 garante integralidade da assistência farmacêutica',
-        '📊 Monitore indicadores de acesso a medicamentos em sua comarca',
-        '🎯 Foque em políticas públicas estruturantes, não apenas casos individuais',
-        '🤝 Articule com gestores para melhorar os fluxos de fornecimento',
-        '📈 Acompanhe execução orçamentária da assistência farmacêutica'
+        'Lei 8.080/90 garante integralidade da assistência farmacêutica',
+        'Monitore indicadores de acesso a medicamentos em sua comarca',
+        'Foque em políticas públicas estruturantes, não apenas casos individuais',
+        'Articule com gestores para melhorar os fluxos de fornecimento',
+        'Acompanhe execução orçamentária da assistência farmacêutica'
       ],
       defensoria: [
-        '⚡ Tutelas de urgência são cabíveis em casos de risco de vida',
-        '📋 Comprove sempre a negativa administrativa prévia',
-        '💰 Medicamentos de alto custo: responsabilidade primária dos estados',
-        '🏛️ Medicamentos básicos: responsabilidade dos municípios',
-        '📞 Use mediação antes do ajuizamento quando possível'
+        'Tutelas de urgência são cabíveis em casos de risco de vida',
+        'Comprove sempre a negativa administrativa prévia',
+        'Medicamentos de alto custo: responsabilidade primária dos estados',
+        'Medicamentos básicos: responsabilidade dos municípios',
+        'Use mediação antes do ajuizamento quando possível'
       ]
     };
     return tips[userType as keyof typeof tips];
