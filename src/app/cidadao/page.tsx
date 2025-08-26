@@ -9,16 +9,12 @@ import LoadingSpinner from '@/components/LoadingSpinner';
 import UnsavedChangesIndicator from '@/components/UnsavedChangesIndicator';
 import EmergencyContacts from '@/components/EmergencyContacts';
 import { RecommendationService } from '@/services/recommendation';
-import { useBeforeUnload } from '@/components/BeforeUnloadHandler';
 
 export default function CidadaoPage() {
   const [currentStep, setCurrentStep] = useState<'form' | 'loading' | 'result'>('form');
   const [recommendation, setRecommendation] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(false);
   const [hasUnsavedChanges, setHasUnsavedChanges] = useState(false);
-
-  // Hook para controlar a confirmação de saída
-  useBeforeUnload(hasUnsavedChanges && currentStep === 'form');
 
   const handleFormSubmit = async (formData: any) => {
     console.log('🚀 handleFormSubmit iniciado com dados:', formData);
