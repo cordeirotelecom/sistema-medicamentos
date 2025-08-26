@@ -1,7 +1,7 @@
 {
   "name": "Sistema Medicamentos DHS",
   "short_name": "Med DHS",
-  "description": "Sistema de orientação medicamentosa para cidadãos brasileiros - Ministério Público e Defensoria Pública",
+  "description": "Sistema de orientação de procedimentos de acesso a medicamentos para cidadãos brasileiros",
   "start_url": "/",
   "display": "standalone",
   "background_color": "#ffffff",

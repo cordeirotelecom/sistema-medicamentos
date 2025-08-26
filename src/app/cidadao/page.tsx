@@ -184,10 +184,10 @@ export default function CidadaoPage() {
                   className="group flex items-center space-x-2 p-3 bg-indigo-50 hover:bg-indigo-100 rounded-lg border border-indigo-200 transition-all duration-300"
                 >
                   <div className="w-8 h-8 bg-indigo-500 rounded-lg flex items-center justify-center flex-shrink-0">
-                    <span className="text-white text-xs font-bold">MP</span>
+                    <span className="text-white text-xs font-bold">GP</span>
                   </div>
                   <div className="flex-1 min-w-0">
-                    <div className="font-medium text-indigo-900 text-sm">Ministério Público</div>
+                    <div className="font-medium text-indigo-900 text-sm">Gestão de Procedimentos</div>
                   </div>
                 </a>
               </div>

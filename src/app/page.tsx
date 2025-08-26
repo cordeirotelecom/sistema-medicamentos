@@ -22,7 +22,7 @@ export default function Home() {
               </div>
             </div>
             <div className="text-sm text-gray-600 font-medium">
-              Ministério Público - Defesa do Consumidor
+              Orientação de Procedimentos de Acesso a Medicamentos
             </div>
           </div>
         </div>
@@ -149,7 +149,7 @@ export default function Home() {
                 </div>
                 
                 <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
-                  Ministério Público
+                  Gestão de Procedimentos
                 </h3>
                 
                 <p className="text-gray-600 text-center mb-6">
@@ -355,7 +355,7 @@ export default function Home() {
             </div>
             <div className="text-center">
               <div className="font-semibold text-red-800">PROCON</div>
-              <div className="text-xs text-gray-600">Defesa do Consumidor</div>
+              <div className="text-xs text-gray-600">Orientação Procedimental</div>
             </div>
             <div className="text-center">
               <div className="font-semibold text-orange-700">ANS</div>
@@ -363,7 +363,7 @@ export default function Home() {
             </div>
             <div className="text-center">
               <div className="font-semibold text-red-700">MPE</div>
-              <div className="text-xs text-gray-600">Ministério Público</div>
+              <div className="text-xs text-gray-600">Gestão de Procedimentos</div>
             </div>
             <div className="text-center">
               <div className="font-semibold text-red-900">DPE</div>
@@ -456,7 +456,7 @@ export default function Home() {
                 <h4 className="font-bold text-orange-700">PROCON/RS</h4>
               </div>
               <p className="text-sm text-gray-600 mb-3">
-                Proteção e Defesa do Consumidor - Denúncias e orientações sobre direitos do consumidor
+                Orientação de Procedimentos de Acesso a Medicamentos - Denúncias e orientações sobre direitos
               </p>
               <span className="text-xs text-orange-600 group-hover:text-orange-700 font-medium">
                 Fazer denúncia →
@@ -484,7 +484,7 @@ export default function Home() {
               </span>
             </a>
 
-            {/* Ministério Público RS */}
+            {/* Gestão de Procedimentos RS */}
             <a 
               href="https://www.mprs.mp.br/" 
               target="_blank" 
@@ -495,13 +495,13 @@ export default function Home() {
                 <div className="w-8 h-8 bg-red-600 rounded-lg flex items-center justify-center">
                   <UserCheck className="w-5 h-5 text-white" />
                 </div>
-                <h4 className="font-bold text-red-700">Ministério Público/RS</h4>
+                <h4 className="font-bold text-red-700">Gestão de Procedimentos/RS</h4>
               </div>
               <p className="text-sm text-gray-600 mb-3">
-                Canal de denúncias e acompanhamento de ações do Ministério Público gaúcho
+                Portal de orientação e acompanhamento de procedimentos de acesso a medicamentos
               </p>
               <span className="text-xs text-red-600 group-hover:text-red-700 font-medium">
-                Portal do MP/RS →
+                Portal de Procedimentos →
               </span>
             </a>
           </div>
@@ -582,6 +582,50 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      {/* Footer melhorado */}
+      <footer className="bg-gray-50 border-t border-gray-200 py-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Sistema DHS</h3>
+              <p className="text-sm text-gray-600 mb-3">
+                Desenvolvimento Harmônico Sustentável via Planejamento de Gestão Sistêmicos
+              </p>
+              <p className="text-xs text-gray-500">
+                Orientação de procedimentos de acesso a medicamentos
+              </p>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Links Úteis</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li><a href="https://www.anvisa.gov.br" className="hover:text-blue-600">ANVISA</a></li>
+                <li><a href="https://www.ans.gov.br" className="hover:text-blue-600">ANS</a></li>
+                <li><a href="https://www.saude.gov.br" className="hover:text-blue-600">Ministério da Saúde</a></li>
+                <li><a href="https://farmaciapopu.saude.gov.br" className="hover:text-blue-600">Farmácia Popular</a></li>
+              </ul>
+            </div>
+            
+            <div>
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">Contatos</h3>
+              <ul className="space-y-2 text-sm text-gray-600">
+                <li>📞 SAMU: 192</li>
+                <li>📞 Farmácia Popular: 136</li>
+                <li>📞 PROCON: 151</li>
+                <li>📞 Defensoria Pública: 129</li>
+              </ul>
+            </div>
+          </div>
+          
+          <div className="mt-8 pt-6 border-t border-gray-200 text-center">
+            <p className="text-sm text-gray-500">
+              © 2025 Sistema de Orientação de Procedimentos de Acesso a Medicamentos. 
+              Desenvolvido com ❤️ para o Brasil.
+            </p>
+          </div>
+        </div>
+      </footer>
     </div>
   );
 }
