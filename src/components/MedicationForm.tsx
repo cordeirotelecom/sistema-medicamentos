@@ -214,8 +214,11 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     
-    if (!isFormValid) {
-      alert('Por favor, preencha todos os campos obrigatórios.');
+    console.log('🚀 SUBMIT FORÇADO - Dados enviados:', formData);
+    
+    // Validação básica apenas para evitar envio vazio
+    if (!formData.medicationName?.trim()) {
+      alert('Por favor, preencha pelo menos o nome do medicamento.');
       return;
     }
 
@@ -678,12 +681,11 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               
               <button
                 type="submit"
-                disabled={isLoading || !isFormValid}
+                disabled={isLoading}
                 onClick={() => {
-                  console.log('🔘 CLIQUE NO BOTÃO:', {
+                  console.log('🔘 CLIQUE NO BOTÃO (FORÇADO):', {
                     isLoading,
                     isFormValid,
-                    disabled: isLoading || !isFormValid,
                     formData
                   });
                 }}
