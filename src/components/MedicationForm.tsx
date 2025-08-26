@@ -93,6 +93,105 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
     validateForm();
   }, [validateForm]);
 
+  // Detectar campos preenchidos por autocompletar
+  useEffect(() => {
+    const checkForAutofill = () => {
+      const form = document.querySelector('form');
+      if (!form) return;
+
+      const inputs = form.querySelectorAll('input, textarea, select');
+      inputs.forEach((input) => {
+        const element = input as HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement;
+        
+        // Se o campo tem valor mas o React state não tem, sincronizar
+        if (element.value && element.name) {
+          const currentReactValue = getFormFieldValue(element.name);
+          if (currentReactValue !== element.value) {
+            const fieldPath = getFieldPath(element.name);
+            if (fieldPath) {
+              updateFormData(fieldPath, element.value);
+            }
+          }
+        }
+      });
+    };
+
+    const getFormFieldValue = (name: string): string => {
+      switch (name) {
+        case 'medication-name': return formData.medicationName || '';
+        case 'description': return formData.description || '';
+        case 'contact-name': return formData.contactInfo?.name || '';
+        case 'contact-email': return formData.contactInfo?.email || '';
+        case 'contact-phone': return formData.contactInfo?.phone || '';
+        default: return '';
+      }
+    };
+
+    const getFieldPath = (name: string): string | null => {
+      switch (name) {
+        case 'medication-name': return 'medicationName';
+        case 'description': return 'description';
+        case 'contact-name': return 'contactInfo.name';
+        case 'contact-email': return 'contactInfo.email';
+        case 'contact-phone': return 'contactInfo.phone';
+        default: return null;
+      }
+    };
+
+    // Verificação inicial
+    setTimeout(checkForAutofill, 100);
+    setTimeout(checkForAutofill, 500);
+    setTimeout(checkForAutofill, 1000);
+
+    // Observer para mudanças no DOM
+    const observer = new MutationObserver((mutations) => {
+      let shouldCheck = false;
+      mutations.forEach((mutation) => {
+        if (mutation.type === 'attributes' && mutation.attributeName === 'value') {
+          shouldCheck = true;
+        }
+        if (mutation.type === 'childList') {
+          shouldCheck = true;
+        }
+      });
+      if (shouldCheck) {
+        setTimeout(checkForAutofill, 50);
+      }
+    });
+
+    const form = document.querySelector('form');
+    if (form) {
+      observer.observe(form, {
+        attributes: true,
+        attributeFilter: ['value'],
+        childList: true,
+        subtree: true
+      });
+    }
+
+    return () => {
+      observer.disconnect();
+    };
+  }, [formData]);
+
+  const updateFormData = (path: string, value: any) => {
+    setFormData(prev => {
+      const newData = { ...prev };
+      const keys = path.split('.');
+      let current: any = newData;
+      
+      for (let i = 0; i < keys.length - 1; i++) {
+        if (!current[keys[i]]) {
+          current[keys[i]] = {};
+        }
+        current = current[keys[i]];
+      }
+      
+      current[keys[keys.length - 1]] = value;
+      return newData;
+    });
+  };
+
   // Detectar mudanças no formulário
   useEffect(() => {
     const hasChanges = !!(
@@ -168,24 +267,6 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
     onSubmit(formData as MedicationRequest);
   };
 
-  const updateFormData = (path: string, value: any) => {
-    setFormData(prev => {
-      const newData = { ...prev };
-      const keys = path.split('.');
-      let current: any = newData;
-      
-      for (let i = 0; i < keys.length - 1; i++) {
-        if (!current[keys[i]]) {
-          current[keys[i]] = {};
-        }
-        current = current[keys[i]];
-      }
-      
-      current[keys[keys.length - 1]] = value;
-      return newData;
-    });
-  };
-
   return (
     <div className="w-full mx-auto animate-fade-in">
       <div className="card overflow-hidden w-full max-w-none">
@@ -230,8 +311,10 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               </label>
               <input
                 type="text"
+                name="medication-name"
                 value={formData.medicationName || ''}
                 onChange={(e) => updateFormData('medicationName', e.target.value)}
+                onInput={(e) => updateFormData('medicationName', (e.target as HTMLInputElement).value)}
                 className={`w-full p-4 border-2 rounded-xl focus:ring-2 transition-all duration-200 text-lg ${
                   errors.medicationName 
                     ? 'border-red-300 focus:ring-red-500 focus:border-red-500' 
@@ -286,8 +369,10 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
                 Descrição Detalhada do Problema *
               </label>
               <textarea
+                name="description"
                 value={formData.description || ''}
                 onChange={(e) => updateFormData('description', e.target.value)}
+                onInput={(e) => updateFormData('description', (e.target as HTMLTextAreaElement).value)}
                 rows={4}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-blue-500 transition-all duration-200 text-lg resize-none"
                 placeholder="Descreva detalhadamente o problema encontrado. Inclua informações como: onde comprou, quando aconteceu, sintomas observados, etc..."
@@ -478,8 +563,10 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               </label>
               <input
                 type="text"
+                name="contact-name"
                 value={formData.contactInfo?.name || ''}
                 onChange={(e) => updateFormData('contactInfo.name', e.target.value)}
+                onInput={(e) => updateFormData('contactInfo.name', (e.target as HTMLInputElement).value)}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-lg"
                 placeholder="Seu nome completo"
                 required
@@ -495,8 +582,10 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               </label>
               <input
                 type="email"
+                name="contact-email"
                 value={formData.contactInfo?.email || ''}
                 onChange={(e) => updateFormData('contactInfo.email', e.target.value)}
+                onInput={(e) => updateFormData('contactInfo.email', (e.target as HTMLInputElement).value)}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-lg"
                 placeholder="seu.email@exemplo.com"
                 required
@@ -512,9 +601,14 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
               </label>
               <input
                 type="tel"
+                name="contact-phone"
                 value={formData.contactInfo?.phone || ''}
                 onChange={(e) => {
                   const formatted = formatPhone(e.target.value);
+                  updateFormData('contactInfo.phone', formatted);
+                }}
+                onInput={(e) => {
+                  const formatted = formatPhone((e.target as HTMLInputElement).value);
                   updateFormData('contactInfo.phone', formatted);
                 }}
                 className="w-full p-4 border-2 border-gray-200 rounded-xl focus:ring-2 focus:ring-orange-500 focus:border-orange-500 transition-all duration-200 text-lg"
