@@ -24,6 +24,20 @@ export default function RecommendationDisplay({ recommendation, onNewSearch }: R
   const [notifications, setNotifications] = useState<any[]>([]);
   const [governmentData, setGovernmentData] = useState<any>(null);
 
+  // Scroll para o topo quando o componente for montado
+  useEffect(() => {
+    // Scroll suave para o topo
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    
+    // Focar no elemento principal após um pequeno delay
+    setTimeout(() => {
+      const element = document.getElementById('recommendation-display');
+      if (element) {
+        element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }
+    }, 100);
+  }, []);
+
   const initializeAdvancedServices = useCallback(async () => {
     try {
       // Inicializar notificações
@@ -107,7 +121,7 @@ export default function RecommendationDisplay({ recommendation, onNewSearch }: R
   }
 
   return (
-    <div className="w-full mx-auto space-y-8">
+    <div className="w-full mx-auto space-y-8" id="recommendation-display">
       {/* Header aprimorado */}
       <div className="bg-white rounded-xl shadow-xl overflow-hidden w-full">
         <div className="bg-gradient-to-r from-red-600 via-red-600 to-red-700 text-white p-8">

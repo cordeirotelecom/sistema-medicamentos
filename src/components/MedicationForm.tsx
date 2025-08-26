@@ -38,7 +38,6 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
   const [loadingCities, setLoadingCities] = useState(false);
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isFormValid, setIsFormValid] = useState(false);
-  const [formInitialized, setFormInitialized] = useState(false);
 
   // Limpar cache e forçar estado inicial
   useEffect(() => {
@@ -64,7 +63,9 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
         });
 
         // Forçar re-renderização do estado
-        setTimeout(() => setFormInitialized(true), 100);
+        setTimeout(() => {
+          // Formulário pronto para uso
+        }, 100);
       }
     };
 
@@ -120,29 +121,28 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
     const isValid = Object.keys(newErrors).length === 0;
     setIsFormValid(isValid);
     
-    // Log para debug
-    if (formInitialized) {
-      console.log('Validação do formulário:', {
-        isValid,
-        errors: newErrors,
-        formData: {
-          medicationName: formData.medicationName,
-          description: formData.description,
-          name: formData.contactInfo?.name,
-          email: formData.contactInfo?.email,
-          state: formData.location?.state,
-          city: formData.location?.city
-        }
-      });
-    }
-  }, [formData, formInitialized]);
+    // Log para debug sempre
+    console.log('Validação do formulário:', {
+      isValid,
+      errors: newErrors,
+      totalErrors: Object.keys(newErrors).length,
+      formData: {
+        medicationName: formData.medicationName?.length || 0,
+        description: formData.description?.length || 0,
+        name: formData.contactInfo?.name?.length || 0,
+        email: formData.contactInfo?.email?.length || 0,
+        state: formData.location?.state || 'vazio',
+        city: formData.location?.city || 'vazio'
+      }
+    });
+    
+    return isValid;
+  }, [formData]);
 
-  // Validação em tempo real - só após inicialização
+  // Validação em tempo real
   useEffect(() => {
-    if (formInitialized) {
-      validateForm();
-    }
-  }, [validateForm, formInitialized]);
+    validateForm();
+  }, [validateForm]);
 
   const updateFormData = (path: string, value: any) => {
     setFormData(prev => {
@@ -164,20 +164,18 @@ export default function MedicationForm({ onSubmit, isLoading, onFormChange }: Me
 
   // Detectar mudanças no formulário
   useEffect(() => {
-    if (formInitialized) {
-      const hasChanges = !!(
-        formData.medicationName?.trim() ||
-        formData.description?.trim() ||
-        formData.contactInfo?.name?.trim() ||
-        formData.contactInfo?.email?.trim() ||
-        formData.contactInfo?.phone?.trim() ||
-        formData.location?.state ||
-        formData.location?.city
-      );
-      
-      onFormChange?.(hasChanges);
-    }
-  }, [formData, onFormChange, formInitialized]);
+    const hasChanges = !!(
+      formData.medicationName?.trim() ||
+      formData.description?.trim() ||
+      formData.contactInfo?.name?.trim() ||
+      formData.contactInfo?.email?.trim() ||
+      formData.contactInfo?.phone?.trim() ||
+      formData.location?.state ||
+      formData.location?.city
+    );
+    
+    onFormChange?.(hasChanges);
+  }, [formData, onFormChange]);
 
   const formatPhone = (value: string) => {
     const numbers = value.replace(/\D/g, '');
