@@ -1,0 +1,13 @@
+node_modules/
+.next/
+.vercel/
+out/
+build/
+dist/
+*.d.ts
+.env*
+public/
+*.config.js
+*.config.ts
+.eslintrc.json
+next-env.d.ts
