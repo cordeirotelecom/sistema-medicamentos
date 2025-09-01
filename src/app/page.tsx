@@ -18,7 +18,7 @@ export default function Home() {
                 <h1 className="text-xl font-bold text-gray-900">
                   DHS via PGS Medicamentos
                 </h1>
-                <p className="text-xs text-gray-500 hidden sm:block">Sistema Integrado de Acesso a Medicamentos</p>
+                <p className="text-xs text-gray-500 hidden sm:block">Sistema de Acesso a Medicamentos</p>
               </div>
             </div>
             <div className="text-sm text-gray-600 font-medium">
@@ -52,18 +52,17 @@ export default function Home() {
         </div>
       </div>
 
-      {/* Main Content */}
       <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <div className="text-center mb-12">
           <h2 className="text-4xl font-bold text-gray-900 mb-4">
-            Sistema de Orientação para Acesso a Medicamentos
+            Sistema de Acesso a Medicamentos
           </h2>
           <p className="text-xl text-gray-600 max-w-4xl mx-auto leading-relaxed mb-6">
-            Sistema público gratuito que promove <strong>atuações resolutivas de Planejamento e de Gestão Sistêmicos</strong>, 
-            <strong>Negociação</strong>, <strong>Mediação</strong> e <strong>Conciliação</strong> para garantir o acesso aos direitos de saúde 
-            através do <strong>Desenvolvimento Harmônico Sustentável (DHS)</strong>.
+            Sistema público gratuito que promove <strong>atuações resolutivas de Planejamento e de Gestão Sistêmicos</strong>,
+            <strong> Negociação</strong>, <strong>Mediação</strong> e <strong>Conciliação</strong> para fomento do
+            <strong> Desenvolvimento Harmônico Sustentável (DHS)</strong> com foco no acesso a Medicamentos.
           </p>
-          
+
           {/* Explicação das Siglas */}
           <div className="max-w-5xl mx-auto bg-red-50 rounded-xl p-6 border border-red-100">
             <h3 className="text-lg font-semibold text-red-800 mb-4">Metodologia de Atuações Resolutivas</h3>
@@ -79,7 +78,7 @@ export default function Home() {
                 <h4 className="font-bold text-red-700 mb-2">PGS</h4>
                 <p className="text-gray-700">
                   <strong>Planejamento e Gestão Sistêmicos</strong><br/>
-                  <strong>Foco em atuações resolutivas de planejamento</strong> que conectam diferentes órgãos para soluções eficazes.
+                  Foco em atuações resolutivas de planejamento que conectam diferentes órgãos para soluções efetivas.
                 </p>
               </div>
               <div className="bg-white rounded-lg p-4 border border-red-200">
@@ -99,21 +98,21 @@ export default function Home() {
           <Link href="/cidadao">
             <div className="group relative bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-red-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-red-600/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              
+
               <div className="relative p-8">
                 <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-red-500 to-red-600 rounded-xl mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
                   <Users className="w-8 h-8 text-white" />
                 </div>
-                
+
                 <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
                   Portal do Cidadão
                 </h3>
-                
+
                 <p className="text-gray-600 text-center mb-6">
-                  Consulte medicamentos, conheça seus direitos e receba orientações 
+                  Consulte medicamentos, conheça seus direitos e receba orientações
                   sobre procedimentos junto aos órgãos competentes.
                 </p>
-                
+
                 <div className="space-y-3">
                   <div className="flex items-center text-sm text-gray-600">
                     <FileText className="w-4 h-4 mr-3 text-red-500" />
@@ -128,7 +127,7 @@ export default function Home() {
                     Indicação de órgãos competentes
                   </div>
                 </div>
-                
+
                 <div className="mt-6 text-center">
                   <span className="inline-flex items-center px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium group-hover:bg-red-200 transition-colors duration-300">
                     Acessar Portal do Cidadão
@@ -142,21 +141,21 @@ export default function Home() {
           <Link href="/promotor">
             <div className="group relative bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-red-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-red-500/10 to-red-700/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              
+
               <div className="relative p-8">
                 <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-red-600 to-red-700 rounded-xl mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
                   <UserCheck className="w-8 h-8 text-white" />
                 </div>
-                
+
                 <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
-                  Gestão de Procedimentos
+                  Ministério Público
                 </h3>
-                
+
                 <p className="text-gray-600 text-center mb-6">
-                  Painel de monitoramento para acompanhar demandas da comunidade 
+                  Painel de monitoramento para acompanhar demandas da comunidade
                   e implementar atuações resolutivas de planejamento sistêmico.
                 </p>
-                
+
                 <div className="space-y-3">
                   <div className="flex items-center text-sm text-gray-600">
                     <TrendingUp className="w-4 h-4 mr-3 text-red-500" />
@@ -171,7 +170,7 @@ export default function Home() {
                     Gestão sistêmica de casos
                   </div>
                 </div>
-                
+
                 <div className="mt-6 text-center">
                   <span className="inline-flex items-center px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium group-hover:bg-red-200 transition-colors duration-300">
                     Acessar MPE
@@ -185,21 +184,21 @@ export default function Home() {
           <Link href="/defensoria">
             <div className="group relative bg-white/70 backdrop-blur-sm rounded-2xl shadow-lg border border-red-100 hover:shadow-2xl transition-all duration-300 hover:-translate-y-2 cursor-pointer overflow-hidden">
               <div className="absolute inset-0 bg-gradient-to-br from-red-600/10 to-red-800/10 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-              
+
               <div className="relative p-8">
                 <div className="flex items-center justify-center w-16 h-16 bg-gradient-to-r from-red-700 to-red-800 rounded-xl mb-6 mx-auto group-hover:scale-110 transition-transform duration-300">
                   <Shield className="w-8 h-8 text-white" />
                 </div>
-                
+
                 <h3 className="text-2xl font-bold text-gray-900 text-center mb-4">
                   Defensoria Pública
                 </h3>
-                
+
                 <p className="text-gray-600 text-center mb-6">
-                  Acesso especializado para defesa dos direitos dos hipossuficientes 
+                  Acesso especializado para defesa dos direitos dos hipossuficientes
                   em questões medicamentosas e de saúde pública.
                 </p>
-                
+
                 <div className="space-y-3">
                   <div className="flex items-center text-sm text-gray-600">
                     <Shield className="w-4 h-4 mr-3 text-red-700" />
@@ -214,7 +213,7 @@ export default function Home() {
                     Casos de vulnerabilidade social
                   </div>
                 </div>
-                
+
                 <div className="mt-6 text-center">
                   <span className="inline-flex items-center px-4 py-2 bg-red-100 text-red-700 rounded-lg text-sm font-medium group-hover:bg-red-200 transition-colors duration-300">
                     Acessar Defensoria
@@ -244,7 +243,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          
+
           <div className="bg-white/70 backdrop-blur-sm rounded-xl shadow-lg p-6 border border-red-100">
             <h4 className="text-lg font-bold text-gray-900 mb-4">⚡ Funcionalidades em Destaque</h4>
             <div className="space-y-3">
@@ -272,7 +271,7 @@ export default function Home() {
         <div className="mt-16 text-center bg-gradient-to-r from-red-600 to-red-700 rounded-2xl p-8 text-white shadow-xl">
           <h3 className="text-2xl font-bold mb-4">Precisa de Ajuda com Medicamentos?</h3>
           <p className="text-red-100 mb-6 max-w-2xl mx-auto">
-            Nosso sistema oferece orientação especializada baseada na legislação brasileira. 
+            Nosso sistema oferece orientação especializada baseada na legislação brasileira.
             Descubra seus direitos e receba recomendações personalizadas.
           </p>
           <Link href="/cidadao" className="inline-flex items-center px-8 py-3 bg-white text-red-600 font-semibold rounded-lg hover:bg-red-50 transition-colors duration-300 shadow-lg">
@@ -286,10 +285,10 @@ export default function Home() {
             Sistema de Orientação Medicamentosa
           </h3>
           <p className="text-center text-gray-600 mb-8 max-w-4xl mx-auto">
-            Plataforma digital desenvolvida para orientar cidadãos, promotores e defensores públicos 
+            Plataforma digital desenvolvida para orientar cidadãos, promotores e defensores públicos
             sobre direitos relacionados ao acesso a medicamentos, baseada na legislação brasileira vigente.
           </p>
-          
+
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             <div className="text-center">
               <div className="text-3xl font-bold text-red-600 mb-2">6</div>
@@ -307,7 +306,7 @@ export default function Home() {
               <div className="text-xs text-gray-500 mt-1">Cidadão, MP e Defensoria</div>
             </div>
           </div>
-          
+
           {/* Explicação sobre o Sistema */}
           <div className="mt-8 pt-6 border-t border-red-100">
             <h4 className="text-lg font-semibold text-gray-800 mb-4 text-center">
@@ -317,21 +316,21 @@ export default function Home() {
               <div className="bg-red-50 rounded-lg p-4">
                 <h5 className="font-semibold text-red-800 mb-2">� Orientação Legal</h5>
                 <p className="text-gray-700">
-                  Fornecer informações precisas sobre direitos e procedimentos legais 
+                  Fornecer informações precisas sobre direitos e procedimentos legais
                   relacionados ao acesso a medicamentos com base na legislação vigente.
                 </p>
               </div>
               <div className="bg-red-50 rounded-lg p-4">
                 <h5 className="font-semibold text-red-800 mb-2">🤝 Mediação Preventiva</h5>
                 <p className="text-gray-700">
-                  Promover soluções consensuais e extrajudiciais através de negociação, 
+                  Promover soluções consensuais e extrajudiciais através de negociação,
                   mediação e conciliação antes da judicialização.
                 </p>
               </div>
               <div className="bg-red-50 rounded-lg p-4">
                 <h5 className="font-semibold text-red-800 mb-2">⚖️ Suporte Institucional</h5>
                 <p className="text-gray-700">
-                  Auxiliar promotores e defensores públicos com dados e análises para 
+                  Auxiliar promotores e defensores públicos com dados e análises para
                   atuações resolutivas de planejamento sistêmico.
                 </p>
               </div>
@@ -377,12 +376,12 @@ export default function Home() {
           <h3 className="text-2xl font-bold text-center text-gray-900 mb-8">
             🔗 Links Úteis - Órgãos Oficiais
           </h3>
-          
+
           <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
             {/* ANVISA */}
-            <a 
-              href="https://www.gov.br/anvisa/pt-br" 
-              target="_blank" 
+            <a
+              href="https://www.gov.br/anvisa/pt-br"
+              target="_blank"
               rel="noopener noreferrer"
               className="group bg-red-50 hover:bg-red-100 rounded-xl p-6 border border-red-200 transition-all duration-300 hover:shadow-md"
             >
@@ -401,9 +400,9 @@ export default function Home() {
             </a>
 
             {/* Ministério da Saúde */}
-            <a 
-              href="https://www.gov.br/saude/pt-br" 
-              target="_blank" 
+            <a
+              href="https://www.gov.br/saude/pt-br"
+              target="_blank"
               rel="noopener noreferrer"
               className="group bg-green-50 hover:bg-green-100 rounded-xl p-6 border border-green-200 transition-all duration-300 hover:shadow-md"
             >
@@ -422,9 +421,9 @@ export default function Home() {
             </a>
 
             {/* Farmácia Popular */}
-            <a 
-              href="https://www.gov.br/saude/pt-br/acesso-a-informacao/acoes-e-programas/farmacia-popular" 
-              target="_blank" 
+            <a
+              href="https://www.gov.br/saude/pt-br/acesso-a-informacao/acoes-e-programas/farmacia-popular"
+              target="_blank"
               rel="noopener noreferrer"
               className="group bg-blue-50 hover:bg-blue-100 rounded-xl p-6 border border-blue-200 transition-all duration-300 hover:shadow-md"
             >
@@ -443,9 +442,9 @@ export default function Home() {
             </a>
 
             {/* PROCON */}
-            <a 
-              href="https://www.procon.rs.gov.br/" 
-              target="_blank" 
+            <a
+              href="https://www.procon.rs.gov.br/"
+              target="_blank"
               rel="noopener noreferrer"
               className="group bg-orange-50 hover:bg-orange-100 rounded-xl p-6 border border-orange-200 transition-all duration-300 hover:shadow-md"
             >
@@ -464,9 +463,9 @@ export default function Home() {
             </a>
 
             {/* Defensoria Pública RS */}
-            <a 
-              href="https://www.defensoria.rs.def.br/" 
-              target="_blank" 
+            <a
+              href="https://www.defensoria.rs.def.br/"
+              target="_blank"
               rel="noopener noreferrer"
               className="group bg-purple-50 hover:bg-purple-100 rounded-xl p-6 border border-purple-200 transition-all duration-300 hover:shadow-md"
             >
@@ -485,9 +484,9 @@ export default function Home() {
             </a>
 
             {/* Gestão Pública RS */}
-            <a 
-              href="https://www.mprs.mp.br/" 
-              target="_blank" 
+            <a
+              href="https://www.mprs.mp.br/"
+              target="_blank"
               rel="noopener noreferrer"
               className="group bg-red-50 hover:bg-red-100 rounded-xl p-6 border border-red-200 transition-all duration-300 hover:shadow-md"
             >
@@ -512,9 +511,9 @@ export default function Home() {
               📋 Serviços Nacionais Importantes
             </h4>
             <div className="grid md:grid-cols-2 gap-4">
-              <a 
-                href="https://www.gov.br/conectegov/catalogo/saude/consultar-situacao-do-medicamento" 
-                target="_blank" 
+              <a
+                href="https://www.gov.br/conectegov/catalogo/saude/consultar-situacao-do-medicamento"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-lg border transition-all duration-300"
               >
@@ -525,9 +524,9 @@ export default function Home() {
                 <span className="text-gray-400 group-hover:text-gray-600">→</span>
               </a>
 
-              <a 
-                href="https://bulas.anvisa.gov.br/" 
-                target="_blank" 
+              <a
+                href="https://bulas.anvisa.gov.br/"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-lg border transition-all duration-300"
               >
@@ -538,9 +537,9 @@ export default function Home() {
                 <span className="text-gray-400 group-hover:text-gray-600">→</span>
               </a>
 
-              <a 
-                href="https://www.gov.br/pt-br/servicos/obter-medicamentos-do-componente-especializado" 
-                target="_blank" 
+              <a
+                href="https://www.gov.br/pt-br/servicos/obter-medicamentos-do-componente-especializado"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-lg border transition-all duration-300"
               >
@@ -551,9 +550,9 @@ export default function Home() {
                 <span className="text-gray-400 group-hover:text-gray-600">→</span>
               </a>
 
-              <a 
-                href="https://www.gov.br/saude/pt-br/acesso-a-informacao/acoes-e-programas/rename" 
-                target="_blank" 
+              <a
+                href="https://www.gov.br/saude/pt-br/acesso-a-informacao/acoes-e-programas/rename"
+                target="_blank"
                 rel="noopener noreferrer"
                 className="group flex items-center justify-between p-4 bg-gray-50 hover:bg-gray-100 rounded-lg border transition-all duration-300"
               >
@@ -573,7 +572,7 @@ export default function Home() {
               <div>
                 <h5 className="font-medium text-yellow-800 mb-1">Importante</h5>
                 <p className="text-sm text-yellow-700">
-                  Os links direcionam para sites oficiais dos órgãos governamentais. 
+                  Os links direcionam para sites oficiais dos órgãos governamentais.
                   Este sistema oferece orientações, mas não substitui o atendimento oficial destes órgãos.
                   Em caso de emergência médica, procure atendimento médico imediatamente.
                 </p>
@@ -596,7 +595,7 @@ export default function Home() {
                 Orientação de acesso a medicamentos
               </p>
             </div>
-            
+
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Links Úteis</h3>
               <ul className="space-y-2 text-sm text-gray-600">
@@ -606,7 +605,7 @@ export default function Home() {
                 <li><a href="https://farmaciapopu.saude.gov.br" className="hover:text-blue-600">Farmácia Popular</a></li>
               </ul>
             </div>
-            
+
             <div>
               <h3 className="text-lg font-semibold text-gray-900 mb-4">Contatos</h3>
               <ul className="space-y-2 text-sm text-gray-600">
@@ -617,10 +616,10 @@ export default function Home() {
               </ul>
             </div>
           </div>
-          
+
           <div className="mt-8 pt-6 border-t border-gray-200 text-center">
             <p className="text-sm text-gray-500">
-              © 2025 Sistema Integrado de Acesso a Medicamentos. 
+              © 2025 Sistema Integrado de Acesso a Medicamentos.
               Desenvolvido com ❤️ para o Brasil.
             </p>
           </div>
